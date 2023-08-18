@@ -14,30 +14,117 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!--<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500&display=swap" rel="stylesheet"> -->
-	<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <!-- Bootstrap CSS 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+  <!-- Font Awesome CSS -->
+  <link href="css/fontawesome.css" rel="stylesheet">
+  <link href="css/brands.css" rel="stylesheet">
+  <link href="css/solid.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS   -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-icons.css" rel="stylesheet">
-  <link href="css/templatemo-sbc-shop.css" rel="stylesheet">
+  
+  <link href="css/sbc-shop.css" rel="stylesheet">
 
-  <!-- Animate CSS 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />   -->
+  <!-- Animate CSS  -->
   <link href="css/animate.css" rel="stylesheet">
 
-  <!-- Sweetalert2 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   -->  
-  <link rel="stylesheet" href="css/sweetalert2.min.css"> 
-
+  <!-- Sweetalert2  -->
+  <link rel="stylesheet" href="css/sweetalert2.min.css">
+  <script src="js/myjs/constant.js"></script>
 </head>
 
 <body>
+  <div class="myWaiting">
+    <div class="spinner">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+      <div class="dot3"></div>
+    </div>
+  </div>
   <div class="container-fluid">
-    <div class="row">
+
+    <div class="row justify-content-center" id="login"> <!-- ====================  Login ======================== -->
+      <div class="col-md-4 mx-auto">
+        <form id="login_form">
+          <div class="text-center">
+            <h3 class="mt-5">ยินดีต้อนรับ</h3>
+            <p>Admin เข้าสู่ระบบ SBC</p>
+          </div>
+          <div class="book mx-3">
+            <input type="text" name="username" id="inputUsername" class="form-control mb-3" placeholder="UserName" required>
+            <input type="password" name="pass" id="inputPassword" class="form-control mb-5" placeholder="Password" required>
+            <div class="text-center">
+              <button type="submit" class="mybtn btnOk">Login</button>
+              <button type="button" class="mybtn btnCan ms-3" onclick="goBack();">Back</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row" id="setting"> <!-- ========================================  Setting ======================== -->
+      <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand" href="#">SBC System</a> -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end offcanvas-size-sm" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header" style="background-color: #d6a354;">
+              <img id="pic_user" src="images/user/avatar.png" alt="Avatar" >  
+              <i class="fa-solid fa-key fa-xs myNavItem" id="ch_key" title="เปลี่ยนรหัสผ่าน"></i>
+              <h6 class="offcanvas-title" id="offcanvasNavbarLabel">SBC System</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" title="MENU"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item myNavItem">
+                  <a class="nav-link active" aria-current="page" href="#"><i
+                      class="fa-solid fa-cart-arrow-down"></i>&nbsp; งานขาย</a>
+                </li>
+                <li class="nav-item myNavItem">
+                  <a class="nav-link" href="#"><i class="fa-solid fa-cubes-stacked"></i>&nbsp; งานสต็อกสินค้า</a>
+                </li>
+                <li class="nav-item myNavItem">
+                  <a class="nav-link" href="#"><i class="fa-solid fa-clipboard-list"></i>&nbsp; รายการขายสินค้า</a>
+                </li>
+                <li class="nav-item myNavItem">
+                  <a class="nav-link" href="#" id="comment_mng"><i class="fa-regular fa-comment" ></i>&nbsp; ความคิดเห็น</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa-solid fa-gear"></i>&nbsp; Setting
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item myNavItem subItem" href="#"><i class="fa-regular fa-rectangle-list"></i>&nbsp;
+                        รายการสินค้า</a></li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#"><i class="fa-solid fa-font-awesome"></i>&nbsp;
+                        ประเภทสินค้า</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="user_mng"><i
+                          class="fa-solid fa-users"></i>&nbsp; จัดการผู้ใช้งาน</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item myNavItem mt-5">
+                  <a class="nav-link" href="#" onclick="goBack();"><i class="fa-regular fa-circle-left"></i>&nbsp;
+                    กลับสู่หน้าเวป</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="mt-2" id="main_setting"></div>
+    </div>
+
+
+    <div class="row" id="content">
       <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse"
         data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,9 +133,10 @@
         <div class="position-sticky sidebar-sticky d-flex flex-column justify-content-center align-items-center">
           <a class="navbar-brand">
             <!-- Logo -->
-            <img class="logo-image img-fluid animate__animated animate__bounceInDown" id="logo" src="images/logo.png" align="">
+            <img class="logo-image img-fluid animate__animated animate__bounceInDown" id="logo" src="images/logo.png"
+              align="">
           </a>
-          <ul class="nav flex-column">
+          <ul class="nav flex-column" id="listMenu">
             <li class="nav-item">
               <a class="nav-link click-scroll" href="#section_1">หน้าหลัก</a>
             </li>
@@ -63,10 +151,12 @@
 
             <li class="nav-item">
               <a class="nav-link click-scroll" href="#section_4">สินค้าของเรา</a>
-            </li>
-
+            </li>            
             <li class="nav-item">
               <a class="nav-link click-scroll" href="#section_5">ติดต่อเรา</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#" onclick="showSetting();"  title="Setting"><i class="fa-solid fa-gear fa-lg"></i></a>
             </li>
           </ul>
         </div>
@@ -75,17 +165,14 @@
       <div class="col-md-8 ms-sm-auto col-lg-9 p-0">
         <section class="hero-section d-flex justify-content-center align-items-center" id="section_1"
           style="background-image: url('images/bg1.jpg');">
-
           <div class="container">
             <div class="row">
-
               <div class="col-lg-8 col-12">
                 <h1 class="text-white mb-lg-3 mb-4"><strong>สยามบุ๊คแอนด์คอม</strong></h1>
                 <p class="text-white">มุ่งมั่นงานบริการ และสินค้าที่มีคุณภาพ สำหรับคุณ</p>
                 <br>
                 <a class="btn custom-btn custom-border-btn custom-btn-bg-white smoothscroll me-2 mb-2"
                   href='#section_2'>About Us</a>
-
                 <a class="btn custom-btn smoothscroll mb-2 " href='#section_3'>What we do</a>
               </div>
             </div>
@@ -99,7 +186,6 @@
             <a class="smoothscroll btn custom-btn custom-btn-italic mt-3" href='#booking-section'>ปรึกษา/สอบถาม</a>
           </div>
         </section>
-
 
         <section class="about-section section-padding" id="section_2">
           <div class="container">
@@ -184,7 +270,6 @@
           </div>
         </section>
 
-
         <section class="services-section section-padding" id="section_3">
           <div class="container">
             <div class="row">
@@ -241,8 +326,6 @@
             </div>
           </div>
         </section>
-
-
 
         <section class="price-list-section section-padding" id="section_4">
           <div class="container">
@@ -364,7 +447,7 @@
                     </div>
                   </div>
                 </form>
-              </div> 
+              </div>
 
             </div>
         </section>
@@ -454,7 +537,7 @@
                 <div class="site-footer-thumb">
                   <strong class="mb-1">สาขาบ้านสวนคอมพิวเตอร์</strong>
 
-                  <p>เลขที่ 84 บ้านชาด ตำบลขามป้อม อำเภอพระยืน จังหวัดขอนแก่น 40320</p>
+                  <p>เลขที่ 84 หมู่ 9 บ้านชาด ตำบลขามป้อม อำเภอพระยืน จังหวัดขอนแก่น 40320</p>
                 </div>
               </div>
 
@@ -480,17 +563,23 @@
           </div>
         </footer>
       </div>
+    </div>
+  </div>
 
-      <!-- JAVASCRIPT FILES -->
-      <script src="js/jquery.min.js"></script>
-      <!-- Option 1: Bootstrap Bundle with Popper 
+  <!-- JAVASCRIPT FILES -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper 
 		  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 		  </script> -->
-      <script src="js/sweetalert2.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/click-scroll.js"></script>
-      <script src="js/custom.js"></script>
+  <script src="js/sweetalert2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <script src="js/myjs/app.js"></script>
+  <script src="js/click-scroll.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/myjs/user.js"></script>
+  <script src="js/myjs/comment.js"></script>
 
 </body>
 
