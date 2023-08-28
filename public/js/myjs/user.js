@@ -61,7 +61,7 @@ function show_home() { //========================== แสดงหน้าห�
   document.getElementById("pic_user").src = user.pic;
   document.getElementById('pic_user').setAttribute('title', user.name+' ('+user.uname+')');
   console.log("Hello");
-  console.log(user);
+  //console.log(user);
 }
 
 function show_manageuser_tb() { //========================== แสดงค้นหา และปุ่มเพิ่ม หมวดรายการ

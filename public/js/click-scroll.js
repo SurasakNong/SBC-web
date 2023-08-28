@@ -58,8 +58,10 @@ $(document).on("click", "#btn_submit", function () {
         data : { opt_k: 'add', opt_dt: d_dt, opt_nm : d_nm, opt_tel : d_tl, opt_em : d_em, opt_comm : d_cm },
         success: function(response){
           console.log("The server says: " + response);
+          showCommNew();
       document.getElementById("bb-booking-form").reset();
       sw_Alert("success","ส่งความคิดเห็น สำเร็จ","ขอขอบคุณสำหรับความคิดเห็นของท่าน แล้วเราจะติดต่อกลับในไม่ช้า");		
+      
         },
       error: function(err){
       console.log("The server  ERROR says: " + err);

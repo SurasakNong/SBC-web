@@ -29,6 +29,7 @@ function goBack(){
     document.getElementById("login").style.display = "none";
     document.getElementById("setting").style.display = "none";
     document.getElementById("main_setting").style.display = "none";
+    showCommNew();
 }
 
 function showSetting(){
@@ -142,3 +143,29 @@ function linkPic(id,pic){
     return lk
 }
 
+function showCommNew() { //======================== แสดงจำนวนข้อความใหม่
+    document.getElementById("cmNew").style.display = "none";
+    $.ajax({
+        url: urlComm,
+        type: 'GET',
+        crossDomain: true,
+        data: { opt_k: 'new' },
+        success: function (result) {
+            const myArr = JSON.parse(JSON.stringify(result));
+            let cm_new = myArr.cmNew;
+            if(+cm_new > 10){
+                document.getElementById("cmNew").style.display = "block";                
+                document.getElementById("cmNew").innerHTML = "10+";
+            }else if(+cm_new > 0){
+                document.getElementById("cmNew").style.display = "block";   
+                document.getElementById("cmNew").innerHTML = cm_new;
+            }else{
+                document.getElementById("cmNew").style.display = "none";   
+
+            }
+        },
+        error: function (err) {
+            console.log("The server  ERROR says: " + err);
+        }
+    });
+}
