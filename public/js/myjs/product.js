@@ -92,8 +92,8 @@ function showProductTable(per, p) { //======================== แสดงต�
           </div>                     
         `;
       $("#table_product").html(tt);
-      document.getElementById("rowShow_product").value = rowperpage.toString();
-      document.getElementById("record").innerHTML = "ทั้งหมด : " + rec_all + " รายการ";
+      $("#rowShow_product").val(rowperpage.toString());
+      $("#record").html("ทั้งหมด : " + rec_all + " รายการ");
       for (let i = 0; i < myArr.length - 1; i++) {
         n++;
         listProductTable(myArr[i], n);
@@ -143,3 +143,318 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
       `+ txtDel;
     col[n_col - 1].style = "text-align: center;";
 }
+
+
+$(document).on("click", "#btAddProduct", function () { //========== เปิดเพิ่มข้อมูล
+    clsProductShow();
+    var html = `     
+      <div id="product_add">    
+        <form class="animate__animated animate__fadeIn" id="add_product_form" style="padding:20px;">
+          <div class="row mb-3 justify-content-md-center">
+            <div style="font-size:1.5rem; text-align: center;"> เพิ่มรายการสินค้า </div>     
+          </div> 
+          <div class="row">
+            <div class="col-md">
+                <div class="input-group mb-2">
+                    <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
+                    <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
+                </div> 
+                <div class="input-group mb-2">
+                    <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
+                    <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
+                </div> 
+                <div class="input-group mb-2">
+                    <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
+                    <select class="form-select" id="selType">
+                        <option selected value="0">-- ประเภท --</option>
+                    </select>
+                    </div>      
+                <div class="input-group mb-4">
+                    <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
+                    <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description" required>
+                </div>     
+            </div>
+            
+          </div>   
+          <div class="row justify-content-center" style="text-align: center;">
+            <button type="submit" class="mybtn btnOk">บันทึก</button>
+            <button type="button" class="mybtn btnCan" id="cancel_add_product">ยกเลิก</button>
+          </div>             
+          
+        </form>
+      </div>  
+      `;
+    $("#add_product").html(html);
+    initDropdownList(urlType,'selType', 'type!A2:B', 0, 1) 
+  });
+
+$(document).on("click", "#cancel_add_product", function () { //========== ยกเลิกการเพิ่มข้อมูล
+    clsProductShow();
+    showProductTable(rowperpage, page_selected);
+  });
+
+$(document).on("submit", "#add_product_form", function () {  //===== ตกลงเพิ่มข้อมูล
+    let my_form = $(this);
+    const name_product = my_form.find("#name_product").val();
+    const brand_product = my_form.find("#brand_product").val();
+    const desc_product = my_form.find("#desc_product").val();
+    const sel_type_index = document.getElementById("selType").selectedIndex;
+    const sel_type = document.getElementById("selType").options[sel_type_index].text;
+    if(sel_type_index !== 0 ){
+        waiting();
+        $.ajax({
+        url: urlProduct,
+        type: 'GET',
+        crossDomain: true,
+        data: { opt_k: 'add', opt_nm:name_product, opt_brand:brand_product, opt_type:sel_type, opt_desc:desc_product},
+        success: function (result) {
+            waiting(false);
+            if(result == "success"){
+            myAlert("success", "เพิ่มข้อมูล สำเร็จ");
+            $("#add_product").html("");
+            showProductTable(rowperpage, page_selected);
+            }else if(result == "exits"){
+            sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', name_product + ' ซ้ำ! มีการใช้ชื่อนี้แล้ว');
+            }else{
+            sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+            }          
+        },
+        error: function (err) {
+            console.log("Add new type ERROR : " + err);
+        }
+        });
+    }else{
+        sw_Alert('warning', 'ข้อมูลไม่ครบ!', 'กรุณาระบุ ประเภทสินค้า');
+    }
+    return false;
+});
+
+function deleteProductRow(id) { //================================ ลบข้อมูล
+    var del_name = $('#name' + id).html();
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'mybtn btnOk',
+            cancelButton: 'mybtn btnCan'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'ลบ ' + del_name,
+        text: "โปรดยืนยัน ตกลงหรือไม่ ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '&nbsp;&nbsp;ตกลง&nbsp;&nbsp;',
+        cancelButtonText: '&nbsp;&nbsp;ไม่&nbsp;&nbsp;',
+        reverseButtons: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            waiting();
+            $.ajax({
+              url: urlProduct,
+              type: 'GET',
+              crossDomain: true,
+              data: { opt_k:'del', opt_id:id },
+              success: function (result) {
+                waiting(false);
+                if(result == "success"){
+                  myAlert("success", "ข้อมูลถูกลบแล้ว !");
+                  showProductTable(rowperpage, page_selected);
+                }else{
+                  sw_Alert('error', 'ลบข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+                }          
+              },
+              error: function (err) {
+                  console.log("Delete type ERROR : " + err);
+              }
+            });         
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            /*swalWithBootstrapButtons.fire(
+                'ยกเลิก',
+                'ข้อมูลของคุณยังไม่ถูกลบ :)',
+                'error'
+            )*/
+        }
+    })
+}
+
+function editProductRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
+    var html = `     
+    <div id="product_edit">    
+      <form class="animate__animated animate__fadeIn" id="edit_product_form" style="padding:20px;">
+        <div class="row mb-3 justify-content-md-center">
+          <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลสินค้า </div>     
+        </div> 
+        <div class="row mb-2" id="picProduct"> 
+        <!--
+            <div class="col-md-4 col-sm-6">
+                <img id="picProduct1" class="img-thumbnail" src="images/product/noimage.jpg" alt="product1" >  
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <img id="picProduct2" class="img-thumbnail" src="images/product/noimage.jpg" alt="product2" >  
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <img id="picProduct3" class="img-thumbnail" src="images/product/noimage.jpg" alt="product3" >  
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <img id="picProduct4" class="img-thumbnail" src="images/product/noimage.jpg" alt="product4" >  
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <img id="picProduct5" class="img-thumbnail" src="images/product/noimage.jpg" alt="product5" >  
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <img id="picProduct6" class="img-thumbnail" src="images/product/noimage.jpg" alt="product6" >  
+            </div>
+            -->
+        </div> 
+        <!-- <div class="row mb-3 justify-content-center" style="position: relative;">
+          <img id="picType" src="" alt="type" style="width:300px; outline:2px solid #c0c0c0; outline-offset: 1px;">  
+          <label class="camera" for="upload_picType" title="อัพโหลดรูปใหม่">
+            <i class="fa-solid fa-camera"></i>  
+            <input type="file" id="upload_picType" name="upload_picType" style="display:none" accept="image/*">
+          </label>
+        </div>  -->
+        <div class="row">        
+            <div class="col-md">
+                <div class="input-group mb-2">
+                    <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
+                    <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
+                </div> 
+                <div class="input-group mb-2">
+                    <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
+                    <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
+                </div> 
+                <div class="input-group mb-2">
+                    <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
+                    <select class="form-select" id="selType">
+                        <option selected value="0">-- ประเภท --</option>
+                    </select>
+                </div>      
+                <div class="input-group mb-4">
+                    <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
+                    <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description" required>
+                </div>   
+                <div class="row justify-content-center" style="text-align: center;">
+                    <button type="submit" class="mybtn btnOk">บันทึก</button>
+                    <button type="button" class="mybtn btnCan" id="cancelEditProduct">ยกเลิก</button>
+                    <input id="id_product" type="hidden">
+                    <input id="url_Pic" type="hidden">
+                </div>
+            </div>
+        </div>       
+      </form>
+    </div>  
+    `;
+    $("#edit_product").html(html);
+    $("#id_product").val(id);   
+    $("#name_product").val($("#name"+id).html()); 
+    $("#brand_product").val($("#brand"+id).html()); 
+    $("#desc_product").val($("#desc"+id).html()); 
+    setDropdownList(urlProduct,'selType', 'type!A2:B', $("#type"+id).html(),0,1);
+
+    /*var picType = ($("#t_urlpic"+id).val() == '' || $("#t_urlpic"+id).val() == 'undefined')?pic_no: $("#t_urlpic"+id).val()
+    $('#picType').attr('src',picType);
+    $("#url_Pic").val(picType);*/
+    $("#table_product").html("");
+    addNoPic();
+    
+  }
+
+  $(document).on("click", "#cancelEditProduct", function () { //========== ยกเลิกการแก้ไขข้อมูล
+    clsProductShow();
+    showProductTable(rowperpage, page_selected);
+  });
+
+  function addNoPic(){
+    let picSet = document.getElementById("picProduct");
+    let picDiv = document.createElement('div');
+    let picImg = document.createElement('img');
+    picDiv.classList.add("col-md-4");
+    picDiv.classList.add("col-sm-6");
+    picDiv.id = 'addPicClick';
+    picImg.classList.add("img-thumbnail")
+    picImg.setAttribute('src','images/product/addPic.png');
+    picImg.setAttribute('style','cursor:pointer');
+    picImg.setAttribute('onclick','addPic();');
+    picDiv.appendChild(picImg);
+    picSet.appendChild(picDiv);
+  }
+
+  function addPic(){
+    let picSet = document.getElementById("picProduct");
+    let picDiv = document.createElement('div');
+    let picImg = document.createElement('img');
+    let picI = document.createElement('i');
+    picDiv.classList.add("col-md-4");
+    picDiv.classList.add("col-sm-6");
+    let numPic = (picSet.children.length - 1);
+    picDiv.id = 'picD'+ numPic;
+    picDiv.setAttribute('style','position:relative; ');
+    picImg.classList.add("img-thumbnail")
+    picImg.setAttribute('src','images/ME.jpg');
+    picImg.id = 'pic'+ numPic;
+    picI.classList.add("fa-solid");
+    picI.classList.add("fa-circle-xmark");
+    picI.setAttribute('style','color: #fb3737; cursor:pointer; position:absolute; right:12px; background:#fff; border-radius:50%;');
+    picI.setAttribute('onclick','delPic('+ numPic +');');
+    picDiv.appendChild(picImg);
+    picDiv.appendChild(picI);
+    picSet.insertBefore(picDiv,picSet.firstChild);
+    console.log($('#pic'+ numPic).attr('src'));
+    if(picSet.children.length > 6){
+        $("#addPicClick").css("display", "none");
+    }
+  }
+
+  function delPic(id){
+    let picSet = document.getElementById("picProduct");
+    
+    
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'mybtn btnOk',
+            cancelButton: 'mybtn btnCan'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'ลบรูปภาพ ',
+        text: "โปรดยืนยัน ตกลงหรือไม่ ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '&nbsp;&nbsp;ตกลง&nbsp;&nbsp;',
+        cancelButtonText: '&nbsp;&nbsp;ไม่&nbsp;&nbsp;',
+        reverseButtons: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $("#picD"+id).remove();
+            if(picSet.children.length <= 6){
+                $("#addPicClick").css("display", "block");
+            }
+            /*waiting();
+            $.ajax({
+              url: urlType,
+              type: 'GET',
+              crossDomain: true,
+              data: { opt_k:'del', opt_id:id },
+              success: function (result) {
+                waiting(false);
+                if(result == "success"){
+                  myAlert("success", "ข้อมูลถูกลบแล้ว !");
+                  showTypeTable(rowperpage, page_selected);
+                }else{
+                  sw_Alert('error', 'ลบข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+                }          
+              },
+              error: function (err) {
+                  console.log("Delete type ERROR : " + err);
+              }
+            });   */      
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            /*swalWithBootstrapButtons.fire(
+                'ยกเลิก',
+                'ข้อมูลของคุณยังไม่ถูกลบ :)',
+                'error'
+            )*/
+        }
+    })
+  }

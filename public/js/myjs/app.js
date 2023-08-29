@@ -170,3 +170,62 @@ function showCommNew() { //======================== แสดงจำนวน�
         }
     });
 }
+
+
+function initDropdownList(url,id, data, idSel, nameSel) { 
+    $.ajax({ // (urlAppscript, idSelect , lenghtData, idcol, namecol) initDropdownList(urlUser,'selPos','dataset!A2:B',0,1);
+        url: url,
+        type: 'GET',
+        crossDomain: true,
+        data: { opt_k: 'readDataSel', opt_dataSel:data, opt_selId:idSel, opt_selNm:nameSel },
+        success: function (result) {
+            const myArr = JSON.parse(JSON.stringify(result));
+            var option;
+            select = document.getElementById(id);
+            /*while (select.options.length > 0) {
+                select.remove(0);
+            }*/
+            for (let i = 0; i <= myArr.length - 1; i++) {
+                option = document.createElement('option');
+                option.value = myArr[i].id;
+                option.text = myArr[i].name;
+                select.add(option);
+            }
+        },
+        error: function (err) {
+            console.log("readDataSel ERROR : " + err);
+        }
+    });
+
+}
+
+function setDropdownList(url, id, data, txt, idCol, nameCol) { 
+    $.ajax({ //setDropdownList(urlUser,'selBranch','branch!A2:B',document.getElementById('branch'+id).innerHTML,0,1);
+        url: url,
+        type: 'GET',
+        crossDomain: true,
+        data: { opt_k: 'readDataSel', opt_dataSel:data, opt_selId:idCol, opt_selNm:nameCol },
+        success: function (result) {
+            const myArr = JSON.parse(JSON.stringify(result));
+            var option;
+            var select = document.getElementById(id);
+            while (select.options.length > 0) {
+                select.remove(0);
+            }
+            for (let i = 0; i <= myArr.length - 1; i++) {
+                option = document.createElement('option');
+                option.value = myArr[i].id;
+                option.text = myArr[i].name;
+                select.add(option);
+            }
+            $('#' + id + ' option').each(function () {
+                if ($(this).text() == txt) {
+                    $(this).prop("selected", true);
+                }
+            });
+        },
+        error: function (err) {
+            console.log("readDataSel ERROR : " + err);
+        }
+    });
+}
