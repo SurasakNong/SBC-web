@@ -1,4 +1,4 @@
-goBack();
+
 /*
 let menuList = document.querySelector('#listMenu');
 let li = document.createElement('li');
@@ -14,6 +14,7 @@ a.classList.add("click-scroll");
 li.appendChild(a);
 menuList.appendChild(li);
 */
+goBack();
 waiting(false);
 
 function showLogin(){
@@ -28,7 +29,7 @@ function goBack(){
     document.getElementById("content").style.display = "block";
     document.getElementById("login").style.display = "none";
     document.getElementById("setting").style.display = "none";
-    document.getElementById("main_setting").style.display = "none";
+    document.getElementById("main_setting").style.display = "none";    
     showCommNew();
 }
 

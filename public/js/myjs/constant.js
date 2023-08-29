@@ -6,7 +6,10 @@ var ts_ok = 0;
 //===== postDataUser_Api.gs =============
 var urlUser = 'https://script.google.com/macros/s/AKfycbwauyQqwPmC8vJet8Qq0RMIGl-DZeP7135c_w5gzglhPb6ijaeS0KyP7FFRwdM-Rja1ug/exec';
 var urlComm = 'https://script.google.com/macros/s/AKfycbxxsL_GhQ10sDH0CQJdvXLTIg9Wq84fGLk4mQU8nzSZ_mnXabc-ZK3Svt1RX8WTQC6o/exec';
+var urlType = 'https://script.google.com/macros/s/AKfycbw0p_iGJUlpEYw6VvfktFIXM6_Kk9igzkvA8cXtDlTShOSsKLFBuOu0QQPpRG2zvjO6/exec';
+var urlProduct = 'https://script.google.com/macros/s/AKfycbx6JwgRhwuJezs7B55rSgFOoomdZoaIM-JVrTxqQOWQoiEW8Ouo_zuyyQXQcS9CU0ffrw/exec';
 var pic_noAvatar = 'images/user/avatar.png';
+var pic_no = 'images/product/noimage.jpg';
 var user = {
   id: 0,
   uname: 'Unknow',

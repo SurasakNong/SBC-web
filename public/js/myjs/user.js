@@ -68,8 +68,8 @@ function show_manageuser_tb() { //========================== แสดงค้�
     var html = `
     <div class="container-fluid">
       <div class="row">                
-          <div class="col-lg-10 mx-auto mt-2">
-              <label id="fn_name" ><i class="fa-solid fa-user fa-lg"></i> &nbsp; ผู้ใช้งาน</label>
+          <div class="col-lg-10 mx-auto mt-4">
+              <label class="fn_name" ><i class="fa-solid fa-user fa-lg"></i> &nbsp; ผู้ใช้งาน</label>
               <form id="fmsearch_user" >
                   <div class="input-group mb-2">
                       <input type="text" id="search_user" onkeypress="handle_userSearch(event)" class="form-control" placeholder="คำค้นหา.." aria-label="Search" aria-describedby="button-search">
@@ -402,7 +402,7 @@ function edit_user_Row(id) { //================================ เปิดห�
         $(this).prop("selected", true);
     }
   });
-  var picUser = (document.getElementById('u_urlpic' + id).value !== '') ? document.getElementById('u_urlpic' + id).value : pic_noAvatar;
+  var picUser = (document.getElementById('u_urlpic' + id).value == '' || document.getElementById('u_urlpic' + id).value == 'undefined') ? pic_noAvatar : document.getElementById('u_urlpic' + id).value;
   document.getElementById("picuser").src = picUser;
   $("#url_PicUser").val(picUser);
   $("#name_user").val(document.getElementById('name' + id).innerHTML);
@@ -485,7 +485,7 @@ $(document).on("change", "#upload_picUser", function (e) {
             let res = JSON.parse(data);
             if (res.result == "success") {
               const fullIdPic = linkPic(res.id,pic_noAvatar);
-              console.log(fullIdPic);
+              //console.log(fullIdPic);
               document.getElementById("picuser").src = fullIdPic;
               $("#url_PicUser").val(fullIdPic);
             } else {

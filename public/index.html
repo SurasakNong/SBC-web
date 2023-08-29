@@ -45,7 +45,7 @@
   <div class="container-fluid">
 
     <div class="row justify-content-center" id="login"> <!-- ====================  Login ======================== -->
-      <div class="col-md-4 mx-auto">
+      <div class="col-md-3 mx-auto">
         <form id="login_form">
           <div class="text-center">
             <h3 class="mt-5">ยินดีต้อนรับ</h3>
@@ -100,15 +100,14 @@
                     <i class="fa-solid fa-gear"></i>&nbsp; Setting
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item myNavItem subItem" href="#"><i class="fa-regular fa-rectangle-list"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="product_mng"><i class="fa-regular fa-rectangle-list"></i>&nbsp;
                         รายการสินค้า</a></li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#"><i class="fa-solid fa-font-awesome"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="type_mng"><i class="fa-solid fa-font-awesome"></i>&nbsp;
                         ประเภทสินค้า</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="user_mng"><i
-                          class="fa-solid fa-users"></i>&nbsp; จัดการผู้ใช้งาน</a></li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="user_mng"><i class="fa-solid fa-users"></i>&nbsp; จัดการผู้ใช้งาน</a></li>
                   </ul>
                 </li>
                 <li class="nav-item myNavItem mt-5">
@@ -156,7 +155,7 @@
               <a class="nav-link click-scroll" href="#section_5">ติดต่อเรา</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="#" onclick="showLogin();"  title="Setting"><i class="fa-solid fa-gear fa-lg">
+              <a class="nav-link " href="#" onclick="showSetting();//showLogin();"  title="Setting"><i class="fa-solid fa-gear fa-lg">
                 <span id = "cmNew" class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.5rem;">12
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -587,6 +586,8 @@
   <script src="js/custom.js"></script>
   <script src="js/myjs/user.js"></script>
   <script src="js/myjs/comment.js"></script>
+  <script src="js/myjs/type.js"></script>
+  <script src="js/myjs/product.js"></script>
 
 </body>
 

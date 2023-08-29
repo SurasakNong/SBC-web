@@ -5,7 +5,7 @@ $(document).on("click", "#comment_mng", function () {
     <div class="container-fluid">
       <div class="row mt-">                
           <div class="col-lg-10 mx-auto mt-4">
-              <label id="fn_name" ><i class="fa-regular fa-comment"></i>&nbsp; ความคิดเห็น</label>
+              <label class="fn_name" ><i class="fa-regular fa-comment"></i>&nbsp; ความคิดเห็น</label>
               <form id="fmsearch_comm" >
                 <div class="row mt-1">
                     <div class="col-md-4">

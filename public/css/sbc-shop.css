@@ -930,9 +930,10 @@ strong {
 
 /*.list-table tr:nth-child(even) {background-color:#FAF0E4;}*/
 #usertable tr:nth-child(even) {background-color:#FAF0E4;}
-#commTable tr:nth-child(1) {
- /* background-color:var(--primary-color);*/
-}
+#typeTable tr:nth-child(even),#productTable tr:nth-child(even) {background-color:#e8e8e8;}
+/*#commTable tr:nth-child(1) {
+  background-color:var(--primary-color);
+}*/
 #commTable tr:nth-child(even) {background-color:#FAF0E4;}
 #commTable tr:hover{
   background-color:#9BCDD2;
@@ -971,7 +972,7 @@ background-color:#FF8551;
 }
 /*====== End Pagination */
 
-#fn_name{
+.fn_name{
   color: #884A39;
   font-size: 1.1rem;
   font-weight: bold;
@@ -1119,7 +1120,7 @@ background-color:#FF8551;
   transition : 0.3s;
   cursor : pointer;
   z-index : 10;
-  left: 70%;
+  left: 95%;
   bottom: 0px;
 }
 .camera i{
@@ -1144,8 +1145,8 @@ background-color:#FF8551;
   transition : 0.3s;
   cursor : pointer;
   z-index : 10;
-  left: 85%;
-  bottom: 0px;
+  left: 95%;
+  bottom: 50px;
 }
 .resetPass i{
   position : absolute;
