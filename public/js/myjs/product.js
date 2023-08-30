@@ -285,34 +285,14 @@ function editProductRow(id) { //================================ เปิดห
           <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลสินค้า </div>     
         </div> 
         <div class="row mb-2" id="picProduct"> 
-        <!--
-            <div class="col-md-4 col-sm-6">
-                <img id="picProduct1" class="img-thumbnail" src="images/product/noimage.jpg" alt="product1" >  
+            <div class="col-md-4 col-sm-6 px-auto" id="addPicClick">
+              <label for="uploadPicProd" title="อัพโหลดรูปใหม่" style="color:#909090; width:100%; height:150px; background:#e5e5e5; font-size:50px; text-align:center; padding:38px 0; cursor: pointer;" >
+                <i class="fa-regular fa-square-plus"></i>
+                <input type="file" id="uploadPicProd" style="display:none" accept="image/*">
+              </label>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <img id="picProduct2" class="img-thumbnail" src="images/product/noimage.jpg" alt="product2" >  
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <img id="picProduct3" class="img-thumbnail" src="images/product/noimage.jpg" alt="product3" >  
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <img id="picProduct4" class="img-thumbnail" src="images/product/noimage.jpg" alt="product4" >  
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <img id="picProduct5" class="img-thumbnail" src="images/product/noimage.jpg" alt="product5" >  
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <img id="picProduct6" class="img-thumbnail" src="images/product/noimage.jpg" alt="product6" >  
-            </div>
-            -->
         </div> 
-        <!-- <div class="row mb-3 justify-content-center" style="position: relative;">
-          <img id="picType" src="" alt="type" style="width:300px; outline:2px solid #c0c0c0; outline-offset: 1px;">  
-          <label class="camera" for="upload_picType" title="อัพโหลดรูปใหม่">
-            <i class="fa-solid fa-camera"></i>  
-            <input type="file" id="upload_picType" name="upload_picType" style="display:none" accept="image/*">
-          </label>
-        </div>  -->
+        
         <div class="row">        
             <div class="col-md">
                 <div class="input-group mb-2">
@@ -355,7 +335,7 @@ function editProductRow(id) { //================================ เปิดห
     $('#picType').attr('src',picType);
     $("#url_Pic").val(picType);*/
     $("#table_product").html("");
-    addNoPic();
+    picNoAdd = 1;
     
   }
 
@@ -364,22 +344,8 @@ function editProductRow(id) { //================================ เปิดห
     showProductTable(rowperpage, page_selected);
   });
 
-  function addNoPic(){
-    let picSet = document.getElementById("picProduct");
-    let picDiv = document.createElement('div');
-    let picImg = document.createElement('img');
-    picDiv.classList.add("col-md-4");
-    picDiv.classList.add("col-sm-6");
-    picDiv.id = 'addPicClick';
-    picImg.classList.add("img-thumbnail")
-    picImg.setAttribute('src','images/product/addPic.png');
-    picImg.setAttribute('style','cursor:pointer');
-    picImg.setAttribute('onclick','addPic();');
-    picDiv.appendChild(picImg);
-    picSet.appendChild(picDiv);
-  }
 
-  function addPic(){
+  function addPic(picFile){
     let picSet = document.getElementById("picProduct");
     let picDiv = document.createElement('div');
     let picImg = document.createElement('img');
@@ -390,15 +356,17 @@ function editProductRow(id) { //================================ เปิดห
     picDiv.id = 'picD'+ numPic;
     picDiv.setAttribute('style','position:relative; ');
     picImg.classList.add("img-thumbnail")
-    picImg.setAttribute('src','images/ME.jpg');
+    //picImg.setAttribute('src','images/ME.jpg');
+    picImg.setAttribute('src',picFile);
     picImg.id = 'pic'+ numPic;
     picI.classList.add("fa-solid");
     picI.classList.add("fa-circle-xmark");
-    picI.setAttribute('style','color: #fb3737; cursor:pointer; position:absolute; right:12px; background:#fff; border-radius:50%;');
+    picI.classList.add("fa-lg");
+    picI.setAttribute('style','color:#fb3737; cursor:pointer; position:absolute; top:8px; right:20px; height:20px; background:#fff; padding-top:10px; border-radius:50%;');
     picI.setAttribute('onclick','delPic('+ numPic +');');
     picDiv.appendChild(picImg);
     picDiv.appendChild(picI);
-    picSet.insertBefore(picDiv,picSet.firstChild);
+    picSet.insertBefore(picDiv,picSet.children[picSet.children.length-1]);
     console.log($('#pic'+ numPic).attr('src'));
     if(picSet.children.length > 6){
         $("#addPicClick").css("display", "none");
@@ -458,3 +426,100 @@ function editProductRow(id) { //================================ เปิดห
         }
     })
   }
+
+  $(document).on("change", "#uploadPicProd", function (e) {
+    if (e.target.files) {
+        //waiting();
+        var idProduct = $("#id_product").val();
+        var n_file = 'prod-' + idProduct;
+        let imageFile = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.createElement("img");
+            img.onload = function (event) {
+                var c = document.createElement('canvas'),
+                    ctx = c.getContext("2d");
+                var canvas = document.createElement('canvas'),
+                    ctx_s = canvas.getContext("2d");
+
+                var width = 300;
+                var height = 300;
+                const sqr = false; /*<<==== กำหนดว่าต้องการภาพด้านเท่าหรือไม่ false/true */
+                if (sqr) { /*============================= Square ==================================*/
+                    if (img.width < img.height) { // ภาพสูง
+                        var co = {
+                            co_w: img.width,
+                            co_h: img.width,
+                            co_x: 0,
+                            co_y: Math.floor((img.height - img.width) / 2)
+                        }
+                    } else if (img.width > img.height) { // ภาพกว้าง
+                        var co = {
+                            co_w: img.height,
+                            co_h: img.height,
+                            co_x: Math.floor((img.width - img.height) / 2),
+                            co_y: 0
+                        }
+                    } else { // ภาพมีด้านเท่ากัน
+                        var co = {
+                            co_w: img.height,
+                            co_h: img.width,
+                            co_x: 0,
+                            co_y: 0
+                        }
+                    }
+                    c.width = co.co_w;
+                    c.height = co.co_h;
+                    ctx.drawImage(img, co.co_x, co.co_y, co.co_w, co.co_h, 0, 0, co.co_w, co.co_h);
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx_s.drawImage(c, 0, 0, width, height);
+
+                } else {  /*============================= Original ==================================*/
+                    height = Math.floor(width * img.height / img.width);
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx_s.drawImage(img, 0, 0, width, height);
+                }
+
+                var dataurl = canvas.toDataURL(imageFile.type);
+                const vals = dataurl.split(',')[1];
+
+                /*var urlPicProduct = $("#url_Pic").val();
+                var id_pic_del = (urlPicType.includes("id=")) ? urlPicType.split('id=')[1] : '';
+                const obj = {
+                    opt_k: "upTypePic",
+                    id: idType,
+                    fName: n_file,
+                    fileId: id_pic_del,
+                    fileName: imageFile.name,
+                    mimeType: imageFile.type,
+                    fdata: vals
+                }
+                
+                fetch(urlType, {
+                    method: "POST",
+                    body: JSON.stringify(obj)
+                }).then(function (response) {
+                        return response.text()
+                    }).then(function (data) {
+                        let res = JSON.parse(data);
+                        if (res.result == "success") {
+                            const fullIdPic = linkPic(res.id, pic_no);
+                            $('#picType').attr('src', fullIdPic);
+                            $("#url_Pic").val(fullIdPic);
+                           // myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
+                        } else {
+                            console.log("Upload picture type ERROR : ");
+                            console.log(res.result);
+                            console.log(res);
+                        }
+                        waiting(false);
+                    }); */
+            }
+            img.src = e.target.result;
+            addPic(e.target.result);
+        }
+        reader.readAsDataURL(imageFile);
+    }
+});
