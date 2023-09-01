@@ -317,11 +317,31 @@ function editProductRow(id) { //================================ เปิดห
                     <button type="submit" class="mybtn btnOk">บันทึก</button>
                     <button type="button" class="mybtn btnCan" id="cancelEditProduct">ยกเลิก</button>
                     <input id="id_product" type="hidden">
-                    <input id="url_Pic" type="hidden">
+                    <input id="url_Pic1" type="hidden">
+                    <input id="url_Pic2" type="hidden">
+                    <input id="url_Pic3" type="hidden">
+                    <input id="url_Pic4" type="hidden">
+                    <input id="url_Pic5" type="hidden">
+                    <input id="url_Pic6" type="hidden">
                 </div>
             </div>
         </div>       
       </form>
+
+      <!-- Creates the bootstrap modal where the image will appear -->
+<div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img  src="" id="imagepreview" style="width:100%;" >
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>  
     `;
     $("#edit_product").html(html);
@@ -329,14 +349,14 @@ function editProductRow(id) { //================================ เปิดห
     $("#name_product").val($("#name"+id).html()); 
     $("#brand_product").val($("#brand"+id).html()); 
     $("#desc_product").val($("#desc"+id).html()); 
-    setDropdownList(urlProduct,'selType', 'type!A2:B', $("#type"+id).html(),0,1);
-
-    /*var picType = ($("#t_urlpic"+id).val() == '' || $("#t_urlpic"+id).val() == 'undefined')?pic_no: $("#t_urlpic"+id).val()
-    $('#picType').attr('src',picType);
-    $("#url_Pic").val(picType);*/
-    $("#table_product").html("");
-    picNoAdd = 1;
     
+    for(let i=1; i <= 6; i++){
+      $("#url_Pic"+i).val($("#p_urlpic"+i+"_"+id).val());
+      picUrlAdd[i-1] = ($("#p_urlpic"+i+"_"+id).val() == undefined || $("#p_urlpic"+i+"_"+id).val() == "" || $("#p_urlpic"+i+"_"+id).val() == "undefined")?"":$("#p_urlpic"+i+"_"+id).val();
+      if(!(picUrlAdd[i-1] == "" || picUrlAdd[i-1] == undefined || picUrlAdd[i-1] == "undefined")){ addPicPre(i,picUrlAdd[i-1]);}
+    }
+    setDropdownList(urlProduct,'selType', 'type!A2:B', $("#type"+id).html(),0,1);
+    $("#table_product").html("");    
   }
 
   $(document).on("click", "#cancelEditProduct", function () { //========== ยกเลิกการแก้ไขข้อมูล
@@ -344,39 +364,75 @@ function editProductRow(id) { //================================ เปิดห
     showProductTable(rowperpage, page_selected);
   });
 
-
-  function addPic(picFile){
+  function addPicPre(no,picId){
     let picSet = document.getElementById("picProduct");
     let picDiv = document.createElement('div');
     let picImg = document.createElement('img');
     let picI = document.createElement('i');
     picDiv.classList.add("col-md-4");
     picDiv.classList.add("col-sm-6");
-    let numPic = (picSet.children.length - 1);
-    picDiv.id = 'picD'+ numPic;
+    picDiv.id = 'picD_'+ no;
     picDiv.setAttribute('style','position:relative; ');
-    picImg.classList.add("img-thumbnail")
-    //picImg.setAttribute('src','images/ME.jpg');
-    picImg.setAttribute('src',picFile);
-    picImg.id = 'pic'+ numPic;
+    picImg.classList.add("imgShow");
+    picImg.classList.add("img-thumbnail");
+    picImg.setAttribute('src',linkPic(picId, pic_no));
+    picImg.id = 'pic_'+ no;
+    picImg.setAttribute('onclick','showPic('+ no +');');
     picI.classList.add("fa-solid");
-    picI.classList.add("fa-circle-xmark");
+    picI.classList.add("fa-square-xmark");
     picI.classList.add("fa-lg");
-    picI.setAttribute('style','color:#fb3737; cursor:pointer; position:absolute; top:8px; right:20px; height:20px; background:#fff; padding-top:10px; border-radius:50%;');
-    picI.setAttribute('onclick','delPic('+ numPic +');');
+    picI.setAttribute('style','color:#fb3737; cursor:pointer; position:absolute; top:10px; right:20px; height:15px; background:#fff; padding-top:6px; ');
+    picI.setAttribute('onclick','delPic('+ no +');');
     picDiv.appendChild(picImg);
-    picDiv.appendChild(picI);
+    picDiv.appendChild(picI);    
     picSet.insertBefore(picDiv,picSet.children[picSet.children.length-1]);
-    console.log($('#pic'+ numPic).attr('src'));
     if(picSet.children.length > 6){
         $("#addPicClick").css("display", "none");
     }
   }
 
-  function delPic(id){
+  function addPic(picId){
     let picSet = document.getElementById("picProduct");
-    
-    
+    let picDiv = document.createElement('div');
+    let picImg = document.createElement('img');
+    let picI = document.createElement('i');
+    picDiv.classList.add("col-md-4");
+    picDiv.classList.add("col-sm-6");    
+    picUrlAdd[picNoAdd-1] = picId;
+    picDiv.id = 'picD_'+ picNoAdd;
+    picDiv.setAttribute('style','position:relative; ');
+    picImg.classList.add("imgShow");
+    picImg.classList.add("img-thumbnail");
+    picImg.setAttribute('src',linkPic(picId, pic_no));
+    picImg.id = 'pic_'+ picNoAdd;
+    picImg.setAttribute('onclick','showPic('+ picNoAdd +');');
+    picI.classList.add("fa-solid");
+    picI.classList.add("fa-square-xmark");
+    picI.classList.add("fa-lg");
+    picI.setAttribute('style','color:#fb3737; cursor:pointer; position:absolute; top:10px; right:20px; height:15px; background:#fff; padding-top:6px;');
+    picI.setAttribute('onclick','delPic('+ picNoAdd +');');
+    picDiv.appendChild(picImg);
+    picDiv.appendChild(picI);    
+    if(picSet.children.length == 1){
+      picSet.insertBefore(picDiv,picSet.children[picSet.children.length-1]);
+    }else{
+      picSet.insertBefore(picDiv,picSet.children[picNoAdd-1]);
+    }
+    //console.log($('#pic_'+ picNoAdd).attr('src'));
+    if(picSet.children.length > 6){
+        $("#addPicClick").css("display", "none");
+    }
+    //console.log(picUrlAdd);
+  }
+
+  function showPic(id){
+    $('#imagepreview').attr('src', $('#pic_'+ id).attr('src'));
+    $('#imagemodal').modal('show');  
+  }
+
+  function delPic(id){
+    var idProduct = $("#id_product").val();
+    let picSet = document.getElementById("picProduct");      
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'mybtn btnOk',
@@ -394,29 +450,29 @@ function editProductRow(id) { //================================ เปิดห
         reverseButtons: false
     }).then((result) => {
         if (result.isConfirmed) {
-            $("#picD"+id).remove();
+            $("#picD_"+id).remove();
+            picUrlAdd[id-1] = "";
             if(picSet.children.length <= 6){
                 $("#addPicClick").css("display", "block");
             }
-            /*waiting();
+            waiting();
             $.ajax({
-              url: urlType,
+              url: urlProduct,
               type: 'GET',
               crossDomain: true,
-              data: { opt_k:'del', opt_id:id },
+              data: { opt_k:'delPic', opt_id:idProduct , opt_picNo:id},
               success: function (result) {
                 waiting(false);
                 if(result == "success"){
-                  myAlert("success", "ข้อมูลถูกลบแล้ว !");
-                  showTypeTable(rowperpage, page_selected);
+                  myAlert("success", "รูปภาพถูกลบแล้ว !");
                 }else{
-                  sw_Alert('error', 'ลบข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+                  sw_Alert('error', 'ลบรูปภาพ ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
                 }          
               },
               error: function (err) {
                   console.log("Delete type ERROR : " + err);
               }
-            });   */      
+            });         
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             /*swalWithBootstrapButtons.fire(
                 'ยกเลิก',
@@ -429,9 +485,16 @@ function editProductRow(id) { //================================ เปิดห
 
   $(document).on("change", "#uploadPicProd", function (e) {
     if (e.target.files) {
-        //waiting();
+        waiting();
+        for(let i=0; i<6; i++){
+          if(picUrlAdd[i] == ''){
+            picNoAdd = i+1;
+            i = 6;
+          }
+        }
         var idProduct = $("#id_product").val();
-        var n_file = 'prod-' + idProduct;
+        var n_file = 'prod_' + idProduct + '_' + picNoAdd;
+        console.log(n_file);
         let imageFile = e.target.files[0];
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -441,7 +504,6 @@ function editProductRow(id) { //================================ เปิดห
                     ctx = c.getContext("2d");
                 var canvas = document.createElement('canvas'),
                     ctx_s = canvas.getContext("2d");
-
                 var width = 300;
                 var height = 300;
                 const sqr = false; /*<<==== กำหนดว่าต้องการภาพด้านเท่าหรือไม่ false/true */
@@ -485,19 +547,19 @@ function editProductRow(id) { //================================ เปิดห
                 var dataurl = canvas.toDataURL(imageFile.type);
                 const vals = dataurl.split(',')[1];
 
-                /*var urlPicProduct = $("#url_Pic").val();
-                var id_pic_del = (urlPicType.includes("id=")) ? urlPicType.split('id=')[1] : '';
+                var id_pic_del = picUrlAdd[picNoAdd-1];
                 const obj = {
-                    opt_k: "upTypePic",
-                    id: idType,
+                    opt_k: "upProductPic",
+                    id: idProduct,
                     fName: n_file,
-                    fileId: id_pic_del,
+                    noPic: picNoAdd,
+                    idPicDel: id_pic_del,
                     fileName: imageFile.name,
                     mimeType: imageFile.type,
                     fdata: vals
                 }
-                
-                fetch(urlType, {
+
+                fetch(urlProduct, {
                     method: "POST",
                     body: JSON.stringify(obj)
                 }).then(function (response) {
@@ -505,21 +567,59 @@ function editProductRow(id) { //================================ เปิดห
                     }).then(function (data) {
                         let res = JSON.parse(data);
                         if (res.result == "success") {
-                            const fullIdPic = linkPic(res.id, pic_no);
-                            $('#picType').attr('src', fullIdPic);
-                            $("#url_Pic").val(fullIdPic);
-                           // myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
+                            addPic(res.id);                            
+                            myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
                         } else {
-                            console.log("Upload picture type ERROR : ");
+                            console.log("Upload picture Product ERROR : ");
                             console.log(res.result);
                             console.log(res);
                         }
                         waiting(false);
-                    }); */
+                    }); 
             }
             img.src = e.target.result;
-            addPic(e.target.result);
+            
         }
         reader.readAsDataURL(imageFile);
     }
+});
+
+$(document).on("submit", "#edit_product_form", function () {  //===== ตกลงแก้ไข/เปลี่ยนข้อมูล
+  let my_form = $(this);
+  const id_product = my_form.find("#id_product").val();
+  const name_product = my_form.find("#name_product").val();
+  const brand_product = my_form.find("#brand_product").val();
+  const desc_product = my_form.find("#desc_product").val();
+  const type_product = document.getElementById("selType").options[document.getElementById("selType").selectedIndex].text;  
+  const productPic1 = picUrlAdd[0];
+  const productPic2 = picUrlAdd[1];
+  const productPic3 = picUrlAdd[2];
+  const productPic4 = picUrlAdd[3];
+  const productPic5 = picUrlAdd[4];
+  const productPic6 = picUrlAdd[5];
+  waiting();
+  $.ajax({
+    url: urlProduct,
+    type: 'GET',
+    crossDomain: true,
+    data: { opt_k: 'edit', opt_id:id_product, opt_nm:name_product, opt_brand:brand_product, opt_type:type_product, opt_desc:desc_product, opt_urlPic1:productPic1, opt_urlPic2:productPic2, opt_urlPic3:productPic3, opt_urlPic4:productPic4, opt_urlPic5:productPic5, opt_urlPic6:productPic6},
+    success: function (result) {
+        waiting(false); 
+        if(result == "success"){
+          myAlert("success", "แก้ไขข้อมูล สำเร็จ");
+          clsProductShow();
+          showProductTable(rowperpage, page_selected);
+        }else if(result == "exits"){
+        sw_Alert('error', 'แก้ไขข้อมูล ไม่สำเร็จ', name_product + ' ซ้ำ! มีการใช้ชื่อนี้แล้ว');
+        }else{
+        sw_Alert('error', 'แก้ไขข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+
+        }          
+    },
+    error: function (err) {
+        console.log("Edit Product ERROR : " + err);
+    }
+    });
+
+  return false;
 });

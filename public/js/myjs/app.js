@@ -134,7 +134,7 @@ function waiting(order = true) {
 
 function linkPic(id,pic){
     var lk = '';
-    if(id === '' || id === null || id === undefined){
+    if(id == '' || id == null || id == undefined || id == 'undefined'){
         lk = pic;
     }else{
         //lk = 'https://drive.google.com/uc?id=' + id;

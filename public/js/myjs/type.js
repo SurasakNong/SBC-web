@@ -274,8 +274,8 @@ function editTypeRow(id) { //================================ เปิดหน
     `;
     $("#edit_type").html(html);
     $("#id_type").val(id);    
-    var picType = ($("#t_urlpic"+id).val() == '' || $("#t_urlpic"+id).val() == 'undefined')?pic_no: $("#t_urlpic"+id).val()
-    $('#picType').attr('src',picType);
+    var picType = $("#t_urlpic"+id).val();
+    $('#picType').attr('src',linkPic(picType, pic_no));
     $("#url_Pic").val(picType);
     $("#name_type").val($('#name' + id).html());
     $("#table_type").html("");
@@ -378,8 +378,7 @@ $(document).on("change", "#upload_picType", function (e) {
                 var dataurl = canvas.toDataURL(imageFile.type);
                 const vals = dataurl.split(',')[1];
 
-                var urlPicType = $("#url_Pic").val();
-                var id_pic_del = (urlPicType.includes("id=")) ? urlPicType.split('id=')[1] : '';
+                var id_pic_del = $("#url_Pic").val();
                 const obj = {
                     opt_k: "upTypePic",
                     id: idType,
@@ -398,9 +397,8 @@ $(document).on("change", "#upload_picType", function (e) {
                     }).then(function (data) {
                         let res = JSON.parse(data);
                         if (res.result == "success") {
-                            const fullIdPic = linkPic(res.id, pic_no);
-                            $('#picType').attr('src', fullIdPic);
-                            $("#url_Pic").val(fullIdPic);
+                            $('#picType').attr('src', linkPic(res.id, pic_no));
+                            $("#url_Pic").val(res.id);
                            // myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
                         } else {
                             console.log("Upload picture type ERROR : ");
