@@ -92,7 +92,65 @@ function show_manageuser_tb() { //========================== แสดงค้�
     </div>
       `;
     $("#main_setting").html(html);
-    showusertable(rowperpage, 1); //<<<<<< แสดงตาราง rowperpage,page_sel
+    loadDataUser();
+}
+
+function loadDataUser(show = true) {
+  if(show === true) waiting();
+  $.ajax({
+      url: urlUser,
+      type: 'GET',
+      crossDomain: true,
+      data: { opt_k: 'readAll'},
+      success: function (result) {
+          dataAllShow = result;
+          if(show === true) showUserTable(rowperpage, page_selected); //<<<<<< แสดงตาราง rowperpage,page_sel   
+          waiting(false);
+      },
+      error: function (err) {
+          console.log("The server  ERROR says: " + err);
+      }
+  });
+}
+
+function myUserData(shText = "", colSort = 1, rawSort = true, page = 1, perPage = 10) {
+  const search_str = shText.toLowerCase().split(",");
+  if (rawSort = true) sortByCol(dataAllShow, colSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+  let array_Arg = new Array();
+  for (let i = 0; i < dataAllShow.length; i++) {
+    const condition = search_str.some(el => dataAllShow[i][1].includes(el));  //กรองชื่อ
+    const condition2 = search_str.some(el => dataAllShow[i][3].includes(el)); //UserName
+    const condition3 = search_str.some(el => dataAllShow[i][2].includes(el)); //Email
+    if (condition || condition2 || condition3) {
+      let jsonArg = new Object();
+      jsonArg.id = dataAllShow[i][0];
+      jsonArg.name = dataAllShow[i][1];
+      jsonArg.email = dataAllShow[i][2];
+      jsonArg.uname = dataAllShow[i][3];
+      jsonArg.lv = dataAllShow[i][5];
+      jsonArg.urlpic = dataAllShow[i][6];
+      jsonArg.dtlog = dataAllShow[i][7];
+      array_Arg.push(jsonArg);
+    }
+  }
+  let nAllData = array_Arg.length;         //==จำนวนข้อมูลทั้งหมด
+  let nAllPage = Math.ceil(nAllData / perPage); //=== จำนวนหน้าทั้งหมด
+  let rowStart = ((page - 1) * perPage); //=== แถวเริ่มต้น ((page-1)*perpage)+1
+  let rowEnd = (rowStart + +perPage) - 1;         //=== แถวสุดท้าย rowStart + perpage - 1
+
+  let array_Data = new Array();
+  for (let i = rowStart; i <= rowEnd; i++) {
+    if (array_Arg[i] != null) {
+      array_Data.push(array_Arg[i]);
+    }
+  }
+  let pageAll = new Object();
+  pageAll.page = nAllPage;
+  pageAll.rec = nAllData;
+  pageAll.st = rowStart;
+  pageAll.en = rowEnd;
+  array_Data.push(pageAll);
+  return array_Data;
 }
 
 function clsUseShow(){
@@ -103,31 +161,24 @@ function clsUseShow(){
 }
 
 $(document).on('click', "#bt_search_user", function () {  //ค้นหารายการ
-    showusertable(rowperpage, 1);
+    showUserTable(rowperpage, 1);
 });
 
 function handle_userSearch(e) {
     if (e.keyCode === 13) {
         e.preventDefault();
-        showusertable(rowperpage, 1);
+        showUserTable(rowperpage, 1);
     }
 }
 
-function showusertable(per, p) { //======================== แสดงตาราง
-    waiting();
-    var strSearch = document.getElementById('search_user').value;
-    var n = ((p - 1) * per);
-  $.ajax({
-    url: urlUser,
-    type: 'GET',
-    crossDomain: true,
-    data: { opt_k: 'read', opt_sh: strSearch, opt_pe: per, opt_p: p },
-    success: function (result) {
-      const myArr = JSON.parse(JSON.stringify(result));
-      let page_all = myArr[myArr.length - 1].page;
-      let rec_all = myArr[myArr.length - 1].rec;
-      page_selected = (p >= page_all) ? page_all : p;
-      var tt = `
+function showUserTable(per = 10, p = 1, colSort = 1, rawSort = true) { //======================== แสดงตาราง  
+  var strSearch = document.getElementById('search_user').value;
+  var n = ((p - 1) * per);
+  const myArr = myUserData(strSearch, colSort, rawSort, p, per);
+  let page_all = myArr[myArr.length - 1].page;
+  let rec_all = myArr[myArr.length - 1].rec;
+  page_selected = (p >= page_all) ? page_all : p;
+  var tt = `
         <table class="list-table table animate__animated animate__fadeIn" id="usertable" >
           <thead>
             <tr>
@@ -156,25 +207,19 @@ function showusertable(per, p) { //======================== แสดงตา�
             </div>
           </div>                     
         `;
-      $("#table_user").html(tt);
-      document.getElementById("rowShow_user").value = rowperpage.toString();
-      document.getElementById("record").innerHTML = "ทั้งหมด : " + rec_all + " รายการ";
-      for (let i = 0; i < myArr.length - 1; i++) {
-        n++;
-        listuserTable(myArr[i], n);
-      }
-      pagination_show(p, page_all, rowperpage, 'showusertable'); //<<<<<<<< แสดงตัวจัดการหน้าข้อมูล Pagination
-      waiting(false);
-    },
-    error: function (err) {
-      console.log("The server  ERROR says: " + err);
-    }
-  });
+  $("#table_user").html(tt);
+  document.getElementById("rowShow_user").value = rowperpage.toString();
+  document.getElementById("record").innerHTML = "ทั้งหมด : " + rec_all + " รายการ";
+  for (let i = 0; i < myArr.length - 1; i++) {
+    n++;
+    listuserTable(myArr[i], n);
+  }
+  pagination_show(p, page_all, rowperpage, 'showUserTable'); //<<<<<<<< แสดงตัวจัดการหน้าข้อมูล Pagination
 }
 
 $(document).on("change", "#rowShow_user", function () { //========== เปลี่ยนค่าจำนวนแถวที่แสดงในตาราง
     rowperpage = +$("#rowShow_user").val();
-    showusertable(rowperpage, 1);
+    showUserTable(rowperpage, 1);
 });
 
 function listuserTable(ob, i_no) {  //========== ฟังก์ชั่นเพิ่ม Row ตารางประเเภท
@@ -252,13 +297,11 @@ $(document).on("click", "#bt_add_user", function () { //========== เปิด�
     </div>  
     `;
   $("#add_user").html(html);
-  /*initDropdownList('selBranch', 'branch!A2:B', 0, 1);
-  initDropdownList('selPos', 'dataset!A2:B', 0, 1);*/
 });
 
 $(document).on("click", "#cancel_add_user", function () { //========== ยกเลิกการเพิ่มผู้ใช้งาน
   clsUseShow();
-  showusertable(rowperpage, page_selected);
+  showUserTable(rowperpage, page_selected);
 });
 
 $(document).on("submit", "#add_user_form", function () {  //===== ตกลงเพิ่มผู้ใช้งาน  
@@ -281,7 +324,7 @@ $(document).on("submit", "#add_user_form", function () {  //===== ตกลง�
         if(result == "success"){
           myAlert("success", "เพิ่มผู้ใช้งาน สำเร็จ");
           $("#add_user").html("");
-          showusertable(rowperpage, page_selected);
+          loadDataUser();
         }else if(result == "exits"){
           sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', uName + ' ซ้ำ! มีการใช้ชื่อนี้แล้ว');
         }else{
@@ -324,7 +367,7 @@ function delete_user_Row(id) { //================================ ลบข้�
                 waiting(false);
                 if(result == "success"){
                   myAlert("success", "ข้อมูลถูกลบแล้ว !");
-                  showusertable(rowperpage, page_selected);
+                  loadDataUser();
                 }else{
                   sw_Alert('error', 'ลบข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
                 }          
@@ -413,7 +456,7 @@ function edit_user_Row(id) { //================================ เปิดห�
 
 $(document).on("click", "#cancel_edit_user", function () { //========== ยกเลิกการแก้ไขผู้ใช้งาน
   clsUseShow();
-  showusertable(rowperpage, page_selected);
+  showUserTable(rowperpage, page_selected);
 });
 
 $(document).on("change", "#upload_picUser", function (e) {
@@ -484,6 +527,7 @@ $(document).on("change", "#upload_picUser", function (e) {
           }).then(function (data) {
             let res = JSON.parse(data);
             if (res.result == "success") {
+              loadDataUser(false);
               const fullIdPic = linkPic(res.id,pic_noAvatar);
               //console.log(fullIdPic);
               document.getElementById("picuser").src = fullIdPic;
@@ -544,7 +588,7 @@ $(document).on("submit", "#edit_user_form", function () {  //===== ตกลง�
           waiting(false);
           myAlert("success", "แก้ไขข้อมูล สำเร็จ");
           clsUseShow();
-          showusertable(rowperpage, page_selected);
+          loadDataUser();
         }else if (result == "exits") {
             sw_Alert('warning', 'แก้ไขข้อมูล ไม่สำเร็จ', 'User Name ซ้ำกับผู้อื่น กรุณาเปลี่ยนใหม่');
         }else {

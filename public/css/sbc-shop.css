@@ -20,7 +20,7 @@
   --border-color:                 #7fffd4;
   --link-hover-color:             #B22727;
 
-  --body-font-family:             'Kanit';
+  --body-font-family:            'Noto Sans Thai'; /*'Kanit';*/
 
   --h1-font-size:                 50px;
   --h2-font-size:                 46px;
@@ -905,7 +905,7 @@ strong {
  .list-table{
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3), 0 4px 15px 0 rgba(0, 0, 0, 0.1);   
-  /*border-radius : 0 0 15px 15px; */
+  border-radius : 0 0 15px 15px; 
 }
 
 .list-table th{
@@ -936,14 +936,8 @@ strong {
 }*/
 #commTable tr:nth-child(even) {background-color:#FAF0E4;}
 #commTable tr:hover{
-  background-color:#9BCDD2;
+  background-color:#fde4ea;
 }
-
-#rowShow_user{
-  font-size: 0.8rem;
-  border: 1px solid #c0c0c0;
-}
-
 /*====== End table */
 
 /*======================================= Pagination =======================================*/
