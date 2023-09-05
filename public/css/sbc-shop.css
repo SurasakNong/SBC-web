@@ -911,10 +911,21 @@ strong {
 .list-table th{
   font-size: 0.8rem; 
   font-weight: 400;
-  color:black; 
+  color:rgb(255, 255, 255); 
   border:none;
   background-color:var(--primary-color);
 }
+
+.list-table .sort-hd{
+  cursor: pointer;
+  color:rgb(255, 255, 255); 
+  transition: 0.3s;  
+}
+
+.list-table .sort-hd:hover{
+  color:rgb(252, 255, 59); 
+}
+
 
 .list-table td{
   font-size: 0.75rem; 

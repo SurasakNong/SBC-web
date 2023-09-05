@@ -1,19 +1,5 @@
 
-/*
-let menuList = document.querySelector('#listMenu');
-let li = document.createElement('li');
-let a = document.createElement('a');
-
-li.classList.add("nav-item");
-
-a.textContent = "Setting";
-a.classList.add("nav-link");
-a.setAttribute('href','#');
-a.setAttribute('onclick','showLogin();');
-a.classList.add("click-scroll");
-li.appendChild(a);
-menuList.appendChild(li);
-*/
+//============================  Main App  ==============================================
 goBack();
 waiting(false);
 
@@ -45,7 +31,11 @@ $(".offcanvas .myNavItem").click(function(){
     $('.offcanvas').offcanvas('hide');
 });
 
-function pagination_show(page, pageall, per, fn) { //============== แสดงตัวจัดการหน้าข้อมูล Pagination      
+$(document).on("click", "#bt_back", function () {
+    show_home();
+});
+
+function pagination_show(page, pageall, per, fn) { //======== แสดงตัวจัดการหน้าข้อมูล Pagination      
     let max_p = parseInt(pageall);
     let p = parseInt(page);
     let p_prev = (p > 1) ? p - 1 : 1;
@@ -63,7 +53,8 @@ function pagination_show(page, pageall, per, fn) { //============== แสดง
             if (p == 1) { pag_prev = ''; }
             if (p == max_p) { pag_next = `</div>`; }
             if (p == j) {
-                pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + j + `)>` + j + `</a> `;
+                //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + j + `)>` + j + `</a> `;
+                pag_in += `<a href="#" class="active" >` + j + `</a> `;
             } else {
                 pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + j + `)>` + j + `</a> `;
             }
@@ -73,7 +64,8 @@ function pagination_show(page, pageall, per, fn) { //============== แสดง
             for (var k = 1; k <= p + 2; k++) {
                 if (p == 1) { pag_prev = ''; }
                 if (p == k) {
-                    pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
+                    //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
+                    pag_in += `<a href="#" class="active" >` + k + `</a> `;
                 } else {
                     pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
                 }
@@ -91,7 +83,8 @@ function pagination_show(page, pageall, per, fn) { //============== แสดง
             for (var m = (p - 2); m <= max_p; m++) {
                 if (p == max_p) { pag_next = `</div>`; }
                 if (p == m) {
-                    pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + m + `)>` + m + `</a> `;
+                    //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + m + `)>` + m + `</a> `;
+                    pag_in += `<a href="#" class="active" >` + m + `</a> `;
                 } else {
                     pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + m + `)>` + m + `</a> `;
                 }
@@ -105,7 +98,8 @@ function pagination_show(page, pageall, per, fn) { //============== แสดง
 
             for (var k = (p - 2); k <= p + 2; k++) {
                 if (p == k) {
-                    pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
+                    //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
+                    pag_in += `<a href="#" class="active" >` + k + `</a> `;
                 } else {
                     pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
                 }
@@ -118,11 +112,6 @@ function pagination_show(page, pageall, per, fn) { //============== แสดง
 
     $("#pagination").html(pag_h + pag_prev + pag_in + pag_next);
 }
-
-$(document).on("click", "#bt_back", function () {
-    show_home();
-});
-
 
 function waiting(order = true) {
     if (order) {
@@ -171,7 +160,6 @@ function showCommNew() { //======================== แสดงจำนวน�
     });
 }
 
-
 function initDropdownList(url,id, data, idSel, nameSel) { 
     $.ajax({ // (urlAppscript, idSelect , lenghtData, idcol, namecol) initDropdownList(urlUser,'selPos','dataset!A2:B',0,1);
         url: url,
@@ -182,7 +170,7 @@ function initDropdownList(url,id, data, idSel, nameSel) {
             const myArr = JSON.parse(JSON.stringify(result));
             var option;
             select = document.getElementById(id);
-            /*while (select.options.length > 0) {
+            /*while (select.options.length > 0) { //== delete
                 select.remove(0);
             }*/
             for (let i = 0; i <= myArr.length - 1; i++) {
