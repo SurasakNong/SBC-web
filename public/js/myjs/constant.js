@@ -7,11 +7,11 @@ var ts_ok = 0;
 var urlUser = 'https://script.google.com/macros/s/AKfycbwauyQqwPmC8vJet8Qq0RMIGl-DZeP7135c_w5gzglhPb6ijaeS0KyP7FFRwdM-Rja1ug/exec';
 var urlComm = 'https://script.google.com/macros/s/AKfycbxxsL_GhQ10sDH0CQJdvXLTIg9Wq84fGLk4mQU8nzSZ_mnXabc-ZK3Svt1RX8WTQC6o/exec';
 var urlData = 'https://script.google.com/macros/s/AKfycbwYrsQ4IaGALJM2kTuiPrcVhBDlD5nUXQ_DpGEV20je9Vrr8Zp1ddgA5j-2ADgqWUmeYQ/exec';
-var urlType = 'https://script.google.com/macros/s/AKfycbw0p_iGJUlpEYw6VvfktFIXM6_Kk9igzkvA8cXtDlTShOSsKLFBuOu0QQPpRG2zvjO6/exec';
+//var urlType = 'https://script.google.com/macros/s/AKfycbw0p_iGJUlpEYw6VvfktFIXM6_Kk9igzkvA8cXtDlTShOSsKLFBuOu0QQPpRG2zvjO6/exec';
 var urlProduct = 'https://script.google.com/macros/s/AKfycbz1WEUlg2fpZP6CHFwyPLVC7x_4UhFG4P4KvjQVlGUTnB6RqlmRIki2yan-IqucjEFvlQ/exec';
 var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
-var user = {
+var user = { //=== เก็บข้อมูลผู้ใช้งาน
   id: 0,
   uname: 'Unknow',
   name: 'Unknow',
@@ -20,14 +20,14 @@ var user = {
   lv: 'User'
 }
 
-var dT = {
+var dT = { //=== เก็บข้อมูลวันที่
   fmShot: '',
   toShot: '',
   fmTs: '',
   toTs: ''
 }
 
-var dataAllShow;
+var dataAllShow; //=== เก็บข้อมูลชั่วคราว
 
 var rowperpage = 10; //=== จำนวนแถวที่แสดงข้อมูลต่อหน้า
 var page_selected = 1; //=== หน้าที่เลือก
