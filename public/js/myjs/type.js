@@ -55,7 +55,8 @@ function myTypeData(shText="",colSort=0,rawSort=false,page=1,perPage=10){
   let array_Arg = new Array();
   for(let i = 0; i < dataAllShow.length; i++){
     const condition = search_str.some(el => dataAllShow[i][1].includes(el));  //กรองชื่อ
-    if (condition) {
+    const condition2 = search_str.some(el => dataAllShow[i][2].includes(el));  //รายละเอียด
+    if (condition || condition2) {
       let jsonArg = new Object();
       jsonArg.id = dataAllShow[i][0];
       jsonArg.name = dataAllShow[i][1]; 

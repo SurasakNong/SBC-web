@@ -89,7 +89,7 @@
                       class="fa-solid fa-cart-arrow-down"></i>&nbsp; งานขาย</a>
                 </li>
                 <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-cubes-stacked"></i>&nbsp; งานสต็อกสินค้า</a>
+                  <a class="nav-link" href="#"><i class="fa-solid fa-cubes"></i>&nbsp; งานสต็อกสินค้า</a>
                 </li>
                 <li class="nav-item myNavItem">
                   <a class="nav-link" href="#"><i class="fa-solid fa-clipboard-list"></i>&nbsp; รายการขายสินค้า</a>
@@ -108,13 +108,16 @@
                     <li><a class="dropdown-item myNavItem subItem" href="#" id="type_mng"><i class="fa-solid fa-font-awesome"></i>&nbsp;
                         ประเภทสินค้า</a></li>
                     <li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="shelf_mng"><i class="fa-solid fa-table-cells-large"></i>&nbsp;
+                        ช่องจัดเก็บ</a></li>
+                    <li>
                       <hr class="dropdown-divider">
                     </li>
                     <li><a class="dropdown-item myNavItem subItem" href="#" id="user_mng"><i class="fa-solid fa-users"></i>&nbsp; จัดการผู้ใช้งาน</a></li>
                   </ul>
                 </li>
-                <li class="nav-item myNavItem mt-5">
-                  <a class="nav-link" href="#" onclick="goBack();"><i class="fa-regular fa-circle-left"></i>&nbsp;
+                <li class="nav-item myNavItem mt-4">
+                  <a class="nav-link" href="#" onclick="goBack();"><i class="fa-regular fa-circle-left fa-lg"></i>&nbsp;
                     กลับสู่หน้าเวป</a> 
                 </li>
               </ul>
@@ -158,7 +161,7 @@
               <a class="nav-link click-scroll" href="#section_5">ติดต่อเรา</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="#" onclick="/*showSetting();*/showLogin();"  title="Setting"><i class="fa-solid fa-gear fa-lg">
+              <a class="nav-link " href="#" onclick="showSetting();/*showLogin();*/"  title="Setting"><i class="fa-solid fa-gear fa-lg">
                 <span id = "cmNew" class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.5rem;">12
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -591,6 +594,7 @@
   <script src="js/myjs/comment.js"></script>
   <script src="js/myjs/type.js"></script>
   <script src="js/myjs/product.js"></script>
+  <script src="js/myjs/shelf.js"></script>
 
 </body>
 
