@@ -48,18 +48,18 @@
   <div class="container-fluid">
 
     <div class="row justify-content-center" id="login"> <!-- ====================  Login ======================== -->
-      <div class="col-md-3 mx-auto">
+      <div class="col-md-4 mx-auto">
         <form id="login_form">
           <div class="text-center">
             <h3 class="mt-5">ยินดีต้อนรับ</h3>
-            <p>Admin เข้าสู่ระบบ SBC</p>
+            <p>เข้าสู่ระบบ SBC</p>
           </div>
-          <div class="book mx-3">
-            <input type="text" name="username" id="inputUsername" class="form-control mb-3" placeholder="UserName" required>
-            <input type="password" name="pass" id="inputPassword" class="form-control mb-5" placeholder="Password" required>
+          <div class="book mx-2 text-center">
+            <input type="text" style="width:200px;" name="username" id="inputUsername" class="form-control mb-3 mx-auto" placeholder="UserName" required>
+            <input type="password" style="width:200px;" name="pass" id="inputPassword" class="form-control mb-4 mx-auto" placeholder="Password" required>
             <div class="text-center">
-              <button type="submit" class="mybtn btnOk">Login</button>
-              <button type="button" class="mybtn btnCan ms-3" onclick="goBack();">Back</button>
+              <button type="submit" class="mybtn btnOk mb-3">Login</button>
+              <button type="button" class="mybtn btnCan " onclick="goBack();">Back</button>
             </div>
           </div>
         </form>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="row" id="setting"> <!-- ========================================  Setting ======================== -->
-      <nav class="navbar bg-body-tertiary fixed-top">
+      <nav class="navbar ">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="#">SBC System</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -125,7 +125,7 @@
           </div>
         </div>
       </nav>
-      <div class="mt-2" id="main_setting"></div>
+      <div id="main_setting"></div>
     </div>
 
 
@@ -161,7 +161,7 @@
               <a class="nav-link click-scroll" href="#section_5">ติดต่อเรา</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="#" onclick="showSetting();/*showLogin();*/"  title="Setting"><i class="fa-solid fa-gear fa-lg">
+              <a class="nav-link " href="#" onclick="showSetting();//showLogin();"  title="Setting"><i class="fa-solid fa-gear fa-lg">
                 <span id = "cmNew" class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.5rem;">12
                 <span class="visually-hidden">unread messages</span>
               </span>

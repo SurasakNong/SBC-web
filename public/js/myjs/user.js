@@ -52,7 +52,7 @@ $(document).on("click", "#user_mng", function () {
 function show_home() { //========================== แสดงหน้าหลัก  
   var html = `
   <div class="container-fluid">
-    <div class="row">                
+    <div class="row mt-3">                
       <h1>Surasak Iamserm </h1>
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus et aut labore esse delectus fuga beatae,
         consequuntur id ratione expedita voluptatibus at sapiente officiis. Veniam et officiis temporibus sit
