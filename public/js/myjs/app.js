@@ -40,9 +40,10 @@ function pagination_show(page, pageall, per, fn) { //======== แสดงตั
     let p = parseInt(page);
     let p_prev = (p > 1) ? p - 1 : 1;
     let p_next = (p < max_p) ? p + 1 : max_p;
+    let sortTxt = ','+ col_sort + ',' + is_sort + ',' + raw_sort;
     let pag_h = `<div class="pagination justify-content-center">`;
-    let pag_prev = `<a href="#" id="pag_prev" title="Previous" onclick=` + fn + `(` + per + `,` + p_prev + `)>&#11164;</a>`; //&laquo;
-    let pag_next = `<a href="#" id="pag_next" title="Next" onclick=` + fn + `(` + per + `,` + p_next + `)>&#11166;</a></div>`;           //&raquo;  
+    let pag_prev = `<a href="#" id="pag_prev" title="Previous" onclick=` + fn + `(` + per + `,` + p_prev + sortTxt +`)>&#11164;</a>`; //&laquo;
+    let pag_next = `<a href="#" id="pag_next" title="Next" onclick=` + fn + `(` + per + `,` + p_next + sortTxt +`)>&#11166;</a></div>`;           //&raquo;  
     let pag_in = "";
     let h2 = 0;
     let h1 = 0;
@@ -56,7 +57,7 @@ function pagination_show(page, pageall, per, fn) { //======== แสดงตั
                 //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + j + `)>` + j + `</a> `;
                 pag_in += `<a href="#" class="active" >` + j + `</a> `;
             } else {
-                pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + j + `)>` + j + `</a> `;
+                pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + j + sortTxt + `)>` + j + `</a> `;
             }
         }
     } else {
@@ -67,46 +68,46 @@ function pagination_show(page, pageall, per, fn) { //======== แสดงตั
                     //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
                     pag_in += `<a href="#" class="active" >` + k + `</a> `;
                 } else {
-                    pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
+                    pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + k + sortTxt +`)>` + k + `</a> `;
                 }
             }
             h2 = Math.ceil((4 + max_p - 1) / 2);
             pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h2 + `)>...</a> `;
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + (max_p - 1) + `)>` + (max_p - 1) + `</a> `;
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + (max_p) + `)>` + (max_p) + `</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + (max_p - 1) + sortTxt +`)>` + (max_p - 1) + `</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + (max_p) + sortTxt +`)>` + (max_p) + `</a> `;
 
         } else if (p > (max_p - 4)) { //เลือกหน้าที่ก่อนถึงหน้าสุดท้าย อยู่ 4 หน้า
             h1 = Math.ceil((2 + max_p - 3) / 2);
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,'1')>1</a> `;
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,'2')>2</a> `;
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h1 + `)>...</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,'1'`+ sortTxt +`)>1</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,'2'`+ sortTxt +`)>2</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h1 + sortTxt +`)>...</a> `;
             for (var m = (p - 2); m <= max_p; m++) {
                 if (p == max_p) { pag_next = `</div>`; }
                 if (p == m) {
                     //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + m + `)>` + m + `</a> `;
                     pag_in += `<a href="#" class="active" >` + m + `</a> `;
                 } else {
-                    pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + m + `)>` + m + `</a> `;
+                    pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + m + sortTxt +`)>` + m + `</a> `;
                 }
             }
 
         } else { //เลือกหน้าที่อยู่ระหว่างหน้าที่ 5 และก่อนถึงหน้าสุดท้ายอยู่ 4 หน้า
             h1 = Math.ceil((p - 2) / 2);
             h2 = Math.ceil((p + 2 + max_p) / 2);
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,'1')>1</a> `;
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h1 + `)>...</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,'1'`+ sortTxt +`)>1</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h1 + sortTxt +`)>...</a> `;
 
             for (var k = (p - 2); k <= p + 2; k++) {
                 if (p == k) {
                     //pag_in += `<a href="#" class="active" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
                     pag_in += `<a href="#" class="active" >` + k + `</a> `;
                 } else {
-                    pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + k + `)>` + k + `</a> `;
+                    pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + k + sortTxt +`)>` + k + `</a> `;
                 }
 
             }
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h2 + `)>...</a> `;
-            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + (max_p) + `)>` + (max_p) + `</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + h2 + sortTxt +`)>...</a> `;
+            pag_in += `<a href="#" onclick=` + fn + `(` + per + `,` + (max_p) + sortTxt +`)>` + (max_p) + `</a> `;
         }
     }
 

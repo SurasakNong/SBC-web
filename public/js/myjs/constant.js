@@ -30,7 +30,10 @@ var dT = { //=== เก็บข้อมูลวันที่
 var dataAllShow; //=== เก็บข้อมูลชั่วคราว
 
 var rowperpage = 10; //=== จำนวนแถวที่แสดงข้อมูลต่อหน้า
-var page_selected = 1; //=== หน้าที่เลือก+
+var page_selected = 1; //=== หน้าที่เลือก
+var is_sort = true;
+var col_sort = 1;
+var raw_sort = 0;
 
 var picNoAdd = 1; //=== ลำดับภาพเริ่มต้น
 var picUrlAdd = ['','','','','','','','','','']; //=== เก็บที่อยู่ของรูปภาพแต่ละลำดับ

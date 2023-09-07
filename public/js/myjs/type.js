@@ -1,6 +1,9 @@
 /*===============================  การจัดการประเภท =================================*/
 $(document).on("click", "#type_mng", function () {
     page_selected = 1;
+    is_sort = true;
+    col_sort = 1;
+    raw_sort = 0;
     var html = `
     <div class="container-fluid">
       <div class="row">                
@@ -49,9 +52,9 @@ function loadDataType(show = true) {
   });
 }
 
-function myTypeData(shText="",colSort=0,rawSort=false,page=1,perPage=10){
+function myTypeData(shText = "", colSort = 0, isSort = false, rawSort = 0, page = 1, perPage = 10){
   const search_str = shText.toLowerCase().split(",");
-  if(rawSort = true ) sortByCol(dataAllShow, colSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+  if(isSort = true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
   for(let i = 0; i < dataAllShow.length; i++){
     const condition = search_str.some(el => dataAllShow[i][1].includes(el));  //กรองชื่อ
@@ -102,20 +105,40 @@ function handle_typeSearch(e) {
     }
 }
 
-function showTypeTable(per = 10, p = 1, colSort = 1, rawSort = true) { //======================== แสดงตาราง
+function showTypeTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //======================== แสดงตาราง
   var strSearch = document.getElementById('search_type').value;
   var n = ((p - 1) * per);
-  const myArr = myTypeData(strSearch, colSort, rawSort, p, per);
+  const myArr = myTypeData(strSearch, colSort, isSort, rawSort, p, per);
   let page_all = myArr[myArr.length - 1].page;
   let rec_all = myArr[myArr.length - 1].rec;
   page_selected = (p >= page_all) ? page_all : p;
+  is_sort = isSort;
+  col_sort = colSort;
+  raw_sort = rawSort;
+  let on_clk = ['','','']; 
+  let sortTxt = ['','',''];  
+  for(let j=0; j < on_clk.length; j++){
+    if(j == colSort){
+        if(rawSort == 0){
+            on_clk[j] = 'showTypeTable(rowperpage,1,'+j+',true,1);';
+            sortTxt[j] = '<i class="fa-solid fa-sort-up"></i>';
+            
+        }else{
+            on_clk[j] = 'showTypeTable(rowperpage,1,'+j+',true,0);';
+            sortTxt[j] = '<i class="fa-solid fa-sort-down"></i>';
+        }        
+    }else{
+        on_clk[j] = 'showTypeTable(rowperpage,1,'+j+',true,0);';
+        sortTxt[j] = '<i class="fa-solid fa-sort"></i>';
+    }
+  }
   var tt = `
     <table class="list-table table animate__animated animate__fadeIn" id="typeTable" >
       <thead>
         <tr>
           <th class="text-center" style="width:5%">ลำดับ</th> 
-          <th class="text-left">ประเภทสินค้า</th>
-          <th class="text-left">รายละเอียด</th>
+          <th class="text-left sort-hd" onclick="`+on_clk[1]+`">`+sortTxt[1]+`&nbsp; ประเภทสินค้า</th>
+          <th class="text-left sort-hd" onclick="`+on_clk[2]+`">`+sortTxt[2]+`&nbsp; รายละเอียด</th>
           <th class="text-center">แก้ไข&nbsp;&nbsp;&nbsp;ลบ</th>                
         </tr>
       </thead>

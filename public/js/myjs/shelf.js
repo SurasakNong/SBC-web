@@ -1,6 +1,9 @@
 /*===============================  การจัดการ  ช่องจัดก็บ =================================*/
 $(document).on("click", "#shelf_mng", function () {
     page_selected = 1;
+    is_sort = true;
+    col_sort = 1;
+    raw_sort = 0;
     var html = `
     <div class="container-fluid">
       <div class="row">                
@@ -51,9 +54,7 @@ function loadDataShelf(show = true) {
 
 function myShelfData(shText = "", colSort = 0, isSort = false, rawSort = 0, page = 1, perPage = 10) {
     const search_str = shText.toLowerCase().split(",");
-    if (isSort == true) {
-        sortByCol(dataAllShow, colSort, rawSort);
-    } //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+    if (isSort == true) {sortByCol(dataAllShow, colSort, rawSort);} //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
     let array_Arg = new Array();
     for (let i = 0; i < dataAllShow.length; i++) {
         const condition = search_str.some(el => dataAllShow[i][1].includes(el));  //กรองชื่อ
@@ -107,10 +108,13 @@ function handle_shelfSearch(e) {
 function showShelfTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //======================== แสดงตาราง
   var strSearch = document.getElementById('search_shelf').value;
   var n = ((p - 1) * per);
-  const myArr = myShelfData(strSearch, colSort, isSort,rawSort, p, per);
+  const myArr = myShelfData(strSearch, colSort, isSort, rawSort, p, per);
   let page_all = myArr[myArr.length - 1].page;
   let rec_all = myArr[myArr.length - 1].rec;
   page_selected = (p >= page_all) ? page_all : p;   
+  is_sort = isSort;
+  col_sort = colSort;
+  raw_sort = rawSort;
   let on_clk = ['','','','','','']; 
   let sortTxt = ['','','','','',''];  
   for(let j=0; j < on_clk.length; j++){
