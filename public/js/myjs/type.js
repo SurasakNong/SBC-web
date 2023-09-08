@@ -90,8 +90,7 @@ function myTypeData(shText = "", colSort = 0, isSort = false, rawSort = 0, page 
 function clsTypeShow(){
     $("#add_type").html("");
     $("#edit_type").html("");
-    $("#table_type").html("");
-  
+    $("#table_type").html("");  
 }
 
 $(document).on('click', "#bt_search_type", function () {  //ค้นหารายการ

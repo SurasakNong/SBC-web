@@ -7,7 +7,7 @@ var ts_ok = 0;
 var urlUser = 'https://script.google.com/macros/s/AKfycbwauyQqwPmC8vJet8Qq0RMIGl-DZeP7135c_w5gzglhPb6ijaeS0KyP7FFRwdM-Rja1ug/exec';
 var urlComm = 'https://script.google.com/macros/s/AKfycbxxsL_GhQ10sDH0CQJdvXLTIg9Wq84fGLk4mQU8nzSZ_mnXabc-ZK3Svt1RX8WTQC6o/exec';
 var urlData = 'https://script.google.com/macros/s/AKfycbwYrsQ4IaGALJM2kTuiPrcVhBDlD5nUXQ_DpGEV20je9Vrr8Zp1ddgA5j-2ADgqWUmeYQ/exec';
-//var urlType = 'https://script.google.com/macros/s/AKfycbw0p_iGJUlpEYw6VvfktFIXM6_Kk9igzkvA8cXtDlTShOSsKLFBuOu0QQPpRG2zvjO6/exec';
+var urlStock = 'https://script.google.com/macros/s/AKfycbxBrjVV8xvvncHBD2Xd0BQ4fq80iB0CXRTOznbnzClom0R9KJdUC02yrMpZif7lfsY9NQ/exec';
 var urlProduct = 'https://script.google.com/macros/s/AKfycbz1WEUlg2fpZP6CHFwyPLVC7x_4UhFG4P4KvjQVlGUTnB6RqlmRIki2yan-IqucjEFvlQ/exec';
 var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
@@ -105,6 +105,39 @@ function tsToDate(ts, fn = "dmy") { //================= Timestamp to Date
           ("0" + m.getHours()).slice(-2) + ":" +
           ("0" + m.getMinutes()).slice(-2) + ":" +
           ("0" + m.getSeconds()).slice(-2);
+  } else {
+      dateString = ts; //Time Stamp
+  }
+  return dateString;
+}
+
+function tsToDateShort(ts, fn = "dmy") { //================= Timestamp to Date
+  var m = new Date(ts);
+  var dateString = "";
+  if (fn === "dmy") { //==== 14/06/2023 22:24:49
+      dateString =
+          ("0" + m.getDate()).slice(-2) + "/" +
+          ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
+          m.getFullYear() /*+ " " +
+          ("0" + m.getHours()).slice(-2) + ":" +
+          ("0" + m.getMinutes()).slice(-2); + ":" +
+          ("0" + m.getSeconds()).slice(-2);*/
+  } else if (fn === "mdy") {  //==== 06/14/2023 22:24:49
+      dateString =
+          ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
+          ("0" + m.getDate()).slice(-2) + "/" +
+          m.getFullYear() /*+ " " +
+          ("0" + m.getHours()).slice(-2) + ":" +
+          ("0" + m.getMinutes()).slice(-2) + ":" +
+          ("0" + m.getSeconds()).slice(-2);*/
+  } else if (fn === "ymd") {  //==== 2023/06/14 22:24:49
+      dateString =
+          m.getFullYear() + "/" +
+          ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
+          ("0" + m.getDate()).slice(-2) /*+ " " +
+          ("0" + m.getHours()).slice(-2) + ":" +
+          ("0" + m.getMinutes()).slice(-2) + ":" +
+          ("0" + m.getSeconds()).slice(-2);*/
   } else {
       dateString = ts; //Time Stamp
   }
