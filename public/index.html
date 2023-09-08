@@ -21,9 +21,9 @@
   <!-- Bootstrap CSS   
   <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"> -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet">
+  
   <!-- Bootstrap CSS   -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/bootstrap-icons.css" rel="stylesheet">
   
   <link href="css/sbc-shop.css" rel="stylesheet">
 
@@ -78,32 +78,29 @@
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header" style="background-color: #d6a354;">
               <img id="pic_user" src="images/user/avatar.png" alt="Avatar" >  
-              <i class="fa-solid fa-key fa-xs myNavItem" id="ch_key" title="เปลี่ยนรหัสผ่าน"></i>
+              <i class="fa-solid fa-rotate fa-sm myNavItem" id="ch_key" title="เปลี่ยนรหัสผ่าน"></i>
               <h6 class="offcanvas-title" id="offcanvasNavbarLabel">SBC System</h6>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" title="MENU"></button>
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item myNavItem">
-                  <a class="nav-link active" aria-current="page" href="#"><i
-                      class="fa-solid fa-cart-arrow-down"></i>&nbsp; งานขาย</a>
+                  <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-cart-arrow-down"></i>&nbsp;&nbsp; งานขาย</a>
                 </li>
                 <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-cubes"></i>&nbsp; งานสต็อกสินค้า</a>
+                  <a class="nav-link" href="#"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp; งานสต็อกสินค้า</a>
                 </li>
                 <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-clipboard-list"></i>&nbsp; รายการขายสินค้า</a>
+                  <a class="nav-link" href="#"><i class="fa-solid fa-table"></i>&nbsp;&nbsp; แสดงสินค้า</a>
                 </li>
                 <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#" id="comment_mng"><i class="fa-regular fa-comment" ></i>&nbsp; ความคิดเห็น</a>
+                  <a class="nav-link" href="#" id="comment_mng"><i class="fa-regular fa-comment-dots"></i>&nbsp;&nbsp; ความคิดเห็น</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="fa-solid fa-gear"></i>&nbsp; Setting
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="product_mng"><i class="fa-regular fa-rectangle-list"></i>&nbsp;
+                    aria-expanded="false"><i class="fa-solid fa-gears"></i>&nbsp;&nbsp; Setting </a>
+                  <ul class="dropdown-menu ">
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="product_mng"><i class="fa-solid fa-clipboard-list"></i>&nbsp;
                         รายการสินค้า</a></li>
                     <li><a class="dropdown-item myNavItem subItem" href="#" id="type_mng"><i class="fa-solid fa-font-awesome"></i>&nbsp;
                         ประเภทสินค้า</a></li>
@@ -138,8 +135,7 @@
         <div class="position-sticky sidebar-sticky d-flex flex-column justify-content-center align-items-center">
           <a class="navbar-brand">
             <!-- Logo -->
-            <img class="logo-image img-fluid animate__animated animate__bounceInDown" id="logo" src="images/logo.png"
-              align="">
+            <img class="logo-image img-fluid animate__animated animate__bounceInDown" id="logo" src="images/logo.png">
           </a>
           <ul class="nav flex-column" id="listMenu">
             <li class="nav-item">
@@ -161,8 +157,8 @@
               <a class="nav-link click-scroll" href="#section_5">ติดต่อเรา</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="#" onclick="showSetting();//showLogin();"  title="Setting"><i class="fa-solid fa-gear fa-lg">
-                <span id = "cmNew" class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.5rem;">12
+              <a class="nav-link " href="#" onclick="showSetting();//showLogin();"  title="Setting"><i  class="fa-solid fa-gear fa-lg">
+                <span id = "cmNew" class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">12
                 <span class="visually-hidden">unread messages</span>
               </span>
             </i></a>

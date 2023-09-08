@@ -126,6 +126,21 @@ strong {
   font-weight: var(--font-weight-bold);
 }
 
+
+
+.f-sm{
+  font-size: 0.8rem;
+}
+.f-lg{
+  font-size: 1.4rem;
+}
+.f-xl{
+  font-size: 1.6rem;
+}
+.f-xxl{
+  font-size: 1.8rem;
+}
+
 /*---------------------------------------
   SECTION               
 -----------------------------------------*/
@@ -957,7 +972,8 @@ strong {
 color: #884A39;
 font-size: 12px; 
 /*float: left;*/
-padding: 7px 9px;
+height: 28px;
+padding: 5px 8px;
 text-decoration: none;
 transition: background-color .3s;
 background-color: #ECCDB4;

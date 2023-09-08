@@ -42,8 +42,8 @@ function pagination_show(page, pageall, per, fn) { //======== แสดงตั
     let p_next = (p < max_p) ? p + 1 : max_p;
     let sortTxt = ','+ col_sort + ',' + is_sort + ',' + raw_sort;
     let pag_h = `<div class="pagination justify-content-center">`;
-    let pag_prev = `<a href="#" id="pag_prev" title="Previous" onclick=` + fn + `(` + per + `,` + p_prev + sortTxt +`)>&#11164;</a>`; //&laquo;
-    let pag_next = `<a href="#" id="pag_next" title="Next" onclick=` + fn + `(` + per + `,` + p_next + sortTxt +`)>&#11166;</a></div>`;           //&raquo;  
+    let pag_prev = `<a href="#" id="pag_prev" title="Previous" onclick=` + fn + `(` + per + `,` + p_prev + sortTxt +`)><i class="fa-solid fa-angles-left"></i></a>`; //&laquo;
+    let pag_next = `<a href="#" id="pag_next" title="Next" onclick=` + fn + `(` + per + `,` + p_next + sortTxt +`)><i class="fa-solid fa-angles-right"></i></a></div>`;           //&raquo;  
     let pag_in = "";
     let h2 = 0;
     let h1 = 0;
