@@ -452,16 +452,18 @@ strong {
 }
 
 .team-info {
-  background: rgba(50,50,50,0.4); /*var(--white-color);*/
-  border: 2px solid var(--white-color);
+  background: rgba(255,255,255,0.8); /*var(--white-color);*/  
+  /*border: 2px solid #fff;*/
   border-radius: var(--border-radius-large);
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
+  height: 40px;
   right: 0;
   left: 0;
-  margin: 10px 40px;
-  padding: 10px 17px 10px 20px;
+  margin: 0px 10px;
+  padding: 5px 17px 10px 20px;
   transition: all 0.3s ease;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 
 
@@ -737,15 +739,13 @@ strong {
 }
 
 .social-icon-link1 {
-  background: var(--secondary-color);
+  background: rgba(255,255,255,1);
   border-radius: var(--border-radius-large);
-  color: var(--white-color);
-  font-size: 1rem;
   display: block;
-  margin: 0 3px;
+  margin: 0px 3px;
   text-align: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   line-height: 32px;
   transition: background 0.2s, color 0.2s;
 }
