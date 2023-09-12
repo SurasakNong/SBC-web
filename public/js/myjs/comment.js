@@ -118,7 +118,7 @@ function loadDataComment(show = true) {
 
 function myCommentData(shText = "", colSort = 0, isSort = false, rawSort = 0, page = 1, perPage = 10) {
   const search_str = shText.toLowerCase().split(",");
-  if (isSort = true) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+  if (isSort == true) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
   for (let i = 0; i < dataAllShow.length; i++) {
     const condition = search_str.some(el => dataAllShow[i][2].includes(el));  //กรองชื่อ

@@ -383,6 +383,7 @@ strong {
   .hero-section {
     height: calc(100vh - 0px);
   }
+  
 }
 
 .hero-section::after {
@@ -1184,5 +1185,62 @@ background-color:#FF8551;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/*==============  Table for Select =============================*/
+.tableSelect{
+  /*position: relative;*/
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  /*box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3), 0 4px 15px 0 rgba(0, 0, 0, 0.1);   */
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  /*width: 65%;*/
+  height: 500px;
+  position: absolute;
+  top : 40px;
+  /*top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);*/
+}
+
+.tableFixHead {
+  overflow-y: auto;
+  height: 420px;
+}
+.tableFixHead thead th {
+  position: sticky; 
+  top: 0px; 
+}
+
+.list-selTable{
+  background-color: rgb(255, 255, 255);
+}
+
+.list-selTable th{
+  font-size: 0.8rem; 
+  font-weight: 400;
+  color:rgb(255, 255, 255); 
+  border:none;
+  background-color:var(--primary-color);
+}
+
+.list-selTable td{
+  font-size: 0.75rem; 
+  font-weight: 400;  
+  /*color:black; */
+  border:none; 
+}
+
+.list-selTable tr{
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.list-selTable tr:nth-child(even){
+  background-color:#e8e8e8;
+}
+
+.list-selTable tr:hover{
+  background-color:#aeffc9;
 }
 

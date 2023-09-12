@@ -54,7 +54,7 @@ function loadDataType(show = true) {
 
 function myTypeData(shText = "", colSort = 0, isSort = false, rawSort = 0, page = 1, perPage = 10){
   const search_str = shText.toLowerCase().split(",");
-  if(isSort = true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+  if(isSort == true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
   for(let i = 0; i < dataAllShow.length; i++){
     const condition = search_str.some(el => dataAllShow[i][1].includes(el));  //กรองชื่อ
@@ -236,33 +236,33 @@ $(document).on("click", "#btAddType", function () { //========== เปิดเ
     showTypeTable(rowperpage, page_selected);
   });
 
-  $(document).on("submit", "#add_type_form", function () {  //===== ตกลงเพิ่มข้อมูล
-    let my_form = $(this);
-    const name_type = my_form.find("#name_type").val();
-    const desc_type = my_form.find("#desc_type").val();
-    waiting();
-    $.ajax({
-      url: urlData,
-      type: 'GET',
-      crossDomain: true,
-      data: { opt_k: 'add', opt_data:'type', opt_nm:name_type, opt_desc:desc_type },
-      success: function (result) {
-        waiting(false);
-        if(result == "success"){
-          myAlert("success", "เพิ่มข้อมูล สำเร็จ");
-          $("#add_type").html("");
-          loadDataType();
-        }else if(result == "exits"){
-          sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', name_type + ' ซ้ำ! มีการใช้ชื่อนี้แล้ว');
-        }else{
-          sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
-        }          
-      },
-      error: function (err) {
-          console.log("Add new type ERROR : " + err);
+$(document).on("submit", "#add_type_form", function () {  //===== ตกลงเพิ่มข้อมูล
+  let my_form = $(this);
+  const name_type = my_form.find("#name_type").val();
+  const desc_type = my_form.find("#desc_type").val();
+  waiting();
+  $.ajax({
+    url: urlData,
+    type: 'GET',
+    crossDomain: true,
+    data: { opt_k: 'add', opt_data: 'type', opt_nm: name_type, opt_desc: desc_type },
+    success: function (result) {
+      waiting(false);
+      if (result == "success") {
+        myAlert("success", "เพิ่มข้อมูล สำเร็จ");
+        $("#add_type").html("");
+        loadDataType();
+      } else if (result == "exits") {
+        sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', name_type + ' ซ้ำ! มีการใช้ชื่อนี้แล้ว');
+      } else {
+        sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
       }
-    });
-    return false;
+    },
+    error: function (err) {
+      console.log("Add new type ERROR : " + err);
+    }
+  });
+  return false;
 });
 
 function deleteTypeRow(id) { //================================ ลบข้อมูล
@@ -370,35 +370,35 @@ function editTypeRow(id) { //================================ เปิดหน
 
   
 $(document).on("submit", "#edit_type_form", function () {  //===== ตกลงแก้ไข/เปลี่ยนข้อมูล
-    let my_form = $(this);
-    const id_type = my_form.find("#id_type").val();
-    const name_type = my_form.find("#name_type").val();
-    const desc_type = my_form.find("#desc_type").val();
-    const typePic = my_form.find("#id_pic").val();  
-    waiting();
-    $.ajax({
-      url: urlData,
-      type: 'GET',
-      crossDomain: true,
-      data: { opt_k: 'edit',opt_data:'type', opt_id:id_type, opt_nm:name_type, opt_desc:desc_type, opt_urlPic:typePic},
-      success: function (result) {
+  let my_form = $(this);
+  const id_type = my_form.find("#id_type").val();
+  const name_type = my_form.find("#name_type").val();
+  const desc_type = my_form.find("#desc_type").val();
+  const typePic = my_form.find("#id_pic").val();
+  waiting();
+  $.ajax({
+    url: urlData,
+    type: 'GET',
+    crossDomain: true,
+    data: { opt_k: 'edit', opt_data: 'type', opt_id: id_type, opt_nm: name_type, opt_desc: desc_type, opt_urlPic: typePic },
+    success: function (result) {
+      waiting(false);
+      if (result == "success") {
         waiting(false);
-        if(result == "success"){
-          waiting(false);
-          myAlert("success", "แก้ไขข้อมูล สำเร็จ");
-          clsTypeShow();
-          loadDataType();
-        }else if (result == "exits") {
-            sw_Alert('warning', 'แก้ไขข้อมูล ไม่สำเร็จ', 'ชื่อประเภท ซ้ำ! กรุณาเปลี่ยนใหม่');
-        }else {
-            sw_Alert('error', 'แก้ไขข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
-        }          
-      },
-      error: function (err) {
-          console.log("Edit type ERROR : " + err);
+        myAlert("success", "แก้ไขข้อมูล สำเร็จ");
+        clsTypeShow();
+        loadDataType();
+      } else if (result == "exits") {
+        sw_Alert('warning', 'แก้ไขข้อมูล ไม่สำเร็จ', 'ชื่อประเภท ซ้ำ! กรุณาเปลี่ยนใหม่');
+      } else {
+        sw_Alert('error', 'แก้ไขข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
       }
-    });
-    return false;
+    },
+    error: function (err) {
+      console.log("Edit type ERROR : " + err);
+    }
+  });
+  return false;
 });
 
 $(document).on("change", "#upload_pic_type", function (e) {

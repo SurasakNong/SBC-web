@@ -3,12 +3,14 @@
 var ts = "";
 var ts_code = "";
 var ts_ok = 0;
+
 //===== postDataUser_Api.gs =============
 var urlUser = 'https://script.google.com/macros/s/AKfycbwauyQqwPmC8vJet8Qq0RMIGl-DZeP7135c_w5gzglhPb6ijaeS0KyP7FFRwdM-Rja1ug/exec';
 var urlComm = 'https://script.google.com/macros/s/AKfycbxxsL_GhQ10sDH0CQJdvXLTIg9Wq84fGLk4mQU8nzSZ_mnXabc-ZK3Svt1RX8WTQC6o/exec';
-var urlData = 'https://script.google.com/macros/s/AKfycbwYrsQ4IaGALJM2kTuiPrcVhBDlD5nUXQ_DpGEV20je9Vrr8Zp1ddgA5j-2ADgqWUmeYQ/exec';
+var urlData = 'https://script.google.com/macros/s/AKfycbz6xE-Mao7PZ5LszcsXsmioaQAPE0dWkSMq59FOCd2th32MXLHy7i1iRZjNovFsB7ZiEg/exec';
 var urlStock = 'https://script.google.com/macros/s/AKfycbxBrjVV8xvvncHBD2Xd0BQ4fq80iB0CXRTOznbnzClom0R9KJdUC02yrMpZif7lfsY9NQ/exec';
 var urlProduct = 'https://script.google.com/macros/s/AKfycbz1WEUlg2fpZP6CHFwyPLVC7x_4UhFG4P4KvjQVlGUTnB6RqlmRIki2yan-IqucjEFvlQ/exec';
+
 var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
 var user = { //=== เก็บข้อมูลผู้ใช้งาน
@@ -27,7 +29,14 @@ var dT = { //=== เก็บข้อมูลวันที่
   toTs: ''
 }
 
+var stk = {
+  dt: '',
+  lot: '',
+  
+}
+
 var dataAllShow; //=== เก็บข้อมูลชั่วคราว
+var dataAllSel;
 
 var rowperpage = 10; //=== จำนวนแถวที่แสดงข้อมูลต่อหน้า
 var page_selected = 1; //=== หน้าที่เลือก
@@ -37,6 +46,7 @@ var raw_sort = 0;
 
 var picNoAdd = 1; //=== ลำดับภาพเริ่มต้น
 var picUrlAdd = ['','','','','','','','','','']; //=== เก็บที่อยู่ของรูปภาพแต่ละลำดับ
+var mySearch = "";
 
 //=================================== DATE TIME Function ============================================
 function date_Now(st="") { //============================= วันที่ปัจจุบันสตริง
@@ -112,34 +122,42 @@ function tsToDate(ts, fn = "dmy") { //================= Timestamp to Date
 }
 
 function tsToDateShort(ts, fn = "dmy") { //================= Timestamp to Date
-  var m = new Date(ts);
+  var m = new Date(+ts);
   var dateString = "";
-  if (fn === "dmy") { //==== 14/06/2023 22:24:49
-      dateString =
-          ("0" + m.getDate()).slice(-2) + "/" +
-          ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
-          m.getFullYear() /*+ " " +
+  if (fn === "dmy") { //==== 14/06/2023
+    dateString =
+      ("0" + m.getDate()).slice(-2) + "/" +
+      ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
+      m.getFullYear() /*+ " " +
           ("0" + m.getHours()).slice(-2) + ":" +
           ("0" + m.getMinutes()).slice(-2); + ":" +
           ("0" + m.getSeconds()).slice(-2);*/
-  } else if (fn === "mdy") {  //==== 06/14/2023 22:24:49
-      dateString =
-          ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
-          ("0" + m.getDate()).slice(-2) + "/" +
-          m.getFullYear() /*+ " " +
+  } else if (fn === "mdy") {  //==== 06/14/2023
+    dateString =
+      ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
+      ("0" + m.getDate()).slice(-2) + "/" +
+      m.getFullYear() /*+ " " +
           ("0" + m.getHours()).slice(-2) + ":" +
           ("0" + m.getMinutes()).slice(-2) + ":" +
           ("0" + m.getSeconds()).slice(-2);*/
-  } else if (fn === "ymd") {  //==== 2023/06/14 22:24:49
-      dateString =
-          m.getFullYear() + "/" +
-          ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
-          ("0" + m.getDate()).slice(-2) /*+ " " +
+  } else if (fn === "ymd") {  //==== 2023/06/14
+    dateString =
+      m.getFullYear() + "/" +
+      ("0" + (m.getMonth() + 1)).slice(-2) + "/" +
+      ("0" + m.getDate()).slice(-2) /*+ " " +
           ("0" + m.getHours()).slice(-2) + ":" +
           ("0" + m.getMinutes()).slice(-2) + ":" +
           ("0" + m.getSeconds()).slice(-2);*/
+  } else if (fn === "y-m-d") {  //==== 2023/06/14
+    dateString =
+      m.getFullYear() + "-" +
+      ("0" + (m.getMonth() + 1)).slice(-2) + "-" +
+      ("0" + m.getDate()).slice(-2) /*+ " " +
+              ("0" + m.getHours()).slice(-2) + ":" +
+              ("0" + m.getMinutes()).slice(-2) + ":" +
+              ("0" + m.getSeconds()).slice(-2);*/
   } else {
-      dateString = ts; //Time Stamp
+    dateString = ts; //Time Stamp
   }
   return dateString;
 }

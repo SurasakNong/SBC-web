@@ -161,12 +161,12 @@ function showCommNew() { //======================== แสดงจำนวน�
     });
 }
 
-function initDropdownList(url,id, data, idSel, nameSel) { 
+function initDropdownList(url,id, data,descTxt = false) { 
     $.ajax({ // (urlAppscript, idSelect , lenghtData, idcol, namecol) initDropdownList(urlUser,'selPos','dataset!A2:B',0,1);
         url: url,
         type: 'GET',
         crossDomain: true,
-        data: { opt_k: 'readDataSel', opt_dataSel:data, opt_selId:idSel, opt_selNm:nameSel },
+        data: { opt_k: 'readDataSel', opt_data:data},
         success: function (result) {
             const myArr = JSON.parse(JSON.stringify(result));
             var option;
@@ -177,7 +177,12 @@ function initDropdownList(url,id, data, idSel, nameSel) {
             for (let i = 0; i <= myArr.length - 1; i++) {
                 option = document.createElement('option');
                 option.value = myArr[i].id;
-                option.text = myArr[i].name;
+                if(descTxt){
+                    option.text = myArr[i].name + '--' + myArr[i].desc;
+                }else{
+                    option.text = myArr[i].name;    
+                }
+                
                 select.add(option);
             }
         },
@@ -188,12 +193,12 @@ function initDropdownList(url,id, data, idSel, nameSel) {
 
 }
 
-function setDropdownList(url, id, data, txt, idCol, nameCol) { 
-    $.ajax({ //setDropdownList(urlUser,'selBranch','branch!A2:B',document.getElementById('branch'+id).innerHTML,0,1);
+function setDropdownList(url, id, data, txt) { 
+    $.ajax({ //setDropdownList(urlUser,'selBranch','branch!A2:B',document.getElementById('branch'+id).innerHTML);
         url: url,
         type: 'GET',
         crossDomain: true,
-        data: { opt_k: 'readDataSel', opt_dataSel:data, opt_selId:idCol, opt_selNm:nameCol },
+        data: { opt_k: 'readDataSel', opt_data:data},
         success: function (result) {
             const myArr = JSON.parse(JSON.stringify(result));
             var option;
@@ -204,11 +209,11 @@ function setDropdownList(url, id, data, txt, idCol, nameCol) {
             for (let i = 0; i <= myArr.length - 1; i++) {
                 option = document.createElement('option');
                 option.value = myArr[i].id;
-                option.text = myArr[i].name;
+                option.text = myArr[i].name + "--" + myArr[i].desc;
                 select.add(option);
             }
             $('#' + id + ' option').each(function () {
-                if ($(this).text() == txt) {
+                if (($(this).text()).split("--")[0] == txt) {
                     $(this).prop("selected", true);
                 }
             });

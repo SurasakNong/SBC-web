@@ -55,7 +55,7 @@ function loadDataProduct(show = true) {
 
 function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, page = 1, perPage = 10){
   const search_str = shText.toLowerCase().split(",");
-  if(isSort = true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+  if(isSort == true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
   for(let i = 0; i < dataAllShow.length; i++){
       const condition = search_str.some(el => dataAllShow[i][1].toLowerCase().includes(el));
@@ -242,7 +242,7 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
                   <select class="form-select" id="selType">
                       <option selected value="0">-- ประเภท --</option>
                   </select>
-                  </div>      
+              </div>      
               <div class="input-group mb-4">
                   <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
                   <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description" required>
@@ -259,7 +259,7 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
     </div>  
     `;
   $("#add_product").html(html);
-  initDropdownList(urlType,'selType', 'type!A2:B', 0, 1) 
+  initDropdownList(urlData,'selType', 'type');
 });
 
 $(document).on("click", "#cancel_add_product", function () { //========== ยกเลิกการเพิ่มข้อมูล
@@ -429,7 +429,7 @@ function editProductRow(id) { //================================ เปิดห
     picUrlAdd[i-1] = ($("#p_urlpic"+i+"_"+id).val() == undefined || $("#p_urlpic"+i+"_"+id).val() == "" || $("#p_urlpic"+i+"_"+id).val() == "undefined")?"":$("#p_urlpic"+i+"_"+id).val();
     if(!(picUrlAdd[i-1] == "" || picUrlAdd[i-1] == undefined || picUrlAdd[i-1] == "undefined")){ addPicPre(i,picUrlAdd[i-1]);}
   }
-  setDropdownList(urlProduct,'selType', 'type!A2:B', $("#type"+id).html(),0,1);
+  setDropdownList(urlData,'selType', 'type', $("#type"+id).html());
   $("#table_product").html("");    
 }
 
