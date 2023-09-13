@@ -227,14 +227,16 @@ function loadDataStock(show = true) {
 function myStockData(shText = "", colSort = 0, isSort = false, rawSort = 0, page = 1, perPage = 10){
     const search_str = shText.toLowerCase().split(",");
     if(isSort = true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+    var sumQty = 0;
+    var sumPrice = 0;
     let array_Arg = new Array();
     for(let i = 0; i < dataAllShow.length; i++){
-      const condition = search_str.some(el => dataAllShow[i][2].includes(el));  //lot_no
-      const condition2 = search_str.some(el => dataAllShow[i][3].includes(el));  //ชื่อ
-      const condition3 = search_str.some(el => dataAllShow[i][4].includes(el));  //ประเภท
-      const condition4 = search_str.some(el => dataAllShow[i][7].includes(el));  //ผู้ที่ขาย
-      const condition5 = search_str.some(el => dataAllShow[i][8].includes(el));  //ที่จัดเก็บ
-      const condition6 = search_str.some(el => dataAllShow[i][9].includes(el));  //รายละเอียด
+      const condition = search_str.some(el => dataAllShow[i][2].toLowerCase().includes(el));  //lot_no
+      const condition2 = search_str.some(el => dataAllShow[i][3].toLowerCase().includes(el));  //ชื่อ
+      const condition3 = search_str.some(el => dataAllShow[i][4].toLowerCase().includes(el));  //ประเภท
+      const condition4 = search_str.some(el => dataAllShow[i][7].toLowerCase().includes(el));  //ผู้ที่ขาย
+      const condition5 = search_str.some(el => dataAllShow[i][8].toLowerCase().includes(el));  //ที่จัดเก็บ
+      const condition6 = search_str.some(el => dataAllShow[i][9].toLowerCase().includes(el));  //รายละเอียด
       if (condition || condition2 || condition3 || condition4 || condition5 || condition6) {
         if (+dataAllShow[i][1] >= dT.fmTs && +dataAllShow[i][1] <= dT.toTs) {
             let jsonArg = new Object();
@@ -249,6 +251,8 @@ function myStockData(shText = "", colSort = 0, isSort = false, rawSort = 0, page
             jsonArg.shelf = dataAllShow[i][8];  
             jsonArg.comm = dataAllShow[i][9]; 
             jsonArg.point = dataAllShow[i][10]; 
+            sumQty = sumQty + +dataAllShow[i][5];
+            sumPrice = sumPrice + (+dataAllShow[i][5] * +dataAllShow[i][6]);
             array_Arg.push(jsonArg);
         }
       }
@@ -268,6 +272,8 @@ function myStockData(shText = "", colSort = 0, isSort = false, rawSort = 0, page
     pageAll.rec = nAllData;
     pageAll.st = rowStart;
     pageAll.en = rowEnd;
+    pageAll.sumQty = sumQty;
+    pageAll.sumPrice = sumPrice;
     array_Data.push(pageAll);
     return array_Data;
   }
@@ -295,6 +301,8 @@ function showStockTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //====
     const myArr = myStockData(strSearch, colSort, isSort, rawSort, p, per);
     let page_all = myArr[myArr.length - 1].page;
       let rec_all = myArr[myArr.length - 1].rec;
+      let sum_qty = myArr[myArr.length - 1].sumQty;
+      let sum_price = myArr[myArr.length - 1].sumPrice.toFixed(2);
       page_selected = (p >= page_all) ? page_all : p;
       is_sort = isSort;
       col_sort = colSort;
@@ -337,21 +345,21 @@ function showStockTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //====
           </tbody>
         </table> 
           <div class="row animate__animated animate__fadeIn">
-            <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
+            <div class="col-auto me-auto" style="font-size: 0.8rem;">
               <label  for="rowShow_stock">แถวแสดง:</label>
               <input type="number" id="rowShow_stock" name="rowShow_stock" min="1" max="99" step="1" value="" style="text-align:center;">
             </div>
-            <div class="col-sm-6 mb-2">
+            <div class="col">
               <div id="pagination"></div>
             </div>
-            <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
+            <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
               <label id="record"></label>
             </div>
           </div>                     
         `;
       $("#table_stock").html(tt);
       document.getElementById("rowShow_stock").value = rowperpage.toString();
-      document.getElementById("record").innerHTML = "ทั้งหมด : " + rec_all + " รายการ";
+      document.getElementById("record").innerHTML = "ทั้งหมด : "+ sum_qty +" หนวย, "+ numWithCommas(sum_price) +" บาท, " + rec_all + " รายการ";
       for (let i = 0; i < myArr.length - 1; i++) {
         n++;
         listStockTable(myArr[i], n);
@@ -480,7 +488,7 @@ $(document).on("click", "#btAddStock", function () { //========== เปิด�
             <div class="input-group mb-2">
               <label class="input-group-text" for="selShelf" style="width:90px;">ช่องจัดเก็บ</label>
               <select class="form-select" id="selShelf">
-                  <option selected value="0">A000--พื้นที่ตรวจรับของ</option>
+                  <!--<option selected value="0">A000--พื้นที่ตรวจรับของ</option>-->
               </select>
             </div> 
           </div>       
@@ -497,7 +505,7 @@ $(document).on("click", "#btAddStock", function () { //========== เปิด�
   $("#add_stock").html(html);
   $("#date_stock").val((stk.dt == '')?date_Now("y-m-d"):stk.dt);
   $("#lot_stock").val(stk.lot);
-
+  initDropdownList(urlData,'selShelf','shelf',true)
 
 });
 

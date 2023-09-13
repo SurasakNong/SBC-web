@@ -57,8 +57,8 @@ function myTypeData(shText = "", colSort = 0, isSort = false, rawSort = 0, page 
   if(isSort == true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
   for(let i = 0; i < dataAllShow.length; i++){
-    const condition = search_str.some(el => dataAllShow[i][1].includes(el));  //กรองชื่อ
-    const condition2 = search_str.some(el => dataAllShow[i][2].includes(el));  //รายละเอียด
+    const condition = search_str.some(el => dataAllShow[i][1].toLowerCase().includes(el));  //กรองชื่อ
+    const condition2 = search_str.some(el => dataAllShow[i][2].toLowerCase().includes(el));  //รายละเอียด
     if (condition || condition2) {
       let jsonArg = new Object();
       jsonArg.id = dataAllShow[i][0];

@@ -316,6 +316,14 @@ function getCookie(cname) {  //==================================== get or read 
 
 function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
 
+function numWithCommas(x) {
+  x = x.toString();
+  var pattern = /(-?\d+)(\d{3})/;
+  while (pattern.test(x))
+      x = x.replace(pattern, "$1,$2");
+  return x;
+}
+
 function sortByCol(arr, colIndex, sortFn = 0) { //===== เรียงข้อมูล Array เลือก colum ได้
   if (sortFn === 0) {
     arr.sort(sortLessToMore);

@@ -121,10 +121,10 @@ function myCommentData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
   if (isSort == true) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
   for (let i = 0; i < dataAllShow.length; i++) {
-    const condition = search_str.some(el => dataAllShow[i][2].includes(el));  //กรองชื่อ
-    const condition2 = search_str.some(el => dataAllShow[i][3].includes(el)); //Tel
-    const condition3 = search_str.some(el => dataAllShow[i][4].includes(el)); //Email
-    const condition4 = search_str.some(el => dataAllShow[i][5].includes(el)); //Comment
+    const condition = search_str.some(el => dataAllShow[i][2].toLowerCase().includes(el));  //กรองชื่อ
+    const condition2 = search_str.some(el => dataAllShow[i][3].toLowerCase().includes(el)); //Tel
+    const condition3 = search_str.some(el => dataAllShow[i][4].toLowerCase().includes(el)); //Email
+    const condition4 = search_str.some(el => dataAllShow[i][5].toLowerCase().includes(el)); //Comment
     if (condition || condition2 || condition3 || condition4) {
       if (+dataAllShow[i][1] >= dT.fmTs && +dataAllShow[i][1] <= dT.toTs) {
         let jsonArg = new Object();
