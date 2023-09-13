@@ -402,7 +402,7 @@ function listStockTable(ob, i_no) {  //========== ฟังก์ชั่นเ
 $(document).on("click", "#btAddStock", function () { //========== เปิดเพิ่มข้อมูล
   clsStockShow();
   var html = `     
-    <div id="stock_add">    
+    <div id="stock_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_stock_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
           <div style="font-size:1.5rem; text-align: center;"> รับเข้าสต็อก </div>     
@@ -611,7 +611,7 @@ function delete_stock_Row(id) { //================================ ลบข้�
 
 function editStockRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
   var html = `     
-  <div id="stock_edit">    
+  <div id="stock_edit" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="edit_stock_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
           <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลสต็อก </div>     

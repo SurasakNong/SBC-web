@@ -279,7 +279,7 @@ function listuserTable(ob, i_no) {  //========== ฟังก์ชั่นเ�
 $(document).on("click", "#bt_add_user", function () { //========== เปิดเพิ่มผู้ใช้งาน
   clsUseShow();
   var html = `     
-    <div id="user_add">    
+    <div id="user_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_user_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
           <div style="font-size:1.5rem; text-align: center;">
@@ -411,7 +411,7 @@ function delete_user_Row(id) { //================================ ลบข้�
 
 function edit_user_Row(id) { //================================ เปิดหน้าแก้ไขข้อมูลผู้ใช้งาน      
   var html = `     
-  <div id="user_edit">    
+  <div id="user_edit" class="main_form">    
     <form class="animate__animated animate__fadeIn" id="edit_user_form" style="padding:20px;">
       <div class="row mb-3 justify-content-md-center">
         <div style="font-size:1.5rem; text-align: center;">

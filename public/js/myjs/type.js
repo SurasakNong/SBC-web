@@ -199,7 +199,7 @@ function listTypeTable(ob, i_no) {  //========== ฟังก์ชั่นเ�
 $(document).on("click", "#btAddType", function () { //========== เปิดเพิ่มข้อมูล
     clsTypeShow();
     var html = `     
-      <div id="type_add">    
+      <div id="type_add" class="main_form">    
         <form class="animate__animated animate__fadeIn" id="add_type_form" style="padding:20px;">
           <div class="row mb-3 justify-content-md-center">
             <div style="font-size:1.5rem; text-align: center;"> เพิ่มประเภทสินค้า </div>     
@@ -315,7 +315,7 @@ function deleteTypeRow(id) { //================================ ลบข้อ�
 
 function editTypeRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
     var html = `     
-    <div id="type_edit">    
+    <div id="type_edit" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="edit_type_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
           <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลประเภทสินค้า </div>     

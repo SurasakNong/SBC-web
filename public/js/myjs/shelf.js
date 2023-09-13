@@ -202,7 +202,7 @@ function listShelfTable(ob, i_no) {  //========== ฟังก์ชั่นเ
 $(document).on("click", "#btAddShelf", function () { //========== เปิดเพิ่มข้อมูล
     clsShelfShow();
     var html = `     
-      <div id="shelf_add">    
+      <div id="shelf_add" class="main_form">    
         <form class="animate__animated animate__fadeIn" id="add_shelf_form" style="padding:20px;">
           <div class="row mb-3 justify-content-md-center">
             <div style="font-size:1.5rem; text-align: center;"> เพิ่มช่องจัดเก็บ </div>     
@@ -318,7 +318,7 @@ function deleteShelfRow(id) { //================================ ลบข้อ
 
 function editShelfRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
     var html = `     
-    <div id="shelf_edit">    
+    <div id="shelf_edit" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="edit_shelf_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
           <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลช่องจัดเก็บ </div>     

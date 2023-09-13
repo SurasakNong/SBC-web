@@ -20,10 +20,10 @@ $(document).on("click", "#product_mng", function () {
         </div>          
     </div>   
     <div class="row">  
-        <div class="col-lg-7 col-md-9 col-sm-12 mx-auto" id="add_product"></div>
+        <div class="col-lg-10 col-md-11 col-sm-12 mx-auto" id="add_product"></div>
     </div>   
     <div class="row">  
-        <div class="col-lg-8 mx-auto" id="edit_product"></div>
+        <div class="col-lg-10 col-md-11 col-sm-12 mx-auto" id="edit_product"></div>
     </div>   
     <div class="row">  
         <div class="col-lg-10 mx-auto" id="table_product"></div>
@@ -75,6 +75,7 @@ function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
           jsonArg.urlpic4 = dataAllShow[i][8]; 
           jsonArg.urlpic5 = dataAllShow[i][9]; 
           jsonArg.urlpic6 = dataAllShow[i][10]; 
+          jsonArg.price = dataAllShow[i][13]; 
           array_Arg.push(jsonArg);
       }
   }
@@ -212,6 +213,7 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
     <input type="hidden" id="p_urlpic4_` + ob.id + `" value="` + ob.urlpic4 + `" />
     <input type="hidden" id="p_urlpic5_` + ob.id + `" value="` + ob.urlpic5 + `" />
     <input type="hidden" id="p_urlpic6_` + ob.id + `" value="` + ob.urlpic6 + `" />
+    <input type="hidden" id="price` + ob.id + `" value="` + ob.price + `" />
     
     <i class="fas fa-edit me-3" onclick="editProductRow(` + ob.id + `)" style="cursor:pointer; color:#5cb85c;"></i>
     `+ txtDel;
@@ -222,39 +224,57 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
 $(document).on("click", "#btAddProduct", function () { //========== เปิดเพิ่มข้อมูล
   clsProductShow();
   var html = `     
-    <div id="product_add">    
+    <div id="product_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_product_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
           <div style="font-size:1.5rem; text-align: center;"> เพิ่มรายการสินค้า </div>     
         </div> 
         <div class="row">
           <div class="col-md">
-              <div class="input-group mb-2">
-                  <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
-                  <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
-              </div> 
-              <div class="input-group mb-2">
-                  <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
-                  <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
-              </div> 
-              <div class="input-group mb-2">
-                  <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
-                  <select class="form-select" id="selType">
-                      <option selected value="0">-- ประเภท --</option>
-                  </select>
-              </div>      
-              <div class="input-group mb-4">
-                  <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
-                  <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description" required>
-              </div>     
-          </div>
-          
-        </div>   
-        <div class="row justify-content-center" style="text-align: center;">
+            <div class="input-group mb-2">
+              <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
+              <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
+            </div>
+          </div> 
+        </div> 
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="input-group mb-2">
+              <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
+              <select class="form-select" id="selType">
+                  <option selected value="0">-- ประเภท --</option>
+              </select>
+            </div>   
+          </div> 
+          <div class="col-md-4">
+            <div class="input-group mb-2">
+              <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
+              <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand">
+            </div>  
+          </div> 
+        </div> 
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="input-group mb-2">
+              <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
+              <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description">
+            </div> 
+          </div> 
+          <div class="col-md-4">
+            <div class="input-group mb-2">
+              <label class="input-group-text " style="width: 80px;" for="price_product">ราคา</label>
+              <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
+            </div> 
+          </div> 
+        </div> 
+
+        <div class="row justify-content-center mt-4" style="text-align: center;">
           <button type="submit" class="mybtn btnOk">บันทึก</button>
           <button type="button" class="mybtn btnCan" id="cancel_add_product">ยกเลิก</button>
-        </div>             
-        
+        </div>  
+
       </form>
     </div>  
     `;
@@ -272,15 +292,16 @@ $(document).on("submit", "#add_product_form", function () {  //===== ตกล�
   const name_product = my_form.find("#name_product").val();
   const brand_product = my_form.find("#brand_product").val();
   const desc_product = my_form.find("#desc_product").val();
+  const price_product = my_form.find("#price_product").val();
   const sel_type_index = document.getElementById("selType").selectedIndex;
-  const sel_type = document.getElementById("selType").options[sel_type_index].text;
+  const sel_type = (document.getElementById("selType").options[sel_type_index].text).split("--")[0];
   if(sel_type_index !== 0 ){
       waiting();
       $.ajax({
       url: urlProduct,
       type: 'GET',
       crossDomain: true,
-      data: { opt_k: 'add', opt_nm:name_product, opt_brand:brand_product, opt_type:sel_type, opt_desc:desc_product},
+      data: { opt_k: 'add', opt_nm:name_product, opt_brand:brand_product, opt_type:sel_type, opt_desc:desc_product, opt_price:price_product},
       success: function (result) {
           waiting(false);
           if(result == "success"){
@@ -353,7 +374,7 @@ function deleteProductRow(id) { //================================ ลบข้�
 
 function editProductRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
   var html = `     
-  <div id="product_edit">    
+  <div id="product_edit" class="main_form">    
     <form class="animate__animated animate__fadeIn" id="edit_product_form" style="padding:20px;">
       <div class="row mb-3 justify-content-md-center">
         <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลสินค้า </div>     
@@ -366,40 +387,58 @@ function editProductRow(id) { //================================ เปิดห
             </label>
           </div>
       </div> 
-      
       <div class="row">        
-          <div class="col-md">
-              <div class="input-group mb-2">
-                  <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
-                  <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
-              </div> 
-              <div class="input-group mb-2">
-                  <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
-                  <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
-              </div> 
-              <div class="input-group mb-2">
-                  <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
-                  <select class="form-select" id="selType">
-                      <option selected value="0">-- ประเภท --</option>
-                  </select>
-              </div>      
-              <div class="input-group mb-4">
-                  <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
-                  <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description" required>
-              </div>   
-              <div class="row justify-content-center" style="text-align: center;">
-                  <button type="submit" class="mybtn btnOk">บันทึก</button>
-                  <button type="button" class="mybtn btnCan" id="cancelEditProduct">ยกเลิก</button>
-                  <input id="id_product" type="hidden">
-                  <input id="url_Pic1" type="hidden">
-                  <input id="url_Pic2" type="hidden">
-                  <input id="url_Pic3" type="hidden">
-                  <input id="url_Pic4" type="hidden">
-                  <input id="url_Pic5" type="hidden">
-                  <input id="url_Pic6" type="hidden">
-              </div>
+        <div class="col-md-12">
+          <div class="input-group mb-2">
+              <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
+              <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
+          </div> 
+        </div>
+      </div>
+
+      <div class="row">   
+        <div class="col-md-8">
+          <div class="input-group mb-2">
+              <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
+              <select class="form-select" id="selType">
+                  <option selected value="0">-- ประเภท --</option>
+              </select>
           </div>
-      </div>       
+        </div>     
+        <div class="col-md-4">
+          <div class="input-group mb-2">
+              <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
+              <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
+          </div>
+        </div>        
+      </div>
+
+      <div class="row">        
+        <div class="col-md-8">
+          <div class="input-group mb-2">
+              <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
+              <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description">
+          </div> 
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-2">
+            <label class="input-group-text " style="width: 80px;" for="price_product">ราคา</label>
+            <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
+          </div>     
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-4" style="text-align: center;">
+        <button type="submit" class="mybtn btnOk">บันทึก</button>
+        <button type="button" class="mybtn btnCan" id="cancelEditProduct">ยกเลิก</button>
+        <input id="id_product" type="hidden">
+        <input id="url_Pic1" type="hidden">
+        <input id="url_Pic2" type="hidden">
+        <input id="url_Pic3" type="hidden">
+        <input id="url_Pic4" type="hidden">
+        <input id="url_Pic5" type="hidden">
+        <input id="url_Pic6" type="hidden">        
+      </div>     
     </form>
 
     <!-- Creates the bootstrap modal where the image will appear -->
@@ -423,6 +462,7 @@ function editProductRow(id) { //================================ เปิดห
   $("#name_product").val($("#name"+id).html()); 
   $("#brand_product").val($("#brand"+id).html()); 
   $("#desc_product").val($("#desc"+id).html()); 
+  $("#price_product").val($("#price"+id).val()); 
   
   for(let i=1; i <= 6; i++){
     $("#url_Pic"+i).val($("#p_urlpic"+i+"_"+id).val());
@@ -443,8 +483,8 @@ function addPicPre(no,picId){
   let picDiv = document.createElement('div');
   let picImg = document.createElement('img');
   let picI = document.createElement('i');
-  picDiv.classList.add("col-md-4");
-  picDiv.classList.add("col-sm-6");
+  picDiv.classList.add("col-md-2");
+  picDiv.classList.add("col-sm-3");
   picDiv.id = 'picD_'+ no;
   picDiv.setAttribute('style','position:relative; ');
   picImg.classList.add("imgShow");
@@ -455,7 +495,7 @@ function addPicPre(no,picId){
   picI.classList.add("fa-solid");
   picI.classList.add("fa-square-xmark");
   picI.classList.add("fa-lg");
-  picI.setAttribute('style','color:#fb3737; cursor:pointer; position:absolute; top:10px; right:20px; height:15px; background:#fff; padding-top:6px; ');
+  picI.setAttribute('style','color:#FEA1A1; cursor:pointer; position:absolute; top:10px; right:20px; height:15px; background:#fff; padding-top:6px; ');
   picI.setAttribute('onclick','delPic('+ no +');');
   picDiv.appendChild(picImg);
   picDiv.appendChild(picI);    
@@ -470,8 +510,8 @@ function addPic(picId){
   let picDiv = document.createElement('div');
   let picImg = document.createElement('img');
   let picI = document.createElement('i');
-  picDiv.classList.add("col-md-4");
-  picDiv.classList.add("col-sm-6");    
+  picDiv.classList.add("col-md-2");
+  picDiv.classList.add("col-sm-3");    
   picUrlAdd[picNoAdd-1] = picId;
   picDiv.id = 'picD_'+ picNoAdd;
   picDiv.setAttribute('style','position:relative; ');
@@ -483,7 +523,7 @@ function addPic(picId){
   picI.classList.add("fa-solid");
   picI.classList.add("fa-square-xmark");
   picI.classList.add("fa-lg");
-  picI.setAttribute('style','color:#fb3737; cursor:pointer; position:absolute; top:10px; right:20px; height:15px; background:#fff; padding-top:6px;');
+  picI.setAttribute('style','color:#FEA1A1; cursor:pointer; position:absolute; top:10px; right:20px; height:15px; background:#fff; padding-top:6px;');
   picI.setAttribute('onclick','delPic('+ picNoAdd +');');
   picDiv.appendChild(picImg);
   picDiv.appendChild(picI);    
@@ -666,7 +706,8 @@ const id_product = my_form.find("#id_product").val();
 const name_product = my_form.find("#name_product").val();
 const brand_product = my_form.find("#brand_product").val();
 const desc_product = my_form.find("#desc_product").val();
-const type_product = document.getElementById("selType").options[document.getElementById("selType").selectedIndex].text;  
+const price_product = my_form.find("#price_product").val();
+const type_product = (document.getElementById("selType").options[document.getElementById("selType").selectedIndex].text).split("--")[0];
 const productPic1 = picUrlAdd[0];
 const productPic2 = picUrlAdd[1];
 const productPic3 = picUrlAdd[2];
@@ -678,7 +719,9 @@ $.ajax({
   url: urlProduct,
   type: 'GET',
   crossDomain: true,
-  data: { opt_k: 'edit', opt_id:id_product, opt_nm:name_product, opt_brand:brand_product, opt_type:type_product, opt_desc:desc_product, opt_urlPic1:productPic1, opt_urlPic2:productPic2, opt_urlPic3:productPic3, opt_urlPic4:productPic4, opt_urlPic5:productPic5, opt_urlPic6:productPic6},
+  data: { opt_k: 'edit', opt_id:id_product, opt_nm:name_product, opt_brand:brand_product, opt_type:type_product, 
+          opt_desc:desc_product, opt_urlPic1:productPic1, opt_urlPic2:productPic2, opt_urlPic3:productPic3, 
+          opt_urlPic4:productPic4, opt_urlPic5:productPic5, opt_urlPic6:productPic6, opt_price:price_product},
   success: function (result) {
       waiting(false); 
       if(result == "success"){
