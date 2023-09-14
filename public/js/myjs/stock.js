@@ -31,8 +31,9 @@ $(document).on("click", "#stock_mng", function () {
                     </div>
                     <div class="col">
                         <div class="input-group mb-2">                  
-                            <input type="text" id="search_stock" onkeypress="handle_stockSearch(event)" class="form-control" placeholder="คำค้นหา.." aria-label="Search" aria-describedby="button-search">
-                            <button class="b-success" type="button" id="bt_search_stock" title="ค้นหา"><i class="fas fa-search"></i></button>
+                            <input type="text" id="search_stock" onkeypress="handle_stockSearch(event)" class="form-control" placeholder="คำค้นหา.." aria-label="Search" aria-describedby="button-search"
+                            style="border-radius:18px 0 0 18px;">
+                            <button class="b-success" type="button" id="bt_search_stock" title="ค้นหา" style="border-radius:0 18px 18px 0;"><i class="fas fa-search"></i></button>
                             <button class="b-add ms-2" id="btAddStock" type="button" title="เพิ่มข้อมูล"><i class="fa-solid fa-plus fa-lg"></i></button>
                             <button class="b-back ms-2" id="bt_back" name="bt_back" type="button" title="กลับ"><i class="fa-solid fa-xmark fa-lg"></i></button>
                         </div>
@@ -359,7 +360,7 @@ function showStockTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //====
         `;
       $("#table_stock").html(tt);
       document.getElementById("rowShow_stock").value = rowperpage.toString();
-      document.getElementById("record").innerHTML = "ทั้งหมด : "+ sum_qty +" หนวย, "+ numWithCommas(sum_price) +" บาท, " + rec_all + " รายการ";
+      document.getElementById("record").innerHTML =  "รวม "+ rec_all + " รายการ = "+ sum_qty +" หน่วย = "+ numWithCommas(sum_price) +" บาท";
       for (let i = 0; i < myArr.length - 1; i++) {
         n++;
         listStockTable(myArr[i], n);

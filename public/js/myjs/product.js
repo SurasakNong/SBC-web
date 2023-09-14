@@ -7,12 +7,13 @@ $(document).on("click", "#product_mng", function () {
   var html = `
   <div class="container-fluid">
     <div class="row">                
-        <div class="col-lg-10 mx-auto mt-4">
+        <div class="col-lg-12 mx-auto mt-4">
             <label class="fn_name" ><i class="fa-regular fa-rectangle-list fa-lg"></i> &nbsp; รายการสินค้า</label>
             <form id="fmsearch_product" >
                 <div class="input-group mb-2">
-                    <input type="text" id="search_product" onkeypress="handle_productSearch(event)" class="form-control" placeholder="คำค้นหา.." aria-label="Search" aria-describedby="button-search">
-                    <button class="b-success" type="button" id="bt_search_product" title="ค้นหา"><i class="fas fa-search"></i></button>
+                    <input type="text" id="search_product" onkeypress="handle_productSearch(event)" class="form-control" placeholder="คำค้นหา.."
+                     aria-label="Search" aria-describedby="button-search" style="border-radius:18px 0 0 18px;">
+                    <button class="b-success" type="button" id="bt_search_product" title="ค้นหา" style="border-radius:0 18px 18px 0;"><i class="fas fa-search"></i></button>
                     <button class="b-add ms-2" id="btAddProduct" type="button" title="เพิ่มข้อมูล"><i class="fa-solid fa-plus fa-lg"></i></button>
                     <button class="b-back ms-2" id="bt_back" name="bt_back" type="button" title="กลับ"><i class="fa-solid fa-xmark fa-lg"></i></button>
                 </div>
@@ -20,13 +21,13 @@ $(document).on("click", "#product_mng", function () {
         </div>          
     </div>   
     <div class="row">  
-        <div class="col-lg-10 col-md-11 col-sm-12 mx-auto" id="add_product"></div>
+        <div class="col-lg-10 col-md-10 col-sm-12 mx-auto" id="add_product"></div>
     </div>   
     <div class="row">  
         <div class="col-lg-10 col-md-11 col-sm-12 mx-auto" id="edit_product"></div>
     </div>   
     <div class="row">  
-        <div class="col-lg-10 mx-auto" id="table_product"></div>
+        <div class="col-lg-12 mx-auto" id="table_product"></div>
     </div>
   </div>
     `;      
@@ -57,6 +58,7 @@ function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
   const search_str = shText.toLowerCase().split(",");
   if(isSort == true ) sortByCol(dataAllShow, colSort, rawSort); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
+  let sumData = [0,0,0];
   for(let i = 0; i < dataAllShow.length; i++){
       const condition = search_str.some(el => dataAllShow[i][1].toLowerCase().includes(el));
       const condition2 = search_str.some(el => dataAllShow[i][2].toLowerCase().includes(el));  //รุ่น
@@ -75,7 +77,12 @@ function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
           jsonArg.urlpic4 = dataAllShow[i][8]; 
           jsonArg.urlpic5 = dataAllShow[i][9]; 
           jsonArg.urlpic6 = dataAllShow[i][10]; 
+          jsonArg.qty = dataAllShow[i][11]; 
+          jsonArg.cost = dataAllShow[i][12]; 
           jsonArg.price = dataAllShow[i][13]; 
+          sumData[0] = sumData[0] + +dataAllShow[i][11];
+          sumData[1] = sumData[1] + (+dataAllShow[i][11] * +dataAllShow[i][12]);
+          sumData[2] = sumData[2] + (+dataAllShow[i][11] * +dataAllShow[i][13]);
           array_Arg.push(jsonArg);
       }
   }
@@ -94,6 +101,9 @@ function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
   pageAll.rec = nAllData;
   pageAll.st = rowStart;
   pageAll.en = rowEnd;
+  pageAll.qty = sumData[0];
+  pageAll.cost = sumData[1];
+  pageAll.price = sumData[2];
   array_Data.push(pageAll);
   return array_Data;
 }
@@ -122,6 +132,9 @@ function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //==
     const myArr = myProductData(strSearch, colSort, isSort, rawSort, p, per);
     let page_all = myArr[myArr.length - 1].page;
     let rec_all = myArr[myArr.length - 1].rec;
+    let sum_qty = myArr[myArr.length - 1].qty;
+    let sum_cost = myArr[myArr.length - 1].cost;
+    let sum_price = myArr[myArr.length - 1].price;
     page_selected = (p >= page_all) ? page_all : p;
     is_sort = isSort;
     col_sort = colSort;
@@ -148,10 +161,13 @@ function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //==
         <thead>
           <tr>
             <th class="text-center" style="width:5%">ลำดับ</th> 
-            <th class="text-left sort-hd" onclick="`+on_clk[1]+`">`+sortTxt[1]+`&nbsp; สินค้า</th>
-            <th class="text-left sort-hd" onclick="`+on_clk[2]+`">`+sortTxt[2]+`&nbsp; ยี่ห้อ</th>
-            <th class="text-left sort-hd" onclick="`+on_clk[3]+`">`+sortTxt[3]+`&nbsp; ประเภท</th>
-            <th class="text-left sort-hd" onclick="`+on_clk[4]+`">`+sortTxt[4]+`&nbsp; รายละเอียด</th>
+            <th class="text-start sort-hd" onclick="`+on_clk[1]+`">`+sortTxt[1]+`&nbsp; สินค้า</th>
+            <th class="text-start sort-hd" onclick="`+on_clk[2]+`">`+sortTxt[2]+`&nbsp; ยี่ห้อ</th>
+            <th class="text-start sort-hd" onclick="`+on_clk[3]+`">`+sortTxt[3]+`&nbsp; ประเภท</th>
+            <th class="text-start sort-hd" onclick="`+on_clk[4]+`">`+sortTxt[4]+`&nbsp; รายละเอียด</th>
+            <th class="text-end">จำนวน</th>
+            <th class="text-end">Cost</th>
+            <th class="text-end">@</th>
             <th class="text-center">แก้ไข&nbsp;&nbsp;&nbsp;ลบ</th>                
           </tr>
         </thead>
@@ -159,21 +175,21 @@ function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //==
         </tbody>
       </table> 
         <div class="row animate__animated animate__fadeIn">
-          <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
+          <div class="col-auto me-auto" style="font-size: 0.8rem;">
             <label  for="rowShow_product">แถวแสดง:</label>
             <input type="number" id="rowShow_product" name="rowShow_product" min="1" max="99" step="1" value="" style="text-align:center;">
           </div>
-          <div class="col-sm-6 mb-2">
+          <div class="col">
             <div id="pagination"></div>
           </div>
-          <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
+          <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
             <label id="record"></label>
           </div>
         </div>                     
       `;
     $("#table_product").html(tt);
     $("#rowShow_product").val(rowperpage.toString());
-    $("#record").html("ทั้งหมด : " + rec_all + " รายการ");
+    $("#record").html("รวม "+ rec_all + " รายการ = "+ sum_qty +" หน่วย = "+ numWithCommas(sum_cost) +" / "+ numWithCommas(sum_price) +" บาท");
     for (let i = 0; i < myArr.length - 1; i++) {
       n++;
       listProductTable(myArr[i], n);
@@ -194,16 +210,19 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
   row.id = "row" + ob.id;
   row.style.verticalAlign = "top";
   txtDel = `<i class="fas fa-trash-alt" onclick="deleteProductRow(` + ob.id + `)" style="cursor:pointer; color:#d9534f;"></i>`;
-  let n_col = 6;
+  let n_col = 9;
   let col = [];
   for (let ii = 0; ii < n_col; ii++) {
       col[ii] = row.insertCell(ii);
   }
   col[0].innerHTML = `<div id="no" class="text-center">` + i_no + `</div>`;
-  col[1].innerHTML = `<div id="name` + ob.id + `" class="text-left">` + ob.name + `</div>`;
-  col[2].innerHTML = `<div id="brand` + ob.id + `" class="text-left">` + ob.brand + `</div>`;
-  col[3].innerHTML = `<div id="type` + ob.id + `" class="text-left">` + ob.type + `</div>`;
-  col[4].innerHTML = `<div id="desc` + ob.id + `" class="text-left">` + ob.desc + `</div>`;
+  col[1].innerHTML = `<div id="name` + ob.id + `" class="text-start">` + ob.name + `</div>`;
+  col[2].innerHTML = `<div id="brand` + ob.id + `" class="text-start">` + ob.brand + `</div>`;
+  col[3].innerHTML = `<div id="type` + ob.id + `" class="text-start">` + ob.type + `</div>`;
+  col[4].innerHTML = `<div id="desc` + ob.id + `" class="text-start">` + ob.desc + `</div>`;
+  col[5].innerHTML = `<div id="qty` + ob.id + `" class="text-end">` + ob.qty + `</div>`;
+  col[6].innerHTML = `<div id="cost` + ob.id + `" class="text-end">` + ob.cost + `</div>`;
+  col[7].innerHTML = `<div id="price_show` + ob.id + `" class="text-end">` + ob.price + `</div>`;
 
   col[n_col - 1].innerHTML = `
     <input type="hidden" id="id_product` + ob.id + `" value="` + ob.id + `" />
