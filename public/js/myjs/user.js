@@ -49,24 +49,6 @@ $(document).on("click", "#user_mng", function () {
     show_manageuser_tb();    
 });
 
-function show_home() { //========================== แสดงหน้าหลัก  
-  var html = `
-  <div class="container-fluid">
-    <div class="row mt-3">                
-      <h1>Surasak Iamserm </h1>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus et aut labore esse delectus fuga beatae,
-        consequuntur id ratione expedita voluptatibus at sapiente officiis. Veniam et officiis temporibus sit
-        deserunt?</p>
-    </div>
-  </div>
-    `;
-  $("#main_setting").html(html);
-  document.getElementById("pic_user").src = user.pic;
-  document.getElementById('pic_user').setAttribute('title', user.name+' ('+user.uname+')');
-  console.log("Hello");
-  //console.log(user);
-}
-
 function show_manageuser_tb() { //========================== แสดงค้นหา และปุ่มเพิ่ม หมวดรายการ
     var html = `
     <div class="container-fluid">
@@ -282,9 +264,7 @@ $(document).on("click", "#bt_add_user", function () { //========== เปิด�
     <div id="user_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_user_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
-          <div style="font-size:1.5rem; text-align: center;">
-            เพิ่มผู้ใช้งาน
-          </div>     
+          <div class="main_form_head">เพิ่มผู้ใช้งาน</div>     
         </div> 
         <div class="row">
           <div class="col-md">
@@ -312,8 +292,8 @@ $(document).on("click", "#bt_add_user", function () { //========== เปิด�
           
         </div>   
         <div class="row justify-content-center" style="text-align: center;">
-          <button type="submit" class="mybtn btnOk">บันทึก</button>
-          <button type="button" class="mybtn btnCan" id="cancel_add_user">ยกเลิก</button>
+          <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+          <button type="button" class="mybtn btnCan ms-4" id="cancel_add_user">ยกเลิก</button>
         </div>             
         
       </form>
@@ -414,9 +394,7 @@ function edit_user_Row(id) { //================================ เปิดห�
   <div id="user_edit" class="main_form">    
     <form class="animate__animated animate__fadeIn" id="edit_user_form" style="padding:20px;">
       <div class="row mb-3 justify-content-md-center">
-        <div style="font-size:1.5rem; text-align: center;">
-          แก้ไขข้อมูลผู้ใช้งาน
-        </div>     
+        <div class="main_form_head">แก้ไขข้อมูลผู้ใช้งาน</div>     
       </div> 
       <div class="row mb-3 justify-content-center" style="position: relative;">
         <img id="picuser" src="" alt="Avatar" style="width:150px; border-radius:50%;">  
@@ -451,8 +429,8 @@ function edit_user_Row(id) { //================================ เปิดห�
             </select>
           </div> 
           <div class="row justify-content-center" style="text-align: center;">
-              <button type="submit" class="mybtn btnOk">บันทึก</button>
-              <button type="button" class="mybtn btnCan" id="cancel_edit_user">ยกเลิก</button>
+              <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+              <button type="button" class="mybtn btnCan ms-4" id="cancel_edit_user">ยกเลิก</button>
               <input id="id_user" type="hidden">
               <input id="url_PicUser" type="hidden">
           </div>

@@ -69,14 +69,13 @@
     <div class="row" id="setting"> <!-- ========================================  Setting ======================== -->
       <nav class="navbar ">
         <div class="container-fluid">
-          <!-- <a class="navbar-brand" href="#">SBC System</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="offcanvas offcanvas-end offcanvas-size-sm" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header" style="background-color: #d6a354;">
+            <div class="offcanvas-header">
               <img id="pic_user" src="images/user/avatar.png" alt="Avatar" >  
               <i class="fa-solid fa-rotate fa-sm myNavItem" id="ch_key" title="เปลี่ยนรหัสผ่าน"></i>
               <h6 class="offcanvas-title" id="offcanvasNavbarLabel">SBC System</h6>
@@ -87,11 +86,24 @@
                 <li class="nav-item myNavItem">
                   <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-cart-arrow-down"></i>&nbsp;&nbsp; งานขาย</a>
                 </li>
-                <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#" id="stock_mng"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp; งานสต็อกสินค้า</a>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp; งานสต็อกสินค้า </a>
+                  <ul class="dropdown-menu ms-4">
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="stockIn_mng"><i class="fa-solid fa-cubes"></i>&nbsp;
+                        รับเข้าสต็อก</a></li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="stockSum_mng"><i class="fa-solid fa-receipt"></i>&nbsp;
+                        สรุปสต็อกสินค้า</a></li>
+                    <li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#" id="stockCheck_mng"><i class="fa-solid fa-box-open"></i>&nbsp;
+                        ตรวจนับสต็อก</a></li>
+                  </ul>
                 </li>
+
+
                 <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-table"></i>&nbsp;&nbsp; แสดงสินค้า</a>
+                  <a class="nav-link" href="#"><i class="fa-solid fa-store"></i>&nbsp;&nbsp; แสดงสินค้า</a>
                 </li>
                 <li class="nav-item myNavItem">
                   <a class="nav-link" href="#" id="comment_mng"><i class="fa-regular fa-comment-dots"></i>&nbsp;&nbsp; ความคิดเห็น</a>
@@ -99,7 +111,7 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa-solid fa-gears"></i>&nbsp;&nbsp; Setting </a>
-                  <ul class="dropdown-menu ">
+                  <ul class="dropdown-menu ms-4">
                     <li><a class="dropdown-item myNavItem subItem" href="#" id="product_mng"><i class="fa-solid fa-clipboard-list"></i>&nbsp;
                         รายการสินค้า</a></li>
                     <li><a class="dropdown-item myNavItem subItem" href="#" id="type_mng"><i class="fa-solid fa-font-awesome"></i>&nbsp;
@@ -583,6 +595,7 @@
   <script src="js/myjs/app.js"></script>
   <script src="js/click-scroll.js"></script>
   <script src="js/custom.js"></script>
+  <script src="js/myjs/home.js"></script>
   <script src="js/myjs/user.js"></script>
   <script src="js/myjs/stock.js"></script>
   <script src="js/myjs/comment.js"></script>

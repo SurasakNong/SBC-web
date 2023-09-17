@@ -20,6 +20,9 @@
   --border-color:                 #7fffd4;
   --link-hover-color:             #B22727;
 
+  --priCol: #d6a354;
+  --secCol: #9BCDD2;
+
   --body-font-family:            'Noto Sans Thai'; /*'Kanit';*/
 
   --h1-font-size:                 50px;
@@ -876,28 +879,43 @@ strong {
 }
 
 /*============ Canvas Setting ===================*/
-  .offcanvas {
-    width : 280px !important;
-  }
-  .offcanvas-start-lg {
-    top          : 0;
-    left         : 0;
-    border-right : 1px solid rgba(0, 0, 0, .2);
-    transform    : translateX(-100%);
-  }
+.offcanvas {
+  width : 280px !important;
+  background-color: rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
+}
+.offcanvas-start-lg {
+  top          : 0;
+  left         : 0;
+  border-right : 1px solid rgba(200, 200, 200, .2);
+  transform    : translateX(-100%);
+}
 
 .navbar-nav li a {
   margin-left: 15px;
-  color: #505050 !important;
+  color: #eeeeee !important;
   transition: 0.3s;
 }
 .navbar-nav li a:hover {
-  color: #B22727 !important;
+  color: #59fce1 !important;
+  text-shadow: 1px 1px 10px #fff;
 }
 
 .navbar-nav li .subItem {
-  color: #8f6019 !important;
+  color: #efff73 !important;
+  background-color: rgba(0, 0, 0, 0);
   font-size: 16px;
+}
+
+.navbar-nav li ul{
+  background-color: rgba(0, 0, 0, 0);
+  border:none;
+  
+}
+
+.offcanvas-header{
+  background: var(--priCol);
+  background: linear-gradient(155deg, var(--priCol) 35%, var(--secCol) 80%);
 }
 
 .offcanvas-header img{
@@ -1101,12 +1119,13 @@ background-color:#FF8551;
 
 .mybtn{  
   width: 90px;
-  height: 40px;
-  border : none;
-  padding : 8px;
-  margin : 0 10px;
+  height: 36px;
+  border : 1px solid #808080;
+  padding : 6px;
   border-radius : 20px;
   transition: 0.3s;
+  outline: 1px solid #ffffff;
+  outline-offset: 3px;
 }
 
 .btnOk{
@@ -1246,11 +1265,50 @@ background-color:#FF8551;
 
 /*============================= Main Form ========================================*/
 .main_form {
-  background-color: #eefcdd;
+  /*background-color: rgb(248, 190, 135);*/
+  background: rgb(208,228,227);
+  background: linear-gradient(155deg, rgba(200,220,220,1) 35%, rgba(250,180,100,1) 80%);
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  border: 2px solid rgb(253, 203, 169);
-  outline: solid 2px rgb(255, 239, 228);
-  outline-offset: -5px;
+  /*border: 2px solid rgb(253, 203, 169);
+  outline: solid 1px rgb(255, 239, 228);
+  outline-offset: -5px;*/
   border-radius: 0 0 20px 20px;
 
+}
+.main_form .main_form_head{
+  color : #884A39;  
+  font-size:1.5rem; 
+  font-weight: 600;
+  text-shadow: 2px 2px 4px #fff;
+  text-align: center;
+}
+
+/*=============== Main page ===============================*/
+.ele-fn{  
+  color: #744a0c;
+  width: 150px;
+  height: 150px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  text-align: center;
+  padding-top: 20px;
+  border: 1px solid #000000;
+  border-radius: 20px 0 20px 0;
+  outline: solid 2px rgba(129, 129, 129, 0.5);
+  outline-offset: -8px;
+  cursor: pointer;
+}
+.ele-fn i{
+  padding : 15px auto;
+  font-size: 3.6rem;
+  transition: 0.3s;
+}
+.ele-fn a{
+  font-size: 1.rem;
+  font-weight: 600;
+  padding-top : 18px;
+  transition: 0.4s;
+}
+
+.ele-fn:hover i{    
+  font-size: 4.4rem;
 }

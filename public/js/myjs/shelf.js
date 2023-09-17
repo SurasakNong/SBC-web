@@ -205,7 +205,7 @@ $(document).on("click", "#btAddShelf", function () { //========== เปิด�
       <div id="shelf_add" class="main_form">    
         <form class="animate__animated animate__fadeIn" id="add_shelf_form" style="padding:20px;">
           <div class="row mb-3 justify-content-md-center">
-            <div style="font-size:1.5rem; text-align: center;"> เพิ่มช่องจัดเก็บ </div>     
+            <div class="main_form_head"> เพิ่มช่องจัดเก็บ </div>     
           </div> 
           <div class="row">
             <div class="col-md">
@@ -224,8 +224,8 @@ $(document).on("click", "#btAddShelf", function () { //========== เปิด�
             </div>            
           </div>  
           <div class="row justify-content-center" style="text-align: center;">
-            <button type="submit" class="mybtn btnOk">บันทึก</button>
-            <button type="button" class="mybtn btnCan" id="cancel_add_shelf">ยกเลิก</button>
+            <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+            <button type="button" class="mybtn btnCan ms-4" id="cancel_add_shelf">ยกเลิก</button>
           </div>             
           
         </form>
@@ -321,10 +321,10 @@ function editShelfRow(id) { //================================ เปิดห�
     <div id="shelf_edit" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="edit_shelf_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
-          <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลช่องจัดเก็บ </div>     
+          <div class="main_form_head"> แก้ไขข้อมูลช่องจัดเก็บ </div>     
         </div> 
         <div class="row mb-3 justify-content-center" style="position: relative;">
-          <img id="pic_shelf" src="" alt="shelf" style="width:200px; outline:2px solid #c0c0c0; outline-offset: 1px;">  
+          <img class="img-thumbnail" id="pic_shelf" src="" alt="shelf" style="width:200px;">  
           <label class="camera" for="upload_pic_shelf" title="อัพโหลดรูปใหม่">
             <i class="fa-solid fa-camera"></i>  
             <input type="file" id="upload_pic_shelf" name="upload_pic_shelf" style="display:none" accept="image/*">
@@ -345,8 +345,8 @@ function editShelfRow(id) { //================================ เปิดห�
               <input type="text" id="desc_shelf" class="form-control" placeholder="รายละเอียด" aria-label="shelf description" required>
             </div>
             <div class="row justify-content-center" style="text-align: center;">
-                <button type="submit" class="mybtn btnOk">บันทึก</button>
-                <button type="button" class="mybtn btnCan" id="cancelEditShelf">ยกเลิก</button>
+                <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+                <button type="button" class="mybtn btnCan ms-4" id="cancelEditShelf">ยกเลิก</button>
                 <input id="id_shelf" type="hidden">
                 <input id="id_pic" type="hidden">
             </div>

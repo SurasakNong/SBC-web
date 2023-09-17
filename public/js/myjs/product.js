@@ -1,5 +1,10 @@
 /*===============================  การจัดการสินค้า =================================*/
 $(document).on("click", "#product_mng", function () {
+  openProduct();
+  
+});
+
+var openProduct = () =>{
   page_selected = 1;
   is_sort = true;
   col_sort = 1;
@@ -33,8 +38,10 @@ $(document).on("click", "#product_mng", function () {
     `;      
   $("#main_setting").html(html);
   loadDataProduct();
-  
-});
+
+}
+
+
 
 function loadDataProduct(show = true) {
   if(show === true) waiting();
@@ -246,7 +253,7 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
     <div id="product_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_product_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
-          <div style="font-size:1.5rem; text-align: center;"> เพิ่มรายการสินค้า </div>     
+          <div class="main_form_head"> เพิ่มรายการสินค้า </div>     
         </div> 
         <div class="row">
           <div class="col-md">
@@ -290,8 +297,8 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
         </div> 
 
         <div class="row justify-content-center mt-4" style="text-align: center;">
-          <button type="submit" class="mybtn btnOk">บันทึก</button>
-          <button type="button" class="mybtn btnCan" id="cancel_add_product">ยกเลิก</button>
+          <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+          <button type="button" class="mybtn btnCan ms-4" id="cancel_add_product">ยกเลิก</button>
         </div>  
 
       </form>
@@ -396,7 +403,7 @@ function editProductRow(id) { //================================ เปิดห
   <div id="product_edit" class="main_form">    
     <form class="animate__animated animate__fadeIn" id="edit_product_form" style="padding:20px;">
       <div class="row mb-3 justify-content-md-center">
-        <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลสินค้า </div>     
+        <div class="main_form_head"> แก้ไขข้อมูลสินค้า </div>     
       </div> 
       <div class="row mb-2" id="picProduct"> 
           <div class="col-md-4 col-sm-6 px-auto" id="addPicClick">
@@ -448,8 +455,8 @@ function editProductRow(id) { //================================ เปิดห
       </div>
 
       <div class="row justify-content-center mt-4" style="text-align: center;">
-        <button type="submit" class="mybtn btnOk">บันทึก</button>
-        <button type="button" class="mybtn btnCan" id="cancelEditProduct">ยกเลิก</button>
+        <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+        <button type="button" class="mybtn btnCan ms-4" id="cancelEditProduct">ยกเลิก</button>
         <input id="id_product" type="hidden">
         <input id="url_Pic1" type="hidden">
         <input id="url_Pic2" type="hidden">

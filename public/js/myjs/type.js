@@ -202,7 +202,7 @@ $(document).on("click", "#btAddType", function () { //========== เปิดเ
       <div id="type_add" class="main_form">    
         <form class="animate__animated animate__fadeIn" id="add_type_form" style="padding:20px;">
           <div class="row mb-3 justify-content-md-center">
-            <div style="font-size:1.5rem; text-align: center;"> เพิ่มประเภทสินค้า </div>     
+            <div class="main_form_head"> เพิ่มประเภทสินค้า </div>     
           </div> 
           <div class="row">
             <div class="col-md">
@@ -221,8 +221,8 @@ $(document).on("click", "#btAddType", function () { //========== เปิดเ
             </div>            
           </div>  
           <div class="row justify-content-center" style="text-align: center;">
-            <button type="submit" class="mybtn btnOk">บันทึก</button>
-            <button type="button" class="mybtn btnCan" id="cancel_add_type">ยกเลิก</button>
+            <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+            <button type="button" class="mybtn btnCan ms-4" id="cancel_add_type">ยกเลิก</button>
           </div>             
           
         </form>
@@ -318,10 +318,10 @@ function editTypeRow(id) { //================================ เปิดหน
     <div id="type_edit" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="edit_type_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
-          <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลประเภทสินค้า </div>     
+          <div class="main_form_head"> แก้ไขข้อมูลประเภทสินค้า </div>     
         </div> 
         <div class="row mb-3 justify-content-center" style="position: relative;">
-          <img id="pic_type" src="" alt="type" style="width:200px; outline:2px solid #c0c0c0; outline-offset: 1px;">  
+          <img class="img-thumbnail" id="pic_type" src="" alt="type" style="width:200px;">  
           <label class="camera" for="upload_pic_type" title="อัพโหลดรูปใหม่">
             <i class="fa-solid fa-camera"></i>  
             <input type="file" id="upload_pic_type" name="upload_pic_type" style="display:none" accept="image/*">
@@ -342,8 +342,8 @@ function editTypeRow(id) { //================================ เปิดหน
               <input type="text" id="desc_type" class="form-control" placeholder="รายละเอียด" aria-label="type description" required>
             </div>
             <div class="row justify-content-center" style="text-align: center;">
-                <button type="submit" class="mybtn btnOk">บันทึก</button>
-                <button type="button" class="mybtn btnCan" id="cancelEditType">ยกเลิก</button>
+                <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+                <button type="button" class="mybtn btnCan ms-4" id="cancelEditType">ยกเลิก</button>
                 <input id="id_type" type="hidden">
                 <input id="id_pic" type="hidden">
             </div>

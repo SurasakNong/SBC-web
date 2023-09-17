@@ -1,5 +1,9 @@
 /*===============================  การจัดการความคิดเห็น =================================*/
 $(document).on("click", "#comment_mng", function () {
+  openComment();
+});
+
+function openComment() {
     page_selected = 1;
     is_sort = true;
     col_sort = 1;
@@ -76,7 +80,7 @@ $(document).on("click", "#comment_mng", function () {
                     <div class="row">
                         <div class="col-md-6" style="font-size: 0.7rem;" id="md_date">วันที่ :12/05/2023 22:22:12</div>                    
                         <div class="col-md-6 ms-auto" style="text-align: right;">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="mybtn btnOk" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -96,7 +100,7 @@ $(document).on("click", "#comment_mng", function () {
     $("#datefm").val(dT.fmShot);
     $("#dateto").val(dT.toShot);
     loadDataComment();
-});
+}
 
 function loadDataComment(show = true) {
   if(show === true) waiting();

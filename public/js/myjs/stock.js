@@ -1,5 +1,8 @@
 /*===============================  การจัดการสต็อกสินค้า =================================*/
 $(document).on("click", "#stock_mng", function () {
+  openStock();
+});
+function openStock(){
     page_selected = 1;
     is_sort = true;
     col_sort = 1;
@@ -55,8 +58,9 @@ $(document).on("click", "#stock_mng", function () {
           <div class="col-lg-6 col-md-8 col-sm-10 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_prod">
             <div class="row mt-3 mb-2">  
               <div class="input-group">                  
-                  <input type="text" id="search_sel" onkeypress="handle_tableSearch(event)" class="form-control" placeholder="คำค้นหา..สินค้า" aria-label="Search" aria-describedby="button-search">
-                  <button class="b-success" type="button" id="bt_search_sel" title="ค้นหา"><i class="fas fa-search"></i></button>
+                  <input type="text" id="search_sel" onkeypress="handle_tableSearch(event)" class="form-control" placeholder="คำค้นหา..สินค้า" 
+                  aria-label="Search" aria-describedby="button-search" style="border-radius:18px 0 0 18px;">
+                  <button class="b-success" type="button" id="bt_search_sel" title="ค้นหา" style="border-radius:0 18px 18px 0;"><i class="fas fa-search"></i></button>
                   <button class="b-back ms-2" id="bt_sel_back" name="bt_sel_back" type="button" title="กลับ"><i class="fa-solid fa-xmark fa-lg"></i></button>
               </div>
             </div>
@@ -79,7 +83,7 @@ $(document).on("click", "#stock_mng", function () {
     loadDataStock();
     document.getElementById("table_sel_prod").style.display = "none";
     loadDataSelect(false);
-});
+}
 
 $(document).on('change', "#datefm", function () { 
     dT.fmShot = this.value;
@@ -414,7 +418,7 @@ $(document).on("click", "#btAddStock", function () { //========== เปิด�
     <div id="stock_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_stock_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
-          <div style="font-size:1.5rem; text-align: center;"> รับเข้าสต็อก </div>     
+          <div class="main_form_head"> รับเข้าสต็อก </div>     
         </div> 
         <div class="row">
           <div class="col-md">
@@ -496,8 +500,8 @@ $(document).on("click", "#btAddStock", function () { //========== เปิด�
         </div>  
 
         <div class="row justify-content-center mt-3" style="text-align: center;">
-          <button type="submit" class="mybtn btnOk">บันทึก</button>
-          <button type="button" class="mybtn btnCan" id="cancel_add_stock">ยกเลิก</button>
+          <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+          <button type="button" class="mybtn btnCan ms-2" id="cancel_add_stock">ยกเลิก</button>
         </div>             
         
       </form>
@@ -623,7 +627,7 @@ function editStockRow(id) { //================================ เปิดห�
   <div id="stock_edit" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="edit_stock_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
-          <div style="font-size:1.5rem; text-align: center;"> แก้ไขข้อมูลสต็อก </div>     
+          <div class="main_form_head"> แก้ไขข้อมูลสต็อก </div>     
         </div> 
         <div class="row">
           <div class="col-md">
@@ -646,7 +650,8 @@ function editStockRow(id) { //================================ เปิดห�
           <div class="col-md">
             <div class="input-group mb-2">
               <label class="input-group-text " style="width: 75px; background-color:#fcdfe4">สินค้า</label>
-              <input type="text" id="name_product" class="form-control" aria-label="product name" disabled><button class="b-success" type="button" id="bt_open_sel" title="เลือกสินค้า"><i class="fa-solid fa-list"></i></button>
+              <input type="text" id="name_product" class="form-control" aria-label="product name" disabled>
+              <button class="b-success" type="button" id="bt_open_sel" title="เลือกสินค้า"><i class="fa-solid fa-list"></i></button>
             </div> 
           </div> 
           <div class="col-md">
@@ -705,8 +710,8 @@ function editStockRow(id) { //================================ เปิดห�
         </div>  
 
         <div class="row justify-content-center mt-3" style="text-align: center;">
-          <button type="submit" class="mybtn btnOk">บันทึก</button>
-          <button type="button" class="mybtn btnCan" id="cancelEditStock">ยกเลิก</button>
+          <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
+          <button type="button" class="mybtn btnCan ms-4" id="cancelEditStock">ยกเลิก</button>
           <input id="id_stock" type="hidden">
         </div>             
         
