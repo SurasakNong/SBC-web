@@ -1,5 +1,5 @@
 /*===============================  การจัดการ  ช่องจัดก็บ =================================*/
-$(document).on("click", "#shelf_mng", function () {
+function openShelf(){
     page_selected = 1;
     is_sort = true;
     col_sort = 1;
@@ -32,7 +32,7 @@ $(document).on("click", "#shelf_mng", function () {
       `;      
     $("#main_setting").html(html);
     loadDataShelf();
-});
+}
 
 function loadDataShelf(show = true) {
   if(show === true) waiting();
@@ -243,12 +243,13 @@ $(document).on("click", "#btAddShelf", function () { //========== เปิด�
     let my_form = $(this);
     const name_shelf = my_form.find("#name_shelf").val();
     const desc_shelf = my_form.find("#desc_shelf").val();
+    const setData = JSON.stringify([name_shelf, desc_shelf]);
     waiting();
     $.ajax({
       url: urlData,
       type: 'GET',
       crossDomain: true,
-      data: { opt_k: 'add', opt_data:'shelf', opt_nm:name_shelf, opt_desc:desc_shelf },
+      data: { opt_k: 'add', opt_data:'shelf', opt_dataSet:setData },
       success: function (result) {
         waiting(false);
         if(result == "success"){
@@ -378,12 +379,13 @@ $(document).on("submit", "#edit_shelf_form", function () {  //===== ตกลง
     const name_edit = my_form.find("#name_shelf").val();
     const desc_edit = my_form.find("#desc_shelf").val();
     const editPic = my_form.find("#id_pic").val();  
+    const setData = JSON.stringify([id_edit, name_edit, desc_edit, editPic]);
     waiting();
     $.ajax({
       url: urlData,
       type: 'GET',
       crossDomain: true,
-      data: { opt_k: 'edit',opt_data:'shelf', opt_id:id_edit, opt_nm:name_edit, opt_desc:desc_edit, opt_urlPic:editPic},
+      data: { opt_k: 'edit',opt_data:'shelf', opt_dataSet:setData},
       success: function (result) {
         waiting(false);
         if(result == "success"){

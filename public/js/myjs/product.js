@@ -1,9 +1,4 @@
 /*===============================  การจัดการสินค้า =================================*/
-$(document).on("click", "#product_mng", function () {
-  openProduct();
-  
-});
-
 var openProduct = () =>{
   page_selected = 1;
   is_sort = true;
@@ -38,10 +33,7 @@ var openProduct = () =>{
     `;      
   $("#main_setting").html(html);
   loadDataProduct();
-
 }
-
-
 
 function loadDataProduct(show = true) {
   if(show === true) waiting();
@@ -290,7 +282,7 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
           </div> 
           <div class="col-md-4">
             <div class="input-group mb-2">
-              <label class="input-group-text " style="width: 80px;" for="price_product">ราคา</label>
+              <label class="input-group-text " style="width: 80px;" for="price_product">ราคาขาย</label>
               <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
             </div> 
           </div> 
@@ -448,7 +440,7 @@ function editProductRow(id) { //================================ เปิดห
         </div>
         <div class="col-md-4">
           <div class="input-group mb-2">
-            <label class="input-group-text " style="width: 80px;" for="price_product">ราคา</label>
+            <label class="input-group-text " style="width: 80px;" for="price_product">ราคาขาย</label>
             <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
           </div>     
         </div>

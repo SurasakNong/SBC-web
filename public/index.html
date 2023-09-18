@@ -84,19 +84,20 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item myNavItem">
-                  <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-cart-arrow-down"></i>&nbsp;&nbsp; งานขาย</a>
+                  <a class="nav-link active" aria-current="page" href="#" onclick="openSale();">
+                    <i class="fa-solid fa-cart-arrow-down"></i>&nbsp;&nbsp; งานขาย</a>
                 </li>
 
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp; งานสต็อกสินค้า </a>
                   <ul class="dropdown-menu ms-4">
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="stockIn_mng"><i class="fa-solid fa-cubes"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" onclick="openStockIn();"><i class="fa-solid fa-cubes"></i>&nbsp;
                         รับเข้าสต็อก</a></li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="stockSum_mng"><i class="fa-solid fa-receipt"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" ><i class="fa-solid fa-receipt"></i>&nbsp;
                         สรุปสต็อกสินค้า</a></li>
                     <li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="stockCheck_mng"><i class="fa-solid fa-box-open"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" ><i class="fa-solid fa-box-open"></i>&nbsp;
                         ตรวจนับสต็อก</a></li>
                   </ul>
                 </li>
@@ -106,23 +107,23 @@
                   <a class="nav-link" href="#"><i class="fa-solid fa-store"></i>&nbsp;&nbsp; แสดงสินค้า</a>
                 </li>
                 <li class="nav-item myNavItem">
-                  <a class="nav-link" href="#" id="comment_mng"><i class="fa-regular fa-comment-dots"></i>&nbsp;&nbsp; ความคิดเห็น</a>
+                  <a class="nav-link" href="#" onclick="openComment();"><i class="fa-regular fa-comment-dots"></i>&nbsp;&nbsp; ความคิดเห็น</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa-solid fa-gears"></i>&nbsp;&nbsp; Setting </a>
                   <ul class="dropdown-menu ms-4">
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="product_mng"><i class="fa-solid fa-clipboard-list"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" onclick="openProduct();"><i class="fa-solid fa-clipboard-list"></i>&nbsp;
                         รายการสินค้า</a></li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="type_mng"><i class="fa-solid fa-font-awesome"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" onclick="openType();"><i class="fa-solid fa-font-awesome"></i>&nbsp;
                         ประเภทสินค้า</a></li>
                     <li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="shelf_mng"><i class="fa-solid fa-table-cells-large"></i>&nbsp;
+                    <li><a class="dropdown-item myNavItem subItem" href="#" onclick="openShelf();"><i class="fa-solid fa-table-cells-large"></i>&nbsp;
                         ช่องจัดเก็บ</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item myNavItem subItem" href="#" id="user_mng"><i class="fa-solid fa-users"></i>&nbsp; จัดการผู้ใช้งาน</a></li>
+                    <li><a class="dropdown-item myNavItem subItem" href="#" onclick="openUser();"><i class="fa-solid fa-users"></i>&nbsp; จัดการผู้ใช้งาน</a></li>
                   </ul>
                 </li>
                 <li class="nav-item myNavItem mt-4">
@@ -602,6 +603,7 @@
   <script src="js/myjs/type.js"></script>
   <script src="js/myjs/product.js"></script>
   <script src="js/myjs/shelf.js"></script>
+  <script src="js/myjs/sale.js"></script>
 
 </body>
 

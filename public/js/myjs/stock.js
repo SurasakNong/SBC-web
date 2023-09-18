@@ -1,8 +1,5 @@
 /*===============================  การจัดการสต็อกสินค้า =================================*/
-$(document).on("click", "#stock_mng", function () {
-  openStock();
-});
-function openStock(){
+function openStockIn(){
     page_selected = 1;
     is_sort = true;
     col_sort = 1;
@@ -19,17 +16,17 @@ function openStock(){
                     <div class="col-md-4">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <label class="input-group-text " style="width: 50px;" for="datefm">วันที่</label>
+                                <label class="input-group-text " style="width: 50px;" for="datefm_stock">วันที่</label>
                             </div>
-                            <input name="datefm" type="date" value='' id="datefm" class="form-control">
+                            <input name="datefm_stock" type="date" value='' id="datefm_stock" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <label class="input-group-text " style="width: 50px;" for="dateto">ถึง</label>
+                                <label class="input-group-text " style="width: 50px;" for="dateto_stock">ถึง</label>
                             </div>
-                            <input name="dateto" type="date" value='' id="dateto" class="form-control">
+                            <input name="dateto_stock" type="date" value='' id="dateto_stock" class="form-control">
                         </div>
                     </div>
                     <div class="col">
@@ -65,7 +62,7 @@ function openStock(){
               </div>
             </div>
             <div class="row">  
-              <div class="col-lg-12 mx-auto tableFixHead" id="table_sel"></div>
+              <div class="col-lg-12 mx-auto tableFixHead" id="table_sel" style="height:420px;"></div>
             </div>
           </div>
       </div>
@@ -78,21 +75,25 @@ function openStock(){
     dT.fmTs = dmyToTimestamp("01/"+ ("0" + (dd.getMonth()-2)).slice(-2) + "/" + dd.getFullYear() + " 00:00:01");
     dT.toShot = date_Now("y-m-d");
     dT.toTs = dmyToTimestamp(("0" + dd.getDate()).slice(-2)+"/"+ ("0" + (dd.getMonth()+1)).slice(-2) + "/" + dd.getFullYear() + " 23:59:59");
-    $("#datefm").val(dT.fmShot);
-    $("#dateto").val(dT.toShot);
+    $("#datefm_stock").val(dT.fmShot);
+    $("#dateto_stock").val(dT.toShot);
     loadDataStock();
     document.getElementById("table_sel_prod").style.display = "none";
     loadDataSelect(false);
 }
 
-$(document).on('change', "#datefm", function () { 
+$(document).on('change', "#datefm_stock", function () { 
     dT.fmShot = this.value;
-    dT.fmTs = ymdToTimestamp(this.value + " 00:00:01")
+    dT.fmTs = ymdToTimestamp(this.value + " 00:00:01");
+    page_selected = 1;
+    loadDataStock();
 });
 
-$(document).on('change', "#dateto", function () { 
+$(document).on('change', "#dateto_stock", function () { 
     dT.toShot = this.value;
-    dT.toTs = ymdToTimestamp(this.value + " 23:59:59")
+    dT.toTs = ymdToTimestamp(this.value + " 23:59:59");
+    page_selected = 1;
+    loadDataStock();
 });
 /*================================================= Select ====================================================================== */
 $(document).on("click", "#bt_open_sel", function () { 
@@ -150,13 +151,13 @@ function showSelectTable(isSort=true, colSort=1) { //======================== �
       </table>                     
       `;
     $("#table_sel").html(tt);
-    for (let i = 0; i < myArr.length - 1; i++) {
+    for (let i = 0; i < myArr.length; i++) {
       listSelectTable(myArr[i]);
     }
     
 }
 
-function mySelectData(shText = "", isSort = true, colSort = 0){
+function mySelectData(shText = "", isSort = true, colSort = 1){
   const search_str = shText.toLowerCase().split(",");
   if(isSort == true ) sortByCol(dataAllSel, colSort, 0); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
@@ -217,7 +218,7 @@ function loadDataStock(show = true) {
       url: urlStock,
       type: 'GET',
       crossDomain: true,
-      data: { opt_k: 'readAll', opt_data:'stock'},
+      data: { opt_k: 'readAllSetDate', opt_data:'stock', opt_dtFm: dT.fmTs, opt_dtTo: dT.toTs},
       success: function (result) {
           dataAllShow = result;
           if(show === true) showStockTable(rowperpage, page_selected); //<<<<<< แสดงตาราง rowperpage,page_sel   
@@ -243,7 +244,6 @@ function myStockData(shText = "", colSort = 0, isSort = false, rawSort = 0, page
       const condition5 = search_str.some(el => dataAllShow[i][8].toLowerCase().includes(el));  //ที่จัดเก็บ
       const condition6 = search_str.some(el => dataAllShow[i][9].toLowerCase().includes(el));  //รายละเอียด
       if (condition || condition2 || condition3 || condition4 || condition5 || condition6) {
-        if (+dataAllShow[i][1] >= dT.fmTs && +dataAllShow[i][1] <= dT.toTs) {
             let jsonArg = new Object();
             jsonArg.id = dataAllShow[i][0];
             jsonArg.dt = dataAllShow[i][1]; 
@@ -256,10 +256,10 @@ function myStockData(shText = "", colSort = 0, isSort = false, rawSort = 0, page
             jsonArg.shelf = dataAllShow[i][8];  
             jsonArg.comm = dataAllShow[i][9]; 
             jsonArg.point = dataAllShow[i][10]; 
+            jsonArg.sale = dataAllShow[i][11];
             sumQty = sumQty + +dataAllShow[i][5];
             sumPrice = sumPrice + (+dataAllShow[i][5] * +dataAllShow[i][6]);
             array_Arg.push(jsonArg);
-        }
       }
     }
     let nAllData = array_Arg.length;         //==จำนวนข้อมูลทั้งหมด
@@ -395,9 +395,9 @@ function listStockTable(ob, i_no) {  //========== ฟังก์ชั่นเ
         col[ii] = row.insertCell(ii);
     }
     col[0].innerHTML = `<div id="dt` + ob.id + `" class="text-center">` + tsToDateShort(+ob.dt) + `</div>`;
-    col[1].innerHTML = `<div id="lot` + ob.id + `" class="text-left">` + ob.lot + `</div>`;
-    col[2].innerHTML = `<div id="prod` + ob.id + `" class="text-left">` + ob.prod + `</div>`;
-    col[3].innerHTML = `<div id="type` + ob.id + `" class="text-left">` + ob.type + `</div>`;
+    col[1].innerHTML = `<div id="lot` + ob.id + `" class="text-start">` + ob.lot + `</div>`;
+    col[2].innerHTML = `<div id="prod` + ob.id + `" class="text-start">` + ob.prod + `</div>`;
+    col[3].innerHTML = `<div id="type` + ob.id + `" class="text-start">` + ob.type + `</div>`;
     col[4].innerHTML = `<div id="qty` + ob.id + `" class="text-center">` + ob.amount + `</div>`;
     col[5].innerHTML = `<div id="price` + ob.id + `" class="text-end">` + (+ob.price).toFixed(2) + `</div>`;
     col[6].innerHTML = `<div id="from` + ob.id + `" class="text-right">` + ob.from + `</div>`;
@@ -407,6 +407,7 @@ function listStockTable(ob, i_no) {  //========== ฟังก์ชั่นเ
     col[n_col - 1].innerHTML = `
       <input type="hidden" id="id_stock` + ob.id + `" value="` + ob.id + `" /> 
       <input type="hidden" id="dt_stock` + ob.id + `" value="` + ob.dt + `" /> 
+      <input type="hidden" id="qty_sale` + ob.id + `" value="` + ob.sale + `" /> 
       <i class="fas fa-edit me-3" onclick="editStockRow(` + ob.id + `)" style="cursor:pointer; color:#5cb85c;"></i>
       `+ txtDel;
     col[n_col - 1].style = "text-align: center;";
@@ -544,7 +545,7 @@ $(document).on("submit", "#add_stock_form", function () {  //===== ตกลง�
       type: 'GET',
       crossDomain: true,
       data: { opt_k:'add', opt_dt: d_stk[0] , opt_lot: d_stk[1], opt_prod: d_stk[2], opt_type: d_stk[3], opt_qty: d_stk[4],
-    opt_price: d_stk[5], opt_from: d_stk[6], opt_comm: d_stk[7], opt_point: d_stk[8], opt_shelf: d_stk[9] },
+    opt_price: d_stk[5], opt_from: d_stk[6], opt_comm: d_stk[7], opt_point: d_stk[8], opt_shelf: d_stk[9], opt_sale: 0 },
       success: function (result) {
         waiting(false);
         if (result == "success") {
@@ -664,9 +665,19 @@ function editStockRow(id) { //================================ เปิดห�
 
         <div class="row">
           <div class="col-md">
-            <div class="input-group mb-2">
-              <label class="input-group-text " style="width: 75px;" for="qty_stock">จำนวน</label>
-              <input type="number" id="qty_stock" class="form-control" aria-label="quantity stock" min="0" step="1" value="0">
+            <div class="row">
+              <div class="col">
+                <div class="input-group mb-2">            
+                  <label class="input-group-text " style="width: 75px;" for="qty_stock">จำนวน</label>
+                  <input type="number" id="qty_stock" class="form-control" aria-label="quantity stock" min="0" step="1" value="0">
+                </div> 
+              </div> 
+              <div class="col-3">
+                <div class="input-group mb-2">            
+                  <input type="text" id="qty_sale" class="form-control" aria-label="quantity sale" title="คงเหลือ" disabled>
+                </div> 
+              </div> 
+              
             </div> 
           </div> 
           <div class="col-md">
@@ -726,6 +737,7 @@ function editStockRow(id) { //================================ เปิดห�
   $("#name_product").val($('#prod' + id).html());
   $("#type_product").val($('#type' + id).html());
   $("#qty_stock").val(+($('#qty' + id).html()));
+  $("#qty_sale").val(+($('#qty' + id).html()) - +($('#qty_sale' + id).val()));
   $("#price_stock").val(+($('#price' + id).html()));
   $("#from_stock").val($('#from' + id).html());  
   $("#comm_stock").val($('#comm' + id).html());

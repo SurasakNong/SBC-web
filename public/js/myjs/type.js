@@ -1,5 +1,5 @@
 /*===============================  การจัดการประเภท =================================*/
-$(document).on("click", "#type_mng", function () {
+function openType(){
     page_selected = 1;
     is_sort = true;
     col_sort = 1;
@@ -32,7 +32,7 @@ $(document).on("click", "#type_mng", function () {
       `;      
     $("#main_setting").html(html);
     loadDataType();
-});
+}
 
 function loadDataType(show = true) {
   if(show === true) waiting();
@@ -240,12 +240,13 @@ $(document).on("submit", "#add_type_form", function () {  //===== ตกลง�
   let my_form = $(this);
   const name_type = my_form.find("#name_type").val();
   const desc_type = my_form.find("#desc_type").val();
+  const setData = JSON.stringify([name_type,desc_type]);
   waiting();
   $.ajax({
     url: urlData,
     type: 'GET',
     crossDomain: true,
-    data: { opt_k: 'add', opt_data: 'type', opt_nm: name_type, opt_desc: desc_type },
+    data: { opt_k: 'add', opt_data: 'type', opt_nm: name_type, opt_desc: desc_type, opt_dataSet: setData },
     success: function (result) {
       waiting(false);
       if (result == "success") {
@@ -375,12 +376,13 @@ $(document).on("submit", "#edit_type_form", function () {  //===== ตกลง�
   const name_type = my_form.find("#name_type").val();
   const desc_type = my_form.find("#desc_type").val();
   const typePic = my_form.find("#id_pic").val();
+  const setData = JSON.stringify([id_type, name_type, desc_type, typePic]);
   waiting();
   $.ajax({
     url: urlData,
     type: 'GET',
     crossDomain: true,
-    data: { opt_k: 'edit', opt_data: 'type', opt_id: id_type, opt_nm: name_type, opt_desc: desc_type, opt_urlPic: typePic },
+    data: { opt_k: 'edit', opt_data: 'type', opt_dataSet: setData},
     success: function (result) {
       waiting(false);
       if (result == "success") {

@@ -1,7 +1,7 @@
 function show_home() { //========================== แสดงหน้าหลัก  
     var html = `
     <div class="container animate__animated animate__fadeInDown">
-        <div class="row mt-4 animate__animated animate__bounceInRight animate__delay-1s"> 
+        <div class="row mt-3 animate__animated animate__bounceInRight animate__delay-1s"> 
             <h3>SBC Sytem</h3>
         </div>
       <div class="row gy-5 mt-1">  
@@ -115,20 +115,20 @@ $(document).on('click', ".ele-fn", function () {  //ค้นหารายก�
     });
 
     function selM(selMenu){
-    //var selMenu = this.childNodes[5].innerHTML.split('<a>')[1].split('</a>')[0];
-    //console.log(selMenu);
-    if(selMenu === 'รับเข้าสต็อก'){
-        openStock();
+    if(      selMenu === 'รับเข้าสต็อก'){
+        openStockIn();
     }else if(selMenu === 'รายการสินค้า'){
         openProduct();
     }else if(selMenu === 'ความคิดเห็น'){
         openComment();
-    }else if(selMenu === 'รายการสินค้า'){
+    }else if(selMenu === 'งานขาย'){
+        openSale();
+    }else if(selMenu === 'ตรวจนับสต็อก'){
         openProduct();
-    }else if(selMenu === 'รายการสินค้า'){
+    }else if(selMenu === 'แสดงสินค้า'){
         openProduct();
     }else{
-        openStock();
+        openProduct();
     }
 }
 

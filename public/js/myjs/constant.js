@@ -10,6 +10,7 @@ var urlComm = 'https://script.google.com/macros/s/AKfycbxxsL_GhQ10sDH0CQJdvXLTIg
 var urlData = 'https://script.google.com/macros/s/AKfycbz6xE-Mao7PZ5LszcsXsmioaQAPE0dWkSMq59FOCd2th32MXLHy7i1iRZjNovFsB7ZiEg/exec';
 var urlStock = 'https://script.google.com/macros/s/AKfycbxBrjVV8xvvncHBD2Xd0BQ4fq80iB0CXRTOznbnzClom0R9KJdUC02yrMpZif7lfsY9NQ/exec';
 var urlProduct = 'https://script.google.com/macros/s/AKfycbz1WEUlg2fpZP6CHFwyPLVC7x_4UhFG4P4KvjQVlGUTnB6RqlmRIki2yan-IqucjEFvlQ/exec';
+var urlSale = 'https://script.google.com/macros/s/AKfycbwDsMSEQwOzF561HZeDldAIvW4hT9jCoN1mmxogjTjCYspvlpCFXb2_aHiJ2g0oYXlU/exec';
 
 var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
@@ -29,11 +30,9 @@ var dT = { //=== เก็บข้อมูลวันที่
   toTs: ''
 }
 
-var stk = {
-  dt: '',
-  lot: '',
-  
-}
+var stk = {  dt: '',  lot: '' }
+var sale = {id:'', dt:0, prod:'', type:'', shelf:'', qty:0, cost:0, price:0}
+var saleSel = {prod:'', type:'', shelf:'', qty:0, cost:0, price:0}
 
 var dataAllShow; //=== เก็บข้อมูลชั่วคราว
 var dataAllSel;

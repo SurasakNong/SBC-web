@@ -41,13 +41,13 @@ $(document).on("submit", "#login_form", function () {
   return false;
 });
 
-$(document).on("click", "#user_mng", function () {
+function openUser(){
     page_selected = 1;
     is_sort = true;
     col_sort = 1;
     raw_sort = 0;
     show_manageuser_tb();    
-});
+}
 
 function show_manageuser_tb() { //========================== แสดงค้นหา และปุ่มเพิ่ม หมวดรายการ
     var html = `
