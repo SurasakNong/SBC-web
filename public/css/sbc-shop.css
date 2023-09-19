@@ -22,6 +22,7 @@
 
   --priCol: #d6a354;
   --secCol: #9BCDD2;
+  --thiCol: #A4D0A4;
 
   --body-font-family:            'Noto Sans Thai'; /*'Kanit';*/
 
@@ -1244,7 +1245,6 @@ background-color:#FF8551;
   position: sticky; 
   top: 0px; 
 }
-
 .list-selTable{
   background-color: rgb(255, 255, 255);
 }
@@ -1337,4 +1337,41 @@ background-color:#FF8551;
 .ele-fn:hover{   
  box-shadow: rgba(35, 196, 218, 0.9) 0px 2px 4px 0px, rgba(106, 229, 233, 0.75) 0px 2px 16px 0px,
   rgba(98, 224, 186, 0.6) 0px 2px 24px 0px;
+}
+
+
+/*================== Table Scroll ==================================================*/
+.table-scroll {
+  position: relative;
+  width:100%;
+  z-index: 1;
+  margin: auto;
+  overflow: auto;
+  height: 420px;
+}
+.table-scroll table {
+  width: 100%;
+  min-width: 700px;
+  margin: auto;
+}
+.table-wrap {
+  position: relative;
+}
+.table-scroll th,
+.table-scroll td {
+  vertical-align: top;
+}
+.table-scroll thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+/* safari and ios need the tfoot itself to be position:sticky also */
+.table-scroll tfoot,
+.table-scroll tfoot th,
+.table-scroll tfoot td {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  z-index:4;
 }
