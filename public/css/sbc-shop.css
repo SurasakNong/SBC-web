@@ -1051,8 +1051,25 @@ background-color:#FF8551;
   transition: 0.3s;
 }
 
-.b-success:hover, .b-add:hover, .b-back:hover{
+.b-success:hover, .b-add:hover, .b-back:hover, .b-top:hover{
  color: #884A39;
+}
+.b-top{
+  color: #ffffff;
+  background-color: #FEA1A1;  
+  border: none;
+  position:absolute; 
+  right:10px; 
+  top:10px; 
+  z-index:1; 
+  height:28px; 
+  width:28px;
+  transition: 0.3s;
+}
+
+.b-success:disabled, .b-add:disabled, .b-back:disabled, .b-top:disabled {
+  background: #dddddd;
+  color: #727272;
 }
 
 /*====================== myWaiting ==========================*/
@@ -1162,6 +1179,11 @@ background-color:#FF8551;
   color:#ffffff;
   background: #FF8551;
   outline: 3px solid #ddd;
+}
+
+.btnSuc:focus, .btnOk:focus, .btnCan:focus{
+  color:#ffffff;
+  outline: 3px solid #4eaae794;
 }
 
 /*============ Upload pic =========================*/

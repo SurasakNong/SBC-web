@@ -4,7 +4,7 @@ function openSale() {
   is_sort = true;
   col_sort = 1;
   raw_sort = 0;
-  sale = {id:'', dt:'', bill:'', mem:'ทั่วไป', qty:0, price:0, disc:0, sumPrice:0};
+  sale = {id:'', dt:'', bill:'', mem:'ทั่วไป', qty:0, price:0, disc:0, sumPrice:0, discBill:0, priceBill:0, cashBill:0};
   saleList = 0;
   var html = `
     <div class="container-fluid">
@@ -291,14 +291,16 @@ function listSaleTable(ob, i_no) {  //========== ฟังก์ชั่นเ�
 $(document).on("click", "#btAddSale", function () { //========== เปิดเพิ่มข้อมูล
   clsSaleShow();
   var html = `     
-          <div id="sale_add" class="main_form">    
+          <div id="sale_add" class="main_form" style="position:relative;">    
+            <button class="b-top"  type="button" title="ยกเลิก" id="cancel_add_sale">
+            <i class="fa-solid fa-xmark fa-lg"></i></button>
             <form class="animate__animated animate__fadeIn" id="add_sale_form" style="padding:20px;">
-              <div class="row mb-2 justify-content-md-center">
-                <div class="main_form_head"> เปิดรายการขาย </div>
+              <div class="row mb-2 justify-content-md-center" >
+                <div class="main_form_head"> เปิดรายการขาย </div>                
               </div>
-              <div class="row">
+              <div class="row mb-1">
                 <div class="col-md-4">
-                  <div class="input-group mb-2">
+                  <div class="input-group mb-1">
                     <div class="input-group-prepend">
                       <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="date_sale">วันที่</label>
                     </div>
@@ -306,13 +308,13 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="input-group mb-2">
-                    <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="lot_sale">เลขที่</label>
-                    <input type="text" id="lot_sale" class="form-control" placeholder="เลขที่เอกสาร" aria-label="sale bill" required>
+                  <div class="input-group mb-1">
+                    <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="bill_sale">เลขที่</label>
+                    <input type="text" id="bill_sale" class="form-control" placeholder="เลขที่เอกสาร" aria-label="sale bill" required>
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="input-group mb-2">
+                  <div class="input-group mb-1">
                     <!-- <label class="input-group-text " style="width: 65px;">สมาชิก</label> -->
                     <input type="text" id="name_member" class="form-control" aria-label="member" placeholder="เลือกสมาชิก..." disabled>
                     <button class="b-success" type="button" id="bt_open_sel" title="เลือกสมาชิก"><i class="fa-solid fa-user"></i></button>
@@ -320,29 +322,27 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
                 </div>
               </div>
 
-              <div class="row align-items-center mb-2">
+              <div class="row mb-2">
                 <div class="col-md-4">
-                  <div class="input-group mb-2 mt-2">
+                  <div class="input-group mb-1">
                     <!-- <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;">สินค้า</label> -->
                     <input type="text" id="name_product" class="form-control" aria-label="product"  placeholder="เลือกสินค้า..." disabled>
                     <button class="b-success" type="button" id="bt_open_sel_sale" title="เลือกสินค้า"><i class="fa-solid fa-list"></i></button>
                   </div>
                 </div>
                 <div class="col-md">
-                  <div class="input-group mb-2 mt-2">
-                    <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="lot_sale">จำนวน</label>
+                  <div class="input-group mb-1">
+                    <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="qty_sale">จำนวน</label>
                     <input type="number" id="qty_sale" class="form-control" value="1" aria-label="sale Qty" min="1" step="1">
                   </div>
                 </div>
                 <div class="col-md">
-                  <div class="input-group mb-2 mt-2">
+                  <div class="input-group mb-1">
                     <label class="input-group-text " style="width: 65px;" for="lot_sale">ส่วนลด</label>
-                    <input type="number" id="disc_sale" class="form-control" value="0" aria-label="sale Qty" min="0" step="0.1" >                                     
+                    <input type="number" id="disc_sale" class="form-control" value="0" aria-label="sale discount" min="0" step="0.1" >     
+                    <button class="b-add ms-2" type="button" id="bt_add_sale" title="เพิ่มรายการ"><i class="fa-solid fa-plus"></i></button>                                
                   </div>                  
                 </div>   
-                <div class="col-md-2 " style="text-align:center;">
-                  <button type="buton" class="mybtn btnSuc" id="bt_add_sale">เพิ่ม</button> 
-                </div> 
               </div>
 
             <div class="row mb-3">
@@ -375,32 +375,45 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
                     </table>
                 </div>
             </div>
-            <div class="row justify-content-end mb-3">
-                <div class="col-lg-4 col-md-6 mb-3">
+            <div class="row">
+                <div class="col-md-3 mb-3">
                   <div class="input-group">
                       <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="disc_bill">ส่วนลด</label>
                       <input type="number" id="disc_bill" class="form-control" value='0' aria-label="discount bill" min="0" step="0.1" >                                     
                   </div>  
                 </div>
-                <div class="col-lg-4 col-md-6 mb-3">
+                <div class="col-md-3 mb-3">
                     <div class="input-group">
-                        <label class="input-group-text " style="width: 75px;" for="sum_of_bill">ยอดสุทธิ</label>
-                        <input type="number" id="sum_of_bill" class="form-control" value="0.00" aria-label="sum of bill" disabled>                                     
+                        <label class="input-group-text " for="sum_of_bill">สุทธิ</label>
+                        <input type="text" id="sum_of_bill" class="form-control" aria-label="sum of bill" disabled>                                     
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-3" style="text-align:center;">
-                    <button type="submit" class="mybtn btnOk me-3">ชำระเงิน</button>
-                    <button type="button" class="mybtn btnCan ms-auto" id="cancel_add_sale">ยกเลิก</button>
-                </div>
-                
+                <div class="col-md-3">
+                  <div class="input-group mb-2">
+                      <!--<label class="input-group-text" for="selType" style="width:80px;">ประเภท</label> -->
+                      <select class="form-select" id="selTypeCash">
+                          <option selected value="0">-- การชำระเงิน --</option>
+                          <option value="1">เต็มจำนวน</option>
+                          <option value="2">บางส่วน</option>
+                      </select>
+                  </div>
+                </div>    
+                <div class="col-md-3 mb-3">
+                  <div class="input-group">
+                      <label class="input-group-text " style="background-color:#fcdfe4;" for="cash_bill">ชำระ</label>
+                      <input type="number" id="cash_bill" class="form-control me-2" value='0.00' aria-label="cash bill" min="0" step="0.1" > 
+                      <button class="b-success" type="button" id="bt_cash_bill" title="บันทึกการชำระเงิน"><i class="fa-solid fa-baht-sign"></i></button>                                    
+                  </div>  
+                </div>                
             </div>
-            </form>
-            
+            </form>            
           </div>  
           `;
   $("#add_sale").html(html);
   $("#date_sale").val((sale.dt == '') ? date_Now("y-m-d") : sale.dt);
   $("#lot_sale").val(stk.lot);
+  document.getElementById('cash_bill').disabled = true;
+  document.getElementById('bt_cash_bill').disabled = true;
   //initDropdownList(urlData,'selShelf','shelf',true)
 
 });
@@ -410,8 +423,22 @@ $(document).on("click", "#cancel_add_sale", function () { //========== ยกเ
   showSaleTable(rowperpage, page_selected);
 });
 
-$(document).on('change', "#qty_sale", function () {
-  saleSel.qty = $(this).val();
+$(document).on('change', "#selTypeCash", function () {  
+  if($(this).val() == '0'){
+    document.getElementById('cash_bill').disabled = true;
+    document.getElementById('bt_cash_bill').disabled = true;
+    $("#cash_bill").val('0.00');
+  }else if($(this).val() == '1'){
+    document.getElementById('cash_bill').disabled = true;
+    $("#cash_bill").val((sale.priceBill).toFixed(2));
+    document.getElementById('bt_cash_bill').disabled = false;
+  }else{
+    document.getElementById('cash_bill').disabled = false;
+    document.getElementById('bt_cash_bill').disabled = false;
+    $("#cash_bill").val('0.00');
+    $("#cash_bill").focus();
+    $("#cash_bill").select();
+  }
 });
 
 $(document).on('change', "#disc_sale", function () {
@@ -420,7 +447,9 @@ $(document).on('change', "#disc_sale", function () {
 });
 
 $(document).on('change', "#disc_bill", function () {
-  $("#sum_of_bill").val(sale.sumPrice - +$(this).val());
+  sale.priceBill = sale.sumPrice - +$(this).val();
+  $("#sum_of_bill").val(numWithCommas((sale.priceBill).toFixed(2)));
+  
 });
 
 /*================================================= Select ====================================================================== */
@@ -541,7 +570,7 @@ function selectedSaleData(id) {
     prod: $("#prod" + id).html(),
     type: $("#type" + id).html(),
     shelf: $("#shelf" + id).html(),
-    qty: +($("#qty_sale").val()),
+    qty: +($("#qty" + id).html()),
     cost: +($("#cost" + id).html()),
     price: +($("#price" + id).html()),
     disc: +($("#disc_sale").val())
@@ -554,41 +583,53 @@ function selectedSaleData(id) {
 
 $(document).on("click", "#bt_add_sale", function () { //========== เพิ่มรายการขาย
   if ($("#name_product").val() !== '') {
-    saleList++;
-    let tableName = document.getElementById('listSale');
-    //let prev = tableName.rows.length;
-    //let row = tableName.insertRow(prev);
-    let row = tableName.insertRow(0);
-    row.id = "rowListSale" + saleSel.id;
-    row.style.verticalAlign = "top";
-    let n_col = 9;
-    let col = [];
-    for (let ii = 0; ii < n_col; ii++) {
-      col[ii] = row.insertCell(ii);
+    if(+saleSel.qty >= +$('#qty_sale').val()){
+      saleList++;
+      let tableName = document.getElementById('listSale');
+      //let prev = tableName.rows.length;
+      //let row = tableName.insertRow(prev);
+      let row = tableName.insertRow(0);
+      row.id = "rowListSale" + saleSel.id;
+      row.style.verticalAlign = "top";
+      let n_col = 9;
+      let col = [];
+      for (let ii = 0; ii < n_col; ii++) {
+        col[ii] = row.insertCell(ii);
+      }
+      col[0].innerHTML = `<div class="text-center"><i class="fa-solid fa-xmark" onclick="delete_sale_Row(` + saleSel.id + `)" style="cursor:pointer; color:#d9534f;"></i></div>`
+      col[1].innerHTML = `<div id="no` + saleSel.id + `" class="text-center">` + saleList + `</div>`;
+      col[2].innerHTML = `<div id="prod` + saleSel.id + `" class="text-start">` + saleSel.prod + `</div>`;
+      col[3].innerHTML = `<div id="type` + saleSel.id + `" class="text-start">` + saleSel.type + `</div>`;
+      col[4].innerHTML = `<div id="shelf` + saleSel.id + `" class="text-start">` + saleSel.shelf + `</div>`;
+      col[5].innerHTML = `<div id="qty` + saleSel.id + `" class="text-end">` + $('#qty_sale').val() + `</div>`;
+      col[6].innerHTML = `<div id="price` + saleSel.id + `" class="text-end">` + (+saleSel.price).toFixed(2) + `</div>`;
+      col[7].innerHTML = `<div id="disc` + saleSel.id + `" class="text-end">` + (+saleSel.disc).toFixed(2) + `</div>`;
+      col[8].innerHTML = `<div id="sum` + saleSel.id + `" class="text-end">` + ((+saleSel.qty * +saleSel.price) - +saleSel.disc).toFixed(2) + `</div>`;
+
+      $("#name_product").val('');
+      $("#qty_sale").val('1');
+      $("#disc_sale").val('0');
+
+      sale.dt = ymdToTimestamp($("#date_sale").val() + " 00:00:01");
+      sale.bill = $("#bill_sale").val();
+      sale.mem = ($("#name_member").val() == '')?'ทั่วไป': $("#name_member").val();
+
+      sale.qty = +sale.qty + +saleSel.qty;
+      sale.price = +sale.price + +(+saleSel.price * +saleSel.qty);
+      sale.disc = +sale.disc + +saleSel.disc;
+      //sale.sumPrice = sale.sumPrice + ((+saleSel.qty * +saleSel.price) - +saleSel.disc);
+      sale.sumPrice = sale.price  - +saleSel.disc;
+      sale.discBill = +$("#disc_bill").val();
+      sale.priceBill = sale.sumPrice - +$("#disc_bill").val();
+      $("#sumSaleQty").html(sale.qty);
+      $("#sumSalePrice").html(numWithCommas((sale.price).toFixed(2)));
+      $("#sumSaleDisc").html(numWithCommas((sale.disc).toFixed(2)));
+      $("#sumSaleSum").html(numWithCommas((sale.sumPrice).toFixed(2)));
+      $("#sum_of_bill").val(numWithCommas((sale.priceBill).toFixed(2)));
+    }else{
+      sw_Alert('warning', 'เพิ่มข้อมูล ไม่สำเร็จ', 'จำนวนสินค้า มีน้อยกว่าที่ระบุ');
     }
-    col[0].innerHTML = `<div class="text-center"><i class="fa-solid fa-xmark" onclick="delete_sale_Row(` + saleSel.id + `)" style="cursor:pointer; color:#d9534f;"></i></div>`
-    col[1].innerHTML = `<div id="no` + saleSel.id + `" class="text-center">` + saleList + `</div>`;
-    col[2].innerHTML = `<div id="prod` + saleSel.id + `" class="text-start">` + saleSel.prod + `</div>`;
-    col[3].innerHTML = `<div id="type` + saleSel.id + `" class="text-start">` + saleSel.type + `</div>`;
-    col[4].innerHTML = `<div id="shelf` + saleSel.id + `" class="text-start">` + saleSel.shelf + `</div>`;
-    col[5].innerHTML = `<div id="qty` + saleSel.id + `" class="text-end">` + saleSel.qty + `</div>`;
-    col[6].innerHTML = `<div id="price` + saleSel.id + `" class="text-end">` + (+saleSel.price).toFixed(2) + `</div>`;
-    col[7].innerHTML = `<div id="disc` + saleSel.id + `" class="text-end">` + (+saleSel.disc).toFixed(2) + `</div>`;
-    col[8].innerHTML = `<div id="sum` + saleSel.id + `" class="text-end">` + ((+saleSel.qty * +saleSel.price) - +saleSel.disc).toFixed(2) + `</div>`;
-
-    $("#name_product").val('');
-    $("#qty_sale").val('1');
-    $("#disc_sale").val('0');
-
-    sale.qty = +sale.qty + +saleSel.qty;
-    sale.price = +sale.price + +(+saleSel.price * +saleSel.qty);
-    sale.disc = +sale.disc + +saleSel.disc;
-    sale.sumPrice = sale.sumPrice + ((+saleSel.qty * +saleSel.price) - +saleSel.disc);
-    $("#sumSaleQty").html(sale.qty);
-    $("#sumSalePrice").html(numWithCommas((sale.price).toFixed(2)));
-    $("#sumSaleDisc").html(numWithCommas((sale.disc).toFixed(2)));
-    $("#sumSaleSum").html(numWithCommas((sale.sumPrice).toFixed(2)));
-    $("#sum_of_bill").val(sale.sumPrice - +$("#disc_bill").val());
+      
   } else {
     sw_Alert('warning', 'เพิ่มข้อมูล ไม่สำเร็จ', 'คุณยังไม่เลือกสินค้า');
   }
@@ -598,11 +639,13 @@ function delete_sale_Row(id) {
   sale.qty = +sale.qty - +$("#qty" + id).html();
   sale.price = +sale.price - +(+$("#price" + id).html() * +$("#qty" + id).html());
   sale.disc = +sale.disc - +$("#disc" + id).html();
-  sale.sumPrice = (+sale.qty * +sale.price) - +sale.disc;
+  sale.sumPrice = +sale.price - +sale.disc;
+  sale.priceBill = sale.sumPrice - +$("#disc_bill").val();
   $("#sumSaleQty").html(sale.qty);
-  $("#sumSalePrice").html((sale.price).toFixed(2));
-  $("#sumSaleDisc").html((sale.disc).toFixed(2));
-  $("#sumSaleSum").html((sale.sumPrice).toFixed(2));
+  $("#sumSalePrice").html(numWithCommas((sale.price).toFixed(2)));
+  $("#sumSaleDisc").html(numWithCommas((sale.disc).toFixed(2)));
+  $("#sumSaleSum").html(numWithCommas((sale.sumPrice).toFixed(2)));
+  $("#sum_of_bill").val(numWithCommas((sale.priceBill).toFixed(2)));
 
   $("#rowListSale" + id).remove();
 

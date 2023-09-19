@@ -32,7 +32,7 @@ var dT = { //=== เก็บข้อมูลวันที่
 
 var stk = {  dt: '',  lot: '' };
 
-var sale = {id:'', dt:'', bill:'', mem:'ทั่วไป', qty:0, price:0, disc:0, sumPrice:0};
+var sale = {id:'', dt:'', bill:'', mem:'ทั่วไป', qty:0, price:0, disc:0, sumPrice:0, discBill:0, priceBill:0, cashBill:0};
 var saleSel = {id:'',prod:'', type:'', shelf:'', qty:0, cost:0, price:0, disc:0};
 var saleList = 0, saleUnit = 0, saleSum = 0;
 
