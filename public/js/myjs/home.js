@@ -2,7 +2,7 @@ function show_home() { //========================== แสดงหน้าห�
     var html = `
     <div class="container animate__animated animate__fadeInDown">
         <div class="row mt-3 animate__animated animate__bounceInRight animate__delay-1s"> 
-            <h3>SBC System</h3>
+            <h3 style="color:#707070;">SBC System</h3>
         </div>
         <div class="row gy-5 mt-1">  
 

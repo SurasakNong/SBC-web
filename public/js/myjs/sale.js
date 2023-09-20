@@ -4,7 +4,7 @@ function openSale() {
   is_sort = true;
   col_sort = 1;
   raw_sort = 0;
-  sale = {id:'', dt:'', bill:'', mem:'ทั่วไป', qty:0, price:0, disc:0, sumPrice:0, discBill:0, priceBill:0, cashBill:0};
+  sale = { id: '', dt: '', bill: '', mem: 'ทั่วไป', qty: 0, price: 0, disc: 0, sumPrice: 0, discBill: 0, priceBill: 0, cashBill: 0 };
   saleList = 0;
   var html = `
     <div class="container-fluid">
@@ -67,7 +67,7 @@ function openSale() {
       </div>
       
       <div class="row justify-content-center">  
-          <div class="col-lg-6 col-md-8 col-sm-10 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_prod_sale">
+          <div class="col-lg-7 col-md-9 col-sm-11 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_prod_sale">
             <div class="row mt-3 mb-2">  
               <div class="input-group">                  
                   <input type="text" id="search_sel_sale" onkeypress="handle_tableSaleSearch(event)" class="form-control" placeholder="คำค้นหา..สินค้า" 
@@ -248,7 +248,7 @@ function showSaleTable(per = 10, p = 1, colSort = 1, isSort = true, rawSort = 0)
             </table>                                 
             `;
   document.getElementById("table_sale_all").style.display = "block";
-  $("#table_sale").html(tt);  
+  $("#table_sale").html(tt);
   document.getElementById("rowShow_sale").value = rowperpage.toString();
   document.getElementById("record").innerHTML = "รวม " + rec_all + " รายการ = " + sum_qty + " หน่วย = " + numWithCommas(sum_price) + " บาท";
   for (let i = 0; i < myArr.length - 1; i++) {
@@ -423,21 +423,16 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
 
 });
 
-$(document).on("click", "#cancel_add_sale", function () { //========== ยกเลิกการเพิ่มข้อมูล
-  clsSaleShow();
-  showSaleTable(rowperpage, page_selected);
-});
-
-$(document).on('change', "#selTypeCash", function () {  
-  if($(this).val() == '0'){
+$(document).on('change', "#selTypeCash", function () {
+  if ($(this).val() == '0') {
     document.getElementById('cash_bill').disabled = true;
     document.getElementById('bt_cash_bill').disabled = true;
     $("#cash_bill").val('0.00');
-  }else if($(this).val() == '1'){
+  } else if ($(this).val() == '1') {
     document.getElementById('cash_bill').disabled = true;
     $("#cash_bill").val((sale.priceBill).toFixed(2));
     document.getElementById('bt_cash_bill').disabled = false;
-  }else{
+  } else {
     document.getElementById('cash_bill').disabled = false;
     document.getElementById('bt_cash_bill').disabled = false;
     $("#cash_bill").val('0.00');
@@ -452,9 +447,10 @@ $(document).on('change', "#disc_sale", function () {
 });
 
 $(document).on('change', "#disc_bill", function () {
+  sale.discBill = +$(this).val();
   sale.priceBill = sale.sumPrice - +$(this).val();
   $("#sum_of_bill").val(numWithCommas((sale.priceBill).toFixed(2)));
-  
+
 });
 
 /*================================================= Select ====================================================================== */
@@ -588,7 +584,7 @@ function selectedSaleData(id) {
 
 $(document).on("click", "#bt_add_sale", function () { //========== เพิ่มรายการขาย
   if ($("#name_product").val() !== '') {
-    if(+saleSel.qty >= +$('#qty_sale').val()){
+    if (+saleSel.qty >= +$('#qty_sale').val()) {
       saleList++;
       let tableName = document.getElementById('listSale');
       //let prev = tableName.rows.length;
@@ -617,13 +613,12 @@ $(document).on("click", "#bt_add_sale", function () { //========== เพิ่�
 
       sale.dt = ymdToTimestamp($("#date_sale").val() + " 00:00:01");
       sale.bill = $("#bill_sale").val();
-      sale.mem = ($("#name_member").val() == '')?'ทั่วไป': $("#name_member").val();
+      sale.mem = ($("#name_member").val() == '') ? 'ทั่วไป' : $("#name_member").val();
 
       sale.qty = +sale.qty + +saleSel.qty;
       sale.price = +sale.price + +(+saleSel.price * +saleSel.qty);
       sale.disc = +sale.disc + +saleSel.disc;
-      //sale.sumPrice = sale.sumPrice + ((+saleSel.qty * +saleSel.price) - +saleSel.disc);
-      sale.sumPrice = sale.price  - +saleSel.disc;
+      sale.sumPrice = sale.price - +saleSel.disc;
       sale.discBill = +$("#disc_bill").val();
       sale.priceBill = sale.sumPrice - +$("#disc_bill").val();
       $("#sumSaleQty").html(sale.qty);
@@ -631,10 +626,10 @@ $(document).on("click", "#bt_add_sale", function () { //========== เพิ่�
       $("#sumSaleDisc").html(numWithCommas((sale.disc).toFixed(2)));
       $("#sumSaleSum").html(numWithCommas((sale.sumPrice).toFixed(2)));
       $("#sum_of_bill").val(numWithCommas((sale.priceBill).toFixed(2)));
-    }else{
+    } else {
       sw_Alert('warning', 'เพิ่มข้อมูล ไม่สำเร็จ', 'จำนวนสินค้า มีน้อยกว่าที่ระบุ');
     }
-      
+
   } else {
     sw_Alert('warning', 'เพิ่มข้อมูล ไม่สำเร็จ', 'คุณยังไม่เลือกสินค้า');
   }
@@ -663,7 +658,65 @@ function delete_sale_Row(id) {
       tableName.rows.item(a).cells[1].innerHTML = rec + '>' + (n - a) + '</div>';
     }
   }
-
-
-
 }
+
+$(document).on("click", "#cancel_add_sale", function () { //========== ยกเลิกการเพิ่มข้อมูล
+  clsSaleShow();
+  showSaleTable(rowperpage, page_selected);
+});
+
+
+$(document).on("click", "#bt_cash_bill", function () {  //===== ตกลงเพิ่มข้อมูล
+  sale.cashBill = +$('#cash_bill').val();
+  
+  let tableName = document.getElementById('listSale');
+  let n = tableName.rows.length;
+  let array_data = new Array();
+
+  var dataIn = (i,c) => ((tableName.rows.item(i).cells[c].innerHTML).split('">')[1]).split('</')[0];
+  
+  if (n > 0) {
+    for (let a = 0; a < n; a++) {
+      let array_cell = new Array();
+      array_cell[0] = sale.dt;
+      array_cell[1] = sale.bill;
+      array_cell[2] = dataIn(a,2);
+      array_cell[3] = dataIn(a,3);
+      array_cell[4] = dataIn(a,4);
+      array_cell[5] = +dataIn(a,5);
+      array_cell[6] = +dataIn(a,6);
+      array_cell[7] = sale.mem;
+      array_cell[8] = +dataIn(a,7);
+      array_cell[9] = sale.discBill;
+      array_cell[10] = sale.priceBill;
+      array_cell[11] = sale.cashBill;      
+      array_data.push(array_cell);            
+    }  
+    console.log(array_data);
+    waiting();
+    $.ajax({
+      url: urlSale,
+      type: 'GET',
+      crossDomain: true,
+      data: { opt_k:'add', opt_data: JSON.stringify(array_data) },
+      success: function (result) {
+        waiting(false);
+        if (result == "success") {
+          myAlert("success", "เพิ่มข้อมูล สำเร็จ");
+        
+        } else {
+          sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+        }
+      },
+      error: function (err) {
+        console.log("Add new stock ERROR : " + err);
+        waiting(false);
+      }
+    });
+    return false;
+  }else{
+    sw_Alert('error', 'เพิ่มข้อมูล ไม่สำเร็จ', 'ไม่มีรายการสินค้า');
+    return false;
+  }
+});
+

@@ -1255,6 +1255,7 @@ background-color:#FF8551;
   height: 500px;
   position: absolute;
   top : 40px;
+  z-index: 1;
   /*top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);*/
@@ -1262,6 +1263,7 @@ background-color:#FF8551;
 
 .tableFixHead {
   overflow-y: auto;
+  
 }
 .tableFixHead thead th {
   position: sticky; 
