@@ -49,8 +49,23 @@ function openSale() {
           <div class="ccol-lg-10 col-md-10 col-sm-12 mx-auto" id="edit_sale"></div>
       </div>   
       <div class="row">  
-          <div class="col-lg-12 mx-auto" id="table_sale"></div>
+        <div id="table_sale_all">
+          <div class="col-lg-12 mx-auto table-scroll mb-2" id="table_sale" style="height: calc(100vh-200px);"></div>
+          <div class="row">
+            <div class="col-auto me-auto" style="font-size: 0.8rem;">
+              <label  for="rowShow_sale">แถวแสดง:</label>
+              <input type="number" id="rowShow_sale" name="rowShow_sale" min="1" max="99" step="1" value="" style="text-align:center;">
+            </div>
+            <div class="col">
+              <div id="pagination"></div>
+            </div>
+            <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
+              <label id="record"></label>
+            </div>
+          </div>   
+        </div>
       </div>
+      
       <div class="row justify-content-center">  
           <div class="col-lg-6 col-md-8 col-sm-10 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_prod_sale">
             <div class="row mt-3 mb-2">  
@@ -168,6 +183,7 @@ function clsSaleShow() {
   $("#add_sale").html("");
   $("#edit_sale").html("");
   $("#table_sale").html("");
+  document.getElementById("table_sale_all").style.display = "none";
 }
 
 $(document).on('click', "#bt_search_sale", function () {  //ค้นหารายการ
@@ -229,21 +245,10 @@ function showSaleTable(per = 10, p = 1, colSort = 1, isSort = true, rawSort = 0)
               </thead>
               <tbody>
               </tbody>
-            </table> 
-              <div class="row animate__animated animate__fadeIn">
-                <div class="col-auto me-auto" style="font-size: 0.8rem;">
-                  <label  for="rowShow_sale">แถวแสดง:</label>
-                  <input type="number" id="rowShow_sale" name="rowShow_sale" min="1" max="99" step="1" value="" style="text-align:center;">
-                </div>
-                <div class="col">
-                  <div id="pagination"></div>
-                </div>
-                <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
-                  <label id="record"></label>
-                </div>
-              </div>                     
+            </table>                                 
             `;
-  $("#table_sale").html(tt);
+  document.getElementById("table_sale_all").style.display = "block";
+  $("#table_sale").html(tt);  
   document.getElementById("rowShow_sale").value = rowperpage.toString();
   document.getElementById("record").innerHTML = "รวม " + rec_all + " รายการ = " + sum_qty + " หน่วย = " + numWithCommas(sum_price) + " บาท";
   for (let i = 0; i < myArr.length - 1; i++) {
@@ -346,7 +351,7 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
               </div>
 
             <div class="row mb-3">
-                <div class="col-lg-12 mx-auto table-scroll" id="table_sale" style="height:300px;">
+                <div class="col-lg-12 mx-auto table-scroll" id="table_sale" style="height: calc(100vh - 410px);">
                     <table class="list-table table animate__animated animate__fadeIn" id="saleTable">
                         <thead>
                         <tr>
@@ -376,20 +381,20 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3">
                   <div class="input-group">
                       <label class="input-group-text " style="width: 65px; background-color:#fcdfe4;" for="disc_bill">ส่วนลด</label>
                       <input type="number" id="disc_bill" class="form-control" value='0' aria-label="discount bill" min="0" step="0.1" >                                     
                   </div>  
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3">
                     <div class="input-group">
                         <label class="input-group-text " for="sum_of_bill">สุทธิ</label>
                         <input type="text" id="sum_of_bill" class="form-control" aria-label="sum of bill" disabled>                                     
                     </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="input-group mb-2">
+                  <div class="input-group">
                       <!--<label class="input-group-text" for="selType" style="width:80px;">ประเภท</label> -->
                       <select class="form-select" id="selTypeCash">
                           <option selected value="0">-- การชำระเงิน --</option>
@@ -398,7 +403,7 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
                       </select>
                   </div>
                 </div>    
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3">
                   <div class="input-group">
                       <label class="input-group-text " style="background-color:#fcdfe4;" for="cash_bill">ชำระ</label>
                       <input type="number" id="cash_bill" class="form-control me-2" value='0.00' aria-label="cash bill" min="0" step="0.1" > 

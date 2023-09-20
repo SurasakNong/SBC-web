@@ -27,7 +27,21 @@ var openProduct = () =>{
         <div class="col-lg-10 col-md-11 col-sm-12 mx-auto" id="edit_product"></div>
     </div>   
     <div class="row">  
-        <div class="col-lg-12 mx-auto" id="table_product"></div>
+      <div id="table_product_all">
+        <div class="col-lg-12 mx-auto table-scroll mb-2" id="table_product" style="height: calc(100vh - 200px);"></div>
+        <div class="row">
+          <div class="col-auto me-auto" style="font-size: 0.8rem;">
+            <label  for="rowShow_product">แถวแสดง:</label>
+            <input type="number" id="rowShow_product" name="rowShow_product" min="1" max="99" step="1" value="" style="text-align:center;">
+          </div>
+          <div class="col">
+            <div id="pagination"></div>
+          </div>
+          <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
+            <label id="record"></label>
+          </div>
+        </div>  
+      </div>   
     </div>
   </div>
     `;      
@@ -111,6 +125,7 @@ function clsProductShow(){
   $("#add_product").html("");
   $("#edit_product").html("");
   $("#table_product").html("");
+  document.getElementById("table_product_all").style.display = "none";
 
 }
 
@@ -173,20 +188,9 @@ function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //==
         <tbody>
         </tbody>
       </table> 
-        <div class="row animate__animated animate__fadeIn">
-          <div class="col-auto me-auto" style="font-size: 0.8rem;">
-            <label  for="rowShow_product">แถวแสดง:</label>
-            <input type="number" id="rowShow_product" name="rowShow_product" min="1" max="99" step="1" value="" style="text-align:center;">
-          </div>
-          <div class="col">
-            <div id="pagination"></div>
-          </div>
-          <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
-            <label id="record"></label>
-          </div>
-        </div>                     
-      `;
-    $("#table_product").html(tt);
+      `;      
+    document.getElementById("table_product_all").style.display = "block";
+    $("#table_product").html(tt);    
     $("#rowShow_product").val(rowperpage.toString());
     $("#record").html("รวม "+ rec_all + " รายการ = "+ sum_qty +" หน่วย = "+ numWithCommas(sum_cost) +" / "+ numWithCommas(sum_price) +" บาท");
     for (let i = 0; i < myArr.length - 1; i++) {
@@ -195,7 +199,6 @@ function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //==
     }
     pagination_show(p, page_all, rowperpage, 'showProductTable'); //<<<<<<<< แสดงตัวจัดการหน้าข้อมูล Pagination
 }
-
 
 $(document).on("change", "#rowShow_product", function () { //========== เปลี่ยนค่าจำนวนแถวที่แสดงในตาราง
   rowperpage = +$("#rowShow_product").val();
@@ -489,6 +492,7 @@ function editProductRow(id) { //================================ เปิดห
   }
   setDropdownList(urlData,'selType', 'type', $("#type"+id).html());
   $("#table_product").html("");    
+  document.getElementById("table_product_all").style.display = "none";
 }
 
 $(document).on("click", "#cancelEditProduct", function () { //========== ยกเลิกการแก้ไขข้อมูล

@@ -2,95 +2,97 @@ function show_home() { //========================== แสดงหน้าห�
     var html = `
     <div class="container animate__animated animate__fadeInDown">
         <div class="row mt-3 animate__animated animate__bounceInRight animate__delay-1s"> 
-            <h3>SBC Sytem</h3>
+            <h3>SBC System</h3>
         </div>
-      <div class="row gy-5 mt-1">  
+        <div class="row gy-5 mt-1">  
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-solid fa-cart-arrow-down"></i>
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>งานขาย</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-cart-arrow-down"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>งานขาย</a>
+                    </div>        
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-solid fa-cubes"></i>
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>รับเข้าสต็อก</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>รับเข้าสต็อก</a>
+                    </div>        
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-solid fa-receipt"></i>                    
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>สรุปสต็อกสินค้า</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-receipt"></i>                    
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>สรุปสต็อกสินค้า</a>
+                    </div>        
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-solid fa-box-open"></i>
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>ตรวจนับสต็อก</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>ตรวจนับสต็อก</a>
+                    </div>        
+                </div>
             </div>
-        </div>
         
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-solid fa-store"></i>
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>แสดงสินค้า</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-store"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>แสดงสินค้า</a>
+                    </div>        
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-regular fa-comment-dots"></i>
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>ความคิดเห็น</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-regular fa-comment-dots"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>ความคิดเห็น</a>
+                    </div>        
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="ele-fn ms-auto me-auto">
-                <div class"col">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                </div>                
-                <div class="w-100"></div>
-                <div class"col">
-                    <a>รายการสินค้า</a>
-                </div>        
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>รายการสินค้า</a>
+                    </div>        
+                </div>
             </div>
-        </div>
 
-      </div>
+        </div>
+        <a class="mt-5 mb-3" style="width:100%; text-align: center;">SBC system web application (ver 2309.2012.49)</a>
+        
     </div>
       `;
     $("#main_setting").html(html);

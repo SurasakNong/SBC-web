@@ -26,7 +26,21 @@ function openShelf(){
           <div class="col-lg-8 mx-auto" id="edit_shelf"></div>
       </div>   
       <div class="row">  
-          <div class="col-lg-10 mx-auto" id="table_shelf"></div>
+        <div id="table_shelf_all">
+          <div class="col-lg-10 mx-auto table-scroll mb-2" id="table_shelf" style="height: calc(100vh - 200px);"></div>
+          <div class="row">
+            <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
+              <label  for="rowShow_shelf">แถวแสดง:</label>
+              <input type="number" id="rowShow_shelf" name="rowShow_shelf" min="1" max="99" step="1" value="" style="text-align:center;">
+            </div>
+            <div class="col-sm-6 mb-2">
+              <div id="pagination"></div>
+            </div>
+            <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
+              <label id="record"></label>
+            </div>
+          </div>  
+        </div>
       </div>
     </div>
       `;      
@@ -91,6 +105,7 @@ function clsShelfShow(){
     $("#add_shelf").html("");
     $("#edit_shelf").html("");
     $("#table_shelf").html("");
+    document.getElementById("table_shelf_all").style.display = "none";
   
 }
 
@@ -146,20 +161,9 @@ function showShelfTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //====
       </thead>
       <tbody>
       </tbody>
-    </table> 
-      <div class="row animate__animated animate__fadeIn">
-        <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
-          <label  for="rowShow_shelf">แถวแสดง:</label>
-          <input type="number" id="rowShow_shelf" name="rowShow_shelf" min="1" max="99" step="1" value="" style="text-align:center;">
-        </div>
-        <div class="col-sm-6 mb-2">
-          <div id="pagination"></div>
-        </div>
-        <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
-          <label id="record"></label>
-        </div>
-      </div>                     
+    </table>                          
     `;
+  document.getElementById("table_shelf_all").style.display = "block";
   $("#table_shelf").html(tt);
   document.getElementById("rowShow_shelf").value = rowperpage.toString();
   document.getElementById("record").innerHTML = "ทั้งหมด : " + rec_all + " รายการ";
@@ -364,6 +368,7 @@ function editShelfRow(id) { //================================ เปิดห�
     $("#name_shelf").val($('#name' + id).html());
     $("#desc_shelf").val($('#desc' + id).html());
     $("#table_shelf").html("");
+    document.getElementById("table_shelf_all").style.display = "none";
     
   }
 

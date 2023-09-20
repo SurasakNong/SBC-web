@@ -50,7 +50,19 @@ function openComment() {
           <div class="col-lg-8 mx-auto" id="edit_comm"></div>
       </div>   
       <div class="row">  
-          <div class="col-lg-10 mx-auto" id="table_comm"></div>
+          <div class="col-lg-10 mx-auto table-scroll mb-2" id="table_comm" style="height: calc(100vh - 200px);"></div>
+          <div class="row animate__animated animate__fadeIn">
+            <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
+              <label  for="rowShow_comm">แถวแสดง:</label>
+              <input type="number" id="rowShow_comm" name="rowShow_comm" min="1" max="99" step="1" value="" style="text-align:center;">
+            </div>
+            <div class="col-sm-6 mb-2">
+              <div id="pagination"></div>
+            </div>
+            <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
+              <label id="record"></label>
+            </div>
+          </div>
       </div>
 
       <!-- Modal -->
@@ -225,19 +237,7 @@ function showCommTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //=====
           </thead>
           <tbody>
           </tbody>
-        </table> 
-          <div class="row animate__animated animate__fadeIn">
-            <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
-              <label  for="rowShow_comm">แถวแสดง:</label>
-              <input type="number" id="rowShow_comm" name="rowShow_comm" min="1" max="99" step="1" value="" style="text-align:center;">
-            </div>
-            <div class="col-sm-6 mb-2">
-              <div id="pagination"></div>
-            </div>
-            <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
-              <label id="record"></label>
-            </div>
-          </div>                     
+        </table>                                
         `;
       $("#table_comm").html(tt);
       document.getElementById("rowShow_comm").value = rowperpage.toString();

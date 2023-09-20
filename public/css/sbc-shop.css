@@ -1224,7 +1224,7 @@ background-color:#FF8551;
   transition : 0.3s;
   cursor : pointer;
   z-index : 10;
-  left: 95%;
+  right: 15px;
   bottom: 50px;
 }
 .resetPass i{
@@ -1370,6 +1370,7 @@ background-color:#FF8551;
   margin: auto;
   overflow: auto;
   height: 420px;
+  padding-bottom: 10px;
 }
 .table-scroll table {
   width: 100%;
@@ -1394,6 +1395,6 @@ background-color:#FF8551;
 .table-scroll tfoot td {
   position: -webkit-sticky;
   position: sticky;
-  bottom: 0;
+  bottom: -9px;
   z-index:4;
 }

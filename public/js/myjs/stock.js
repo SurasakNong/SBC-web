@@ -49,7 +49,21 @@ function openStockIn(){
           <div class="ccol-lg-10 col-md-10 col-sm-12 mx-auto" id="edit_stock"></div>
       </div>   
       <div class="row">  
-          <div class="col-lg-12 mx-auto" id="table_stock"></div>
+        <div id="table_stock_all">
+          <div class="col-lg-12 mx-auto table-scroll mb-2" id="table_stock" style="height: calc(100vh - 200px);"></div>
+          <div class="row">
+            <div class="col-auto me-auto" style="font-size: 0.8rem;">
+              <label  for="rowShow_stock">แถวแสดง:</label>
+              <input type="number" id="rowShow_stock" name="rowShow_stock" min="1" max="99" step="1" value="" style="text-align:center;">
+            </div>
+            <div class="col">
+              <div id="pagination"></div>
+            </div>
+            <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
+              <label id="record"></label>
+            </div>
+          </div>  
+        </div>
       </div>
       <div class="row justify-content-center">  
           <div class="col-lg-6 col-md-8 col-sm-10 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_prod">
@@ -287,6 +301,7 @@ function myStockData(shText = "", colSort = 0, isSort = false, rawSort = 0, page
       $("#add_stock").html("");
       $("#edit_stock").html("");
       $("#table_stock").html("");  
+      document.getElementById("table_stock_all").style.display = "none";
   }
   
   $(document).on('click', "#bt_search_stock", function () {  //ค้นหารายการ
@@ -348,21 +363,10 @@ function showStockTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //====
           </thead>
           <tbody>
           </tbody>
-        </table> 
-          <div class="row animate__animated animate__fadeIn">
-            <div class="col-auto me-auto" style="font-size: 0.8rem;">
-              <label  for="rowShow_stock">แถวแสดง:</label>
-              <input type="number" id="rowShow_stock" name="rowShow_stock" min="1" max="99" step="1" value="" style="text-align:center;">
-            </div>
-            <div class="col">
-              <div id="pagination"></div>
-            </div>
-            <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
-              <label id="record"></label>
-            </div>
-          </div>                     
+        </table>                              
         `;
-      $("#table_stock").html(tt);
+      document.getElementById("table_stock_all").style.display = "block";
+      $("#table_stock").html(tt);      
       document.getElementById("rowShow_stock").value = rowperpage.toString();
       document.getElementById("record").innerHTML =  "รวม "+ rec_all + " รายการ = "+ sum_qty +" หน่วย = "+ numWithCommas(sum_price) +" บาท";
       for (let i = 0; i < myArr.length - 1; i++) {
@@ -743,6 +747,7 @@ function editStockRow(id) { //================================ เปิดห�
   $("#comm_stock").val($('#comm' + id).html());
   $("#point_product").val($('#point' + id).html());
   $("#table_stock").html("");
+  document.getElementById("table_stock_all").style.display = "none";
   
 }
 

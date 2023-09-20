@@ -72,7 +72,21 @@ function show_manageuser_tb() { //========================== แสดงค้�
           <div class="col-lg-8 mx-auto" id="edit_user"></div>
       </div>   
       <div class="row">  
-          <div class="col-lg-10 mx-auto" id="table_user"></div>
+        <div id="table_user_all">
+          <div class="col-lg-10 mx-auto table-scroll mb-2" id="table_user" style="height: calc(100vh - 200px);"></div>
+          <div class="row">
+            <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
+              <label  for="rowShow_user">แถวแสดง:</label>
+              <input type="number" id="rowShow_user" name="rowShow_user" min="1" max="99" step="1" value="" style="text-align:center;">
+            </div>
+            <div class="col-sm-6 mb-2">
+              <div id="pagination"></div>
+            </div>
+            <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
+              <label id="record"></label>
+            </div>
+          </div>  
+        </div>
       </div>
     </div>
       `;
@@ -142,6 +156,7 @@ function clsUseShow(){
   $("#add_user").html("");
   $("#edit_user").html("");
   $("#table_user").html("");
+  document.getElementById("table_user_all").style.display = "none";
 
 }
 
@@ -199,19 +214,9 @@ function showUserTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //=====
           <tbody>
           </tbody>
         </table> 
-          <div class="row animate__animated animate__fadeIn">
-            <div class="col-sm-3 mb-2" style="font-size: 0.8rem;">
-              <label  for="rowShow_user">แถวแสดง:</label>
-              <input type="number" id="rowShow_user" name="rowShow_user" min="1" max="99" step="1" value="" style="text-align:center;">
-            </div>
-            <div class="col-sm-6 mb-2">
-              <div id="pagination"></div>
-            </div>
-            <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
-              <label id="record"></label>
-            </div>
-          </div>                     
+                             
         `;
+  document.getElementById("table_user_all").style.display = "block";
   $("#table_user").html(tt);
   document.getElementById("rowShow_user").value = rowperpage.toString();
   document.getElementById("record").innerHTML = "ทั้งหมด : " + rec_all + " รายการ";
@@ -453,6 +458,7 @@ function edit_user_Row(id) { //================================ เปิดห�
   $("#email_user").val(document.getElementById('email' + id).innerHTML);  
   $("#userName").val(document.getElementById('uname' + id).innerHTML);  
   $("#table_user").html("");
+  document.getElementById("table_user_all").style.display = "none";
 }
 
 $(document).on("click", "#cancel_edit_user", function () { //========== ยกเลิกการแก้ไขผู้ใช้งาน
