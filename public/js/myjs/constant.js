@@ -149,7 +149,7 @@ function tsToDateShort(ts, fn = "dmy") { //================= Timestamp to Date
           ("0" + m.getHours()).slice(-2) + ":" +
           ("0" + m.getMinutes()).slice(-2) + ":" +
           ("0" + m.getSeconds()).slice(-2);*/
-  } else if (fn === "y-m-d") {  //==== 2023/06/14
+  } else if (fn === "y-m-d") {  //==== 2023-06-14
     dateString =
       m.getFullYear() + "-" +
       ("0" + (m.getMonth() + 1)).slice(-2) + "-" +
