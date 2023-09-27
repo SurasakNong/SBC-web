@@ -463,6 +463,38 @@ function to_alert(icon, title, desc) {
   })
 }
 
+function conFirm(txt){
+  var res = false;
+  const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'mybtn btnOk me-3',
+          cancelButton: 'mybtn btnCan'
+      },
+      buttonsStyling: false
+  })
+  swalWithBootstrapButtons.fire({
+      title: 'โปรดยืนยัน ',
+      text: txt,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '&nbsp;&nbsp;ตกลง&nbsp;&nbsp;',
+      cancelButtonText: '&nbsp;&nbsp;ไม่&nbsp;&nbsp;',
+      reverseButtons: false
+  }).then((result) => {
+      if (result.isConfirmed) {
+        res = true;
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        res = false;
+          /*swalWithBootstrapButtons.fire(
+              'ยกเลิก',
+              'ข้อมูลของคุณยังไม่ถูกลบ :)',
+              'error'
+          )*/
+      }
+  })
+  return res;
+}
+
 //============================= Encode and Decode Data ========================================================
 function deCodeMode(mode) {
   var result = [];

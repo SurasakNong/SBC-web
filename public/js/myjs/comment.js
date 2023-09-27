@@ -12,13 +12,13 @@ function openComment() {
     <div class="container-fluid">
       <div class="row mt-">                
           <div class="col-lg-10 mx-auto mt-4">
-              <label class="fn_name" ><i class="fa-regular fa-comment"></i>&nbsp; ความคิดเห็น</label>
+              <a class="fn_name" ><i class="fa-regular fa-comment"></i>&nbsp; ความคิดเห็น</a>
               <form id="fmsearch_comm" >
                 <div class="row mt-1">
                     <div class="col-md-4">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <label class="input-group-text " style="width: 50px;" for="datepicker">วันที่</label>
+                                <label class="input-group-text " style="width: 50px;" for="datefm">วันที่</label>
                             </div>
                             <input name="datefm" type="date" value='' id="datefm" class="form-control">
                         </div>
@@ -26,7 +26,7 @@ function openComment() {
                     <div class="col-md-4">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <label class="input-group-text " style="width: 50px;" for="datepicker">ถึง</label>
+                                <label class="input-group-text " style="width: 50px;" for="dateto">ถึง</label>
                             </div>
                             <input name="dateto" type="date" value='' id="dateto" class="form-control">
                             <!-- <input name="dateto" type="datetime-local" value='' id="dateto" class="form-control"> -->
@@ -60,7 +60,7 @@ function openComment() {
               <div id="pagination"></div>
             </div>
             <div class="col-sm-3 mb-2" style="font-size: 0.8rem; text-align:right;">
-              <label id="record"></label>
+              <a id="record"></a>
             </div>
           </div>
       </div>

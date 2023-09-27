@@ -4,11 +4,11 @@ var openProduct = () =>{
   is_sort = true;
   col_sort = 1;
   raw_sort = 0;
-  var html = `
+  let html = `
   <div class="container-fluid">
     <div class="row">                
         <div class="col-lg-12 mx-auto mt-4">
-            <label class="fn_name" ><i class="fa-regular fa-rectangle-list fa-lg"></i> &nbsp; รายการสินค้า</label>
+            <a class="fn_name" ><i class="fa-regular fa-rectangle-list fa-lg"></i> &nbsp; รายการสินค้า</a>
             <form id="fmsearch_product" >
                 <div class="input-group mb-2">
                     <input type="text" id="search_product" onkeypress="handle_productSearch(event)" class="form-control" placeholder="คำค้นหา.."
@@ -38,7 +38,7 @@ var openProduct = () =>{
             <div id="pagination"></div>
           </div>
           <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
-            <label id="record"></label>
+            <a id="record"></a>
           </div>
         </div>  
       </div>   
@@ -141,8 +141,8 @@ function handle_productSearch(e) {
 }
 
 function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //======================== แสดงตาราง
-  var strSearch = document.getElementById('search_product').value;
-  var n = ((p - 1) * per);
+  const strSearch = document.getElementById('search_product').value;
+  let n = ((p - 1) * per);
     const myArr = myProductData(strSearch, colSort, isSort, rawSort, p, per);
     let page_all = myArr[myArr.length - 1].page;
     let rec_all = myArr[myArr.length - 1].rec;
@@ -170,7 +170,7 @@ function showProductTable(per=10, p=1, colSort=1, isSort=true, rawSort=0) { //==
           sortTxt[j] = '<i class="fa-solid fa-sort"></i>';
       }
     }
-    var tt = `
+    let tt = `
       <table class="list-table table animate__animated animate__fadeIn" id="productTable" >
         <thead>
           <tr>
@@ -206,13 +206,13 @@ $(document).on("change", "#rowShow_product", function () { //========== เป�
 });
 
 function listProductTable(ob, i_no) {  //========== ฟังก์ชั่นเพิ่ม Row ตารางข้อมูล
-  let tableName = document.getElementById('productTable');
-  let prev = tableName.rows.length;
+  const tableName = document.getElementById('productTable');
+  const prev = tableName.rows.length;
   let row = tableName.insertRow(prev);
   row.id = "row" + ob.id;
   row.style.verticalAlign = "top";
   txtDel = `<i class="fas fa-trash-alt" onclick="deleteProductRow(` + ob.id + `)" style="cursor:pointer; color:#d9534f;"></i>`;
-  let n_col = 9;
+  const n_col = 9;
   let col = [];
   for (let ii = 0; ii < n_col; ii++) {
       col[ii] = row.insertCell(ii);
@@ -244,7 +244,7 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
 
 $(document).on("click", "#btAddProduct", function () { //========== เปิดเพิ่มข้อมูล
   clsProductShow();
-  var html = `     
+  let html = `     
     <div id="product_add" class="main_form">    
       <form class="animate__animated animate__fadeIn" id="add_product_form" style="padding:20px;">
         <div class="row mb-3 justify-content-md-center">
@@ -346,7 +346,7 @@ $(document).on("submit", "#add_product_form", function () {  //===== ตกล�
 });
 
 function deleteProductRow(id) { //================================ ลบข้อมูล
-  var del_name = $('#name' + id).html();
+  const del_name = $('#name' + id).html();
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
           confirmButton: 'mybtn btnOk',
@@ -394,7 +394,7 @@ function deleteProductRow(id) { //================================ ลบข้�
 }
 
 function editProductRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
-  var html = `     
+  let html = `     
   <div id="product_edit" class="main_form">    
     <form class="animate__animated animate__fadeIn" id="edit_product_form" style="padding:20px;">
       <div class="row mb-3 justify-content-md-center">
@@ -567,7 +567,7 @@ function showPic(id){
 }
 
 function delPic(id){
-  var idProduct = $("#id_product").val();
+  const idProduct = $("#id_product").val();
   let picSet = document.getElementById("picProduct");      
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -629,8 +629,8 @@ $(document).on("change", "#uploadPicProd", function (e) {
           i = 6;
         }
       }
-      var idProduct = $("#id_product").val();
-      var n_file = 'prod_' + idProduct + '_' + picNoAdd;
+      const idProduct = $("#id_product").val();
+      const n_file = 'prod_' + idProduct + '_' + picNoAdd;
       console.log(n_file);
       let imageFile = e.target.files[0];
       var reader = new FileReader();

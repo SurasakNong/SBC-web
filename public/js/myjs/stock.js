@@ -10,7 +10,7 @@ function openStockIn(){
     <div class="container-fluid">
       <div class="row mt-">                
           <div class="col-lg-12 mx-auto mt-4">
-              <label class="fn_name" ><i class="fa-solid fa-cubes"></i>&nbsp; สต็อกสินค้า</label>
+              <a class="fn_name" ><i class="fa-solid fa-cubes"></i>&nbsp; สต็อกสินค้า</a>
               <form id="fmsearch_stock" >
                 <div class="row mt-1">
                     <div class="col-md-4">
@@ -60,7 +60,7 @@ function openStockIn(){
               <div id="pagination"></div>
             </div>
             <div class="col-auto" style="font-size: 0.8rem; text-align:right;">
-              <label id="record"></label>
+              <a id="record"></a>
             </div>
           </div>  
         </div>
