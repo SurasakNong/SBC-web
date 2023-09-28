@@ -34,7 +34,7 @@ var stk = {  dt: '',  lot: '' };
 
 var sale = {id:'', dt:'', bill:'', mem:'ทั่วไป', qty:0, price:0, disc:0, sumPrice:0, discBill:0, priceBill:0, cashBill:0};
 var saleSel = {id:'',prod:'', type:'', shelf:'', qty:0, cost:0, price:0, disc:0};
-var saleList = 0, saleUnit = 0, saleSum = 0;
+var id_row_list_sale = 0, saleUnit = 0, saleSum = 0;
 
 var dataAllShow; //=== เก็บข้อมูลชั่วคราว
 var dataAllSel;

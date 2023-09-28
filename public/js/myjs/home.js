@@ -91,7 +91,7 @@ function show_home() { //========================== แสดงหน้าห�
             </div>
 
         </div>
-        <a class="mt-5 mb-3" style="width:100%; text-align: center;">SBC system web application (ver 2309.2012.49)</a>
+        <a class="mt-5 mb-3" style="width:100%; text-align: center; color:#a0a0a0;">SBC system web application (ver 2309.2012.49)</a>
         
     </div>
       `;
