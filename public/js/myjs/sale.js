@@ -1,5 +1,5 @@
 /*===============================  การขายสินค้า =================================*/
-function openSale() {
+const openSale = () => {
   page_selected = 1;
   is_sort = true;
   col_sort = 1;
@@ -110,12 +110,12 @@ $(document).on('change', "#dateto_sale", function () {
   loadDataSale();
 });
 
-function loadDataSale(show = true) {
+const loadDataSale = (show = true) => {
   if (show === true) waiting();
   $.ajax({
     url: urlSale,
     type: 'GET',
-    crossDomain: true,
+    //crossDomain: true,
     data: { opt_k: 'readAllSetDate', opt_data: 'sale', opt_dtFm: dT.fmTs, opt_dtTo: dT.toTs },
     success: function (result) {
       dataAllShow = result;
@@ -493,7 +493,7 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
   $("#lot_sale").val(stk.lot);
 });
 
-function openRecModal() {
+const openRecModal = () => {
   $("#recMod").modal("show");
   $("#sumBath").val((sale.priceBill).toFixed(2));
   document.getElementById("recBath").focus();
@@ -536,14 +536,15 @@ $(document).on('click', "#bt_search_sel_sale", function () {  //ค้นหา�
   showSelectSaleTable();
 });
 
-function handle_tableSaleSearch(e) {
+const handle_tableSaleSearch = (e) => {
   if (e.keyCode === 13) {
     e.preventDefault();
     showSelectSaleTable();
   }
 }
 
-function loadDataSaleSelect(show = true) {
+
+const loadDataSaleSelect = (show = true) => {
   if (show === true) waiting();
   $.ajax({
     url: urlStock,
@@ -561,7 +562,7 @@ function loadDataSaleSelect(show = true) {
   });
 }
 
-function showSelectSaleTable(isSort = true, colSort = 3) { //======================== แสดงตาราง
+const showSelectSaleTable = (isSort = true, colSort = 3) => { //======================== แสดงตาราง
   const strSearch = document.getElementById('search_sel_sale').value;
   const myArr = mySelectSaleData(strSearch, isSort, colSort);
   let tt = `
@@ -586,7 +587,7 @@ function showSelectSaleTable(isSort = true, colSort = 3) { //===================
   }
 }
 
-function mySelectSaleData(shText = "", isSort = true, colSort = 3) {
+const mySelectSaleData = (shText = "", isSort = true, colSort = 3) => {
   const search_str = shText.toLowerCase().split(",");
   if (isSort == true) sortByCol(dataAllSel, colSort, 0); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let array_Arg = new Array();
@@ -614,7 +615,7 @@ function mySelectSaleData(shText = "", isSort = true, colSort = 3) {
   return array_Arg;
 }
 
-function listSelectSaleTable(ob) {  //========== ฟังก์ชั่นเพิ่ม Row ตารางข้อมูล
+const listSelectSaleTable = (ob) => {  //========== ฟังก์ชั่นเพิ่ม Row ตารางข้อมูล
   const tableName = document.getElementById('selectSaleTable');
   const prev = tableName.rows.length;
   let row = tableName.insertRow(prev);
@@ -634,7 +635,7 @@ function listSelectSaleTable(ob) {  //========== ฟังก์ชั่นเ�
     <input type="hidden" id="idSel` + ob.id + `" value="` + ob.id + `" /> `;
 }
 
-function selectedSaleData(id) {
+const selectedSaleData = (id) => {
   saleSel = {
     id: $("#idSel" + id).val(),
     prod: $("#prodSel" + id).html(),
@@ -701,7 +702,7 @@ $(document).on("click", "#bt_add_sale", function () { //========== เพิ่�
   }
 });
 
-function setListSale() {
+const setListSale = () => {
   const tableName = document.getElementById('listSale');
   let n = tableName.rows.length;
   if (n > 0) {
@@ -733,7 +734,7 @@ function setListSale() {
   }
 }
 
-function delete_sale_Row(id) {
+const delete_sale_Row = (id) => {
   const txt = 'ต้องการลบ "' + $("#prod" + id).html() + '" หรือไม่';
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -856,8 +857,9 @@ $(document).on("click", "#bt_cash_bill", function () {  //===== ตกลงเ�
   }
 });
 
+
 /*=========================== EDIt Sale =========================================================*/
-function editSaleRow(id) { //========== เปิดเพิ่มข้อมูล  
+const editSaleRow = (id) => { //========== เปิดเพิ่มข้อมูล  
   sale = {
     id: $("#id_sale" + id).val(),
     dt: $("#dt_sale" + id).val(),
@@ -996,7 +998,7 @@ function editSaleRow(id) { //========== เปิดเพิ่มข้อม�
   document.getElementById('bt_cash_bill').disabled = true;*/
 }
 
-function myListSaleData(dt, bill) {
+const myListSaleData = (dt, bill) => {
   const listData = dataAllShow;
   sortByCol(listData, 3, 0); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
   let sumDisc = 0;
@@ -1051,7 +1053,7 @@ function myListSaleData(dt, bill) {
   return array_Data;
 }
 
-function showListSaleTable(dt, bill) { //======================== แสดงตาราง
+const showListSaleTable = (dt, bill) => { //======================== แสดงตาราง
   const myArr = myListSaleData(dt, bill);
   const lastData = myArr.length - 1
   const tableName = document.getElementById('listSaleEdit');
@@ -1066,7 +1068,7 @@ function showListSaleTable(dt, bill) { //======================== แสดง�
   $("#sumListSaleSum").html(numWithCommas((myArr[lastData].sumPrice - myArr[lastData].sumDisc).toFixed(2)));
 }
 
-function listSaleListTable(ob) {  //========== ฟังก์ชั่นเพิ่ม Row ตารางข้อมูล
+const listSaleListTable = (ob) => {  //========== ฟังก์ชั่นเพิ่ม Row ตารางข้อมูล
   const tableName = document.getElementById('listSaleEdit');
   const prev = tableName.rows.length;
   let row = tableName.insertRow(prev);
@@ -1090,7 +1092,7 @@ function listSaleListTable(ob) {  //========== ฟังก์ชั่นเพ
   col[8].innerHTML = `<div id="sum` + id_row_list_sale + `" class="text-end">` + ((+ob.qty * +ob.price) - +ob.disc).toFixed(2) + `</div>`;
 }
 
-function delete_listSale_Row(id) {
+const delete_listSale_Row = (id) => {
   const txt = 'ต้องการลบ "' + $("#prod" + id).html() + '" หรือไม่';
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -1177,7 +1179,7 @@ $(document).on("click", "#bt_add_sale_edit", function () { //========== เพ�
   }
 });
 
-function setListEdit() {
+const setListEdit = () => {
   const tableName = document.getElementById('listSaleEdit');
   let n = tableName.rows.length;
   if (n > 0) {
@@ -1227,7 +1229,7 @@ $(document).on("click", "#bt_cash_bill_edit", function () {  //===== ตกล�
   let array_data = new Array();
   let dataIn = (i, c) => ((tableName.rows.item(i).cells[c].innerHTML).split('">')[1]).split('</')[0];
   if (n > 0) {
-    const txt = 'บันทึกการแก้ไข "' + sale.bill + ' (' + tsToDateShort(sale.dt, 'dmy') + ')" หรือไม่';
+    const txt = 'บันทึกการแก้ไข "' + oldBill + ' (' + tsToDateShort(oldDt, 'dmy') + ')" หรือไม่';
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'mybtn btnOk me-3',
@@ -1262,6 +1264,7 @@ $(document).on("click", "#bt_cash_bill_edit", function () {  //===== ตกล�
           array_cell[12] = (tableName.rows.item(a).cells[1].innerHTML).split('_')[1];
           array_data.push(array_cell);
         }
+        console.log(array_data);
         waiting();
         $.ajax({
           url: urlSale,
@@ -1299,3 +1302,5 @@ $(document).on("click", "#bt_cash_bill_edit", function () {  //===== ตกล�
     return false;
   }
 });
+
+    

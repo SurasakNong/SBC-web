@@ -10,8 +10,7 @@ var urlComm = 'https://script.google.com/macros/s/AKfycbxxsL_GhQ10sDH0CQJdvXLTIg
 var urlData = 'https://script.google.com/macros/s/AKfycbz6xE-Mao7PZ5LszcsXsmioaQAPE0dWkSMq59FOCd2th32MXLHy7i1iRZjNovFsB7ZiEg/exec';
 var urlStock = 'https://script.google.com/macros/s/AKfycbxBrjVV8xvvncHBD2Xd0BQ4fq80iB0CXRTOznbnzClom0R9KJdUC02yrMpZif7lfsY9NQ/exec';
 var urlProduct = 'https://script.google.com/macros/s/AKfycbz1WEUlg2fpZP6CHFwyPLVC7x_4UhFG4P4KvjQVlGUTnB6RqlmRIki2yan-IqucjEFvlQ/exec';
-var urlSale = 'https://script.google.com/macros/s/AKfycbwDsMSEQwOzF561HZeDldAIvW4hT9jCoN1mmxogjTjCYspvlpCFXb2_aHiJ2g0oYXlU/exec';
-
+var urlSale = 'https://script.google.com/macros/s/AKfycbxj2AS9FnVrVydr2JYTRtRUmE8Tag-juAtH-O4KXhuUiuqPTxAD1Rk9QEwmUy_mH0ma/exec';
 var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
 var user = { //=== เก็บข้อมูลผู้ใช้งาน
@@ -50,7 +49,7 @@ var picUrlAdd = ['','','','','','','','','','']; //=== เก็บที่อ�
 var mySearch = "";
 
 //=================================== DATE TIME Function ============================================
-function date_Now(st="") { //============================= วันที่ปัจจุบันสตริง
+const date_Now = (st="") =>{ //============================= วันที่ปัจจุบันสตริง
   var m = new Date();
   var dateString = "";
   
@@ -89,7 +88,7 @@ function date_Now(st="") { //============================= วันที่ป
   return dateString;
 }
 
-function tsToDate(ts, fn = "dmy") { //================= Timestamp to Date
+const tsToDate = (ts, fn = "dmy") =>{ //================= Timestamp to Date
   var m = new Date(ts);
   var dateString = "";
   if (fn === "dmy") { //==== 14/06/2023 22:24:49
@@ -122,7 +121,7 @@ function tsToDate(ts, fn = "dmy") { //================= Timestamp to Date
   return dateString;
 }
 
-function tsToDateShort(ts, fn = "dmy") { //================= Timestamp to Date
+const tsToDateShort = (ts, fn = "dmy") =>{ //================= Timestamp to Date
   var m = new Date(+ts);
   var dateString = "";
   if (fn === "dmy") { //==== 14/06/2023
@@ -163,12 +162,12 @@ function tsToDateShort(ts, fn = "dmy") { //================= Timestamp to Date
   return dateString;
 }
 
-function mdyToTimestamp(strDate) { //====== mdyToTimestamp('02/13/2009 23:31:30') ==> Timestamp
+const mdyToTimestamp = (strDate) =>{ //====== mdyToTimestamp('02/13/2009 23:31:30') ==> Timestamp
   var datum = Date.parse(strDate);
   return datum;
 }
 
-function dmyToTimestamp(strDate) { //====== dmyToTimestamp('13/02/2009 23:31:30') ==> Timestamp
+const dmyToTimestamp = (strDate)=> { //====== dmyToTimestamp('13/02/2009 23:31:30') ==> Timestamp
   let my_date = strDate.split(" ");
   let mdy_data = my_date[0].split("/");
   let tt = ((my_date[1] == '') || (my_date[1] == undefined))? "00:00:00": my_date[1];
@@ -177,7 +176,7 @@ function dmyToTimestamp(strDate) { //====== dmyToTimestamp('13/02/2009 23:31:30'
   return datum;
 }
 
-function ymdToTimestamp(strDate) { //====== dmyToTimestamp('2009-02-13 23:31:30') ==> Timestamp
+const ymdToTimestamp = (strDate) => { //====== dmyToTimestamp('2009-02-13 23:31:30') ==> Timestamp
   let my_date = strDate.split(" ");
   let mdy_data = my_date[0].split("-");
   let tt = ((my_date[1] == '') || (my_date[1] == undefined))? "00:00:00": my_date[1];
@@ -317,7 +316,7 @@ function getCookie(cname) {  //==================================== get or read 
 
 function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
 
-function numWithCommas(x) {
+const numWithCommas = (x) =>{
   x = x.toString();
   var pattern = /(-?\d+)(\d{3})/;
   while (pattern.test(x))
@@ -325,7 +324,7 @@ function numWithCommas(x) {
   return x;
 }
 
-function sortByCol(arr, colIndex, sortFn = 0) { //===== เรียงข้อมูล Array เลือก colum ได้
+const sortByCol = (arr, colIndex, sortFn = 0) =>{ //===== เรียงข้อมูล Array เลือก colum ได้
   if (sortFn === 0) {
     arr.sort(sortLessToMore);
   } else {
@@ -345,7 +344,7 @@ function sortByCol(arr, colIndex, sortFn = 0) { //===== เรียงข้อ
 }
 
 //=========================== Alert Warning ============================================================
-function myAlert(icon, title) {
+const myAlert =(icon, title) => {
   const Toast = Swal.mixin({
       toast: true,
       position: 'center',
@@ -365,7 +364,7 @@ function myAlert(icon, title) {
 
 }
 
-function sw_Alert(icon, title, desc) {
+const sw_Alert = (icon, title, desc) => {
   Swal.fire({
       customClass: {
           confirmButton: 'mybtn btnOk'
@@ -384,6 +383,7 @@ function sw_Alert(icon, title, desc) {
       }
   })
 }
+
 
 // show alert mini with time 2.3 sec
 function Signed(icon, title) {
