@@ -90,6 +90,18 @@ function show_home() { //========================== แสดงหน้าห�
                 </div>
             </div>
 
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="ele-fn ms-auto me-auto">
+                    <div class"col">
+                        <i class="fa-solid fa-users"></i>
+                    </div>                
+                    <div class="w-100"></div>
+                    <div class"col">
+                        <a>สมาชิก</a>
+                    </div>        
+                </div>
+            </div>
+
         </div>
         <a class="mt-5 mb-3" style="width:100%; text-align: center; color:#a0a0a0;">SBC system web application (ver 2309.2012.49)</a>
         
@@ -129,6 +141,8 @@ $(document).on('click', ".ele-fn", function () {  //ค้นหารายก�
         openProduct();
     }else if(selMenu === 'แสดงสินค้า'){
         openProduct();
+    }else if(selMenu === 'สมาชิก'){
+        openMember();
     }else{
         openProduct();
     }

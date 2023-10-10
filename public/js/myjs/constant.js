@@ -11,6 +11,7 @@ var urlData = 'https://script.google.com/macros/s/AKfycbz6xE-Mao7PZ5LszcsXsmioaQ
 var urlStock = 'https://script.google.com/macros/s/AKfycbxBrjVV8xvvncHBD2Xd0BQ4fq80iB0CXRTOznbnzClom0R9KJdUC02yrMpZif7lfsY9NQ/exec';
 var urlProduct = 'https://script.google.com/macros/s/AKfycbz1WEUlg2fpZP6CHFwyPLVC7x_4UhFG4P4KvjQVlGUTnB6RqlmRIki2yan-IqucjEFvlQ/exec';
 var urlSale = 'https://script.google.com/macros/s/AKfycbxj2AS9FnVrVydr2JYTRtRUmE8Tag-juAtH-O4KXhuUiuqPTxAD1Rk9QEwmUy_mH0ma/exec';
+var urlMember = 'https://script.google.com/macros/s/AKfycbzYzmqR2qykwA7Opp4B0VcXJYLo-prWnRkYlqoh0XLyUS51QzOMr7bZ1gETk6w3A9UgnA/exec';
 var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
 var user = { //=== เก็บข้อมูลผู้ใช้งาน
@@ -596,4 +597,12 @@ function pagination_show_old(shopid, page, pageall, per, fn) { //============== 
 
 function dataGetbyId_val(id) {
     return (document.getElementById(id).value == 'undefined') ? '' : document.getElementById(id).value;
+}
+
+const onlyNumberKey = (evt) => {             
+  // Only ASCII character in that range allowed
+  var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+  if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+      return false;
+  return true;
 }

@@ -1264,7 +1264,6 @@ $(document).on("click", "#bt_cash_bill_edit", function () {  //===== ตกล�
           array_cell[12] = (tableName.rows.item(a).cells[1].innerHTML).split('_')[1];
           array_data.push(array_cell);
         }
-        console.log(array_data);
         waiting();
         $.ajax({
           url: urlSale,
