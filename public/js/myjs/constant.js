@@ -37,7 +37,7 @@ var saleSel = {id:'',prod:'', type:'', shelf:'', qty:0, cost:0, price:0, disc:0}
 var id_row_list_sale = 0, saleUnit = 0, saleSum = 0;
 
 var dataAllShow; //=== เก็บข้อมูลชั่วคราว
-var dataAllSel;
+var dataAllSel,dataAllSel2;
 
 var rowperpage = 10; //=== จำนวนแถวที่แสดงข้อมูลต่อหน้า
 var page_selected = 1; //=== หน้าที่เลือก

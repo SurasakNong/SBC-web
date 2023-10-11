@@ -1374,7 +1374,7 @@ background-color:#FF8551;
   margin: auto;
   overflow: auto;
   height: 420px;
-  padding-bottom: 10px;
+  padding:0 8px 8px 8px;
 }
 .table-scroll table {
   width: 100%;

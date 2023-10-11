@@ -1,4 +1,4 @@
-/*===============================  การขายสินค้า =================================*/
+/*===============================  สมาชิก =================================*/
 const openMember = () => {    
     page_selected = 1;
     is_sort = true;
@@ -25,9 +25,11 @@ const openMember = () => {
                 </form> 
             </div>          
         </div>   
+        
         <div class="row">  
             <div class="col-lg-10 col-md-10 col-sm-10 mx-auto" id="add_member"></div>
-        </div>   
+        </div>  
+
         <div class="row">  
             <div class="col-lg-10 col-md-10 col-sm-10 mx-auto" id="edit_member"></div>
         </div>  
@@ -38,7 +40,7 @@ const openMember = () => {
             <div class="row">
               <div class="col-auto me-auto" style="font-size: 0.8rem;">
                 <label  for="rowShow_mem">แถวแสดง:</label>
-                <input type="number" id="rowShow_mem" name="rowShow_mem" min="1" max="99" step="1" value="" style="text-align:center;">
+                <input type="number" id="rowShow_member" name="rowShow_mem" min="1" max="99" step="1" value="" style="text-align:center;">
               </div>
               <div class="col">
                 <div id="pagination"></div>

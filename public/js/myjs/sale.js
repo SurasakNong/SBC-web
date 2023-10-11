@@ -80,6 +80,22 @@ const openSale = () => {
             </div>
           </div>
       </div>
+
+      <div class="row justify-content-center">  
+          <div class="col-lg-8 col-md-9 col-sm-11 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_mem_sale">
+            <div class="row mt-3 mb-2">  
+              <div class="input-group">                  
+                  <input type="text" id="search_sel_mem" onkeypress="handle_tableMemSearch(event)" class="form-control" placeholder="คำค้นหา..สมาชิก" 
+                  aria-label="Search" aria-describedby="button-search" style="border-radius:18px 0 0 18px;">
+                  <button class="b-success" type="button" id="bt_search_sel_mem" title="ค้นหา" style="border-radius:0 18px 18px 0;"><i class="fas fa-search"></i></button>
+                  <button class="b-back ms-2" id="bt_sel_back_mem" name="bt_sel_back_mem" type="button" title="กลับ"><i class="fa-solid fa-xmark fa-lg"></i></button>
+              </div>
+            </div>
+            <div class="row">  
+              <div class="col-lg-12 mx-auto tableFixHead" id="table_sel_mem" style="height:420px;"></div>
+            </div>
+          </div>
+      </div>
     </div>
 
       `;
@@ -93,7 +109,9 @@ const openSale = () => {
   $("#dateto_sale").val(dT.toShot);
   loadDataSale();
   document.getElementById("table_sel_prod_sale").style.display = "none";
+  document.getElementById("table_sel_mem_sale").style.display = "none";
   loadDataSaleSelect();
+  loadDataMemSelect();
 }
 
 $(document).on('change', "#datefm_sale", function () {
@@ -375,7 +393,7 @@ $(document).on("click", "#btAddSale", function () { //========== เปิดเ
                   <div class="input-group mb-1">
                     <!-- <label class="input-group-text " style="width: 65px;">สมาชิก</label> -->
                     <input type="text" id="name_member" class="form-control" aria-label="member" placeholder="เลือกสมาชิก...">
-                    <button class="b-success" type="button" id="bt_open_sel" title="เลือกสมาชิก"><i class="fa-solid fa-user"></i></button>
+                    <button class="b-success" type="button" id="bt_open_sel_mem" title="เลือกสมาชิก"><i class="fa-solid fa-user"></i></button>
                   </div>
                 </div>
               </div>
@@ -522,7 +540,7 @@ $(document).on('change', "#cash_bill", function () {
 });
 
 
-/*================================================= Select ====================================================================== */
+/*================================================= Select Product ======================================================== */
 $(document).on("click", "#bt_open_sel_sale, #bt_open_sel_sale_edit", function () {
   document.getElementById("table_sel_prod_sale").style.display = "block";
   showSelectSaleTable();
@@ -650,7 +668,122 @@ const selectedSaleData = (id) => {
   $("#name_product").val(saleSel.prod);
   document.getElementById("table_sel_prod_sale").style.display = "none";
 }
-/*========================================= End Select ==============================================================*/
+/*========================================= End Select Product  ===================================================*/
+
+/*========================================== Select Member  =======================================================*/
+$(document).on("click", "#bt_open_sel_mem, #bt_open_sel_mem_edit", function () {
+  document.getElementById("table_sel_mem_sale").style.display = "block";
+  showSelectMemTable();
+});
+
+$(document).on("click", "#bt_sel_back_mem", function () {
+  document.getElementById("table_sel_mem_sale").style.display = "none";
+});
+
+$(document).on('click', "#bt_search_sel_mem", function () {  //ค้นหารายการ
+  showSelectMemTable();
+});
+
+const handle_tableMemSearch = (e) => {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    showSelectMemTable();
+  }
+}
+
+
+const loadDataMemSelect = (show = true) => {
+  if (show === true) waiting();
+  $.ajax({
+    url: urlMember,
+    type: 'GET',
+    crossDomain: true,
+    data: { opt_k: 'readAll' },
+    success: function (result) {
+      dataAllSel2 = result;
+      if (show === true) showSelectMemTable(); //<<<<<< แสดงตาราง rowperpage,page_sel           
+      waiting(false);
+    },
+    error: function (err) {
+      console.log("The server  ERROR says: " + err);
+    }
+  });
+}
+
+const showSelectMemTable = (isSort = true, colSort = 3) => { //======================== แสดงตาราง
+  const strSearch = document.getElementById('search_sel_mem').value;
+  const myArr = mySelectMemData(strSearch, isSort, colSort);
+  let tt = `
+        <table class="list-selTable table animate__animated animate__fadeIn" id="selectMemTable" >
+          <thead>
+            <tr>
+              <th class="text-start">ชื่อ</th>
+              <th class="text-start">อีเมล</th>
+              <th class="text-start">เบอร์โทร</th>
+              <th class="text-start">ที่อยู่</th>
+              <th class="text-end">Point</th>            
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>                     
+        `;
+  $("#table_sel_mem").html(tt);
+  for (let i = 0; i < myArr.length; i++) {
+    listSelectMemTable(myArr[i]);
+  }
+}
+
+const mySelectMemData = (shText = "", isSort = true, colSort = 2) => {
+  const search_str = shText.toLowerCase().split(",");
+  if (isSort == true) sortByCol(dataAllSel2, colSort, 0); //==== เรียงข้อมูล values คอลัม 0-n จากน้อยไปมากก่อนนำไปใช้งาน 
+  let array_Arg = new Array();
+  for (let i = 0; i < dataAllSel2.length; i++) {
+    const condition = search_str.some(el => dataAllSel2[i][2].toLowerCase().includes(el));   //ชื่อ
+    const condition2 = search_str.some(el => dataAllSel2[i][5].toLowerCase().includes(el));  //อีเมล
+    const condition3 = search_str.some(el => dataAllSel2[i][6].toLowerCase().includes(el));  //เบอร์โทร
+    const condition4 = search_str.some(el => dataAllSel2[i][7].toLowerCase().includes(el));  //ที่อยู่
+    if (condition || condition2 || condition3 || condition4) {
+      let jsonArg = new Object();
+      jsonArg.id = dataAllSel2[i][0];
+      jsonArg.name = dataAllSel2[i][2];
+      jsonArg.email = dataAllSel2[i][5];
+      jsonArg.tel = dataAllSel2[i][6];
+      jsonArg.add = dataAllSel2[i][7];
+      jsonArg.point = dataAllSel2[i][8];
+      array_Arg.push(jsonArg);
+    }
+  }
+  return array_Arg;
+}
+
+const listSelectMemTable = (ob) => {  //========== ฟังก์ชั่นเพิ่ม Row ตารางข้อมูล
+  const tableName = document.getElementById('selectMemTable');
+  const prev = tableName.rows.length;
+  let row = tableName.insertRow(prev);
+  row.id = "row" + ob.id;
+  row.style.verticalAlign = "top";
+  const n_col = 5;
+  let col = [];
+  for (let ii = 0; ii < n_col; ii++) {
+    col[ii] = row.insertCell(ii);
+  }
+  col[0].innerHTML = `<div id="nameSel` + ob.id + `" class="text-start" onclick="selectedMemData(` + ob.id + `);">` + ob.name + `</div>`;
+  col[1].innerHTML = `<div id="emailSel` + ob.id + `" class="text-start" onclick="selectedMemData(` + ob.id + `);">` + ob.email + `</div>`;
+  col[2].innerHTML = `<div id="telSel` + ob.id + `" class="text-start" onclick="selectedMemData(` + ob.id + `);">` + ob.tel + `</div>`;
+  col[3].innerHTML = `<div id="addSel` + ob.id + `" class="text-start" onclick="selectedMemData(` + ob.id + `);">` + ob.add + `</div>`;
+  col[n_col - 1].innerHTML = `<div id="point` + ob.id + `" class="text-end" onclick="selectedMemData(` + ob.id + `);">` + ob.point + `</div>
+    <input type="hidden" id="idMemSel` + ob.id + `" value="` + ob.id + `" /> `;
+}
+
+const selectedMemData = (id) => {
+  const mem = $("#nameSel" + id).html() +'/'+$("#emailSel" + id).html()+'/'+$("#telSel" + id).html();
+  sale.mem = mem;
+  $("#name_member").val($("#nameSel" + id).html());
+  document.getElementById("table_sel_mem_sale").style.display = "none";
+}
+/*========================================= End Select Member  ===================================================*/
+
 
 $(document).on("click", "#bt_add_sale", function () { //========== เพิ่มรายการขาย
   const tableName = document.getElementById('listSale');
@@ -901,7 +1034,7 @@ const editSaleRow = (id) => { //========== เปิดเพิ่มข้อ�
                 <div class="col-md-4">
                   <div class="input-group mb-1">
                     <!-- <label class="input-group-text " style="width: 65px;">สมาชิก</label> -->
-                    <input type="text" id="name_member_edit" class="form-control" aria-label="member" placeholder="เลือกสมาชิก..." >
+                    <input type="text" id="name_member" class="form-control" aria-label="member" placeholder="เลือกสมาชิก..." >
                     <button class="b-success" type="button" id="bt_open_sel_mem" title="เลือกสมาชิก"><i class="fa-solid fa-user"></i></button>
                   </div>
                 </div>
@@ -987,7 +1120,7 @@ const editSaleRow = (id) => { //========== เปิดเพิ่มข้อ�
   $("#edit_sale").html(html);
   $("#date_sale_edit").val(tsToDateShort(sale.dt, 'y-m-d'));
   $("#bill_sale_edit").val(sale.bill);
-  $("#name_member_edit").val(sale.mem);
+  $("#name_member").val(sale.mem);
 
   $("#disc_bill_edit").val((sale.discBill).toFixed(2));
   $("#sum_of_bill_edit").val((sale.priceBill).toFixed(2));
@@ -1165,7 +1298,7 @@ $(document).on("click", "#bt_add_sale_edit", function () { //========== เพ�
 
       sale.dt = ymdToTimestamp($("#date_sale_edit").val() + " 00:00:01");
       sale.bill = $("#bill_sale_edit").val();
-      sale.mem = ($("#name_member_edit").val() == '') ? 'ทั่วไป' : $("#name_member_edit").val();
+      sale.mem = ($("#name_member").val() == '') ? 'ทั่วไป' : $("#name_member").val();
       $("#name_product").val('');
       $("#qty_sale_edit").val('1');
       $("#disc_sale_edit").val('0');
@@ -1221,7 +1354,7 @@ $(document).on("click", "#bt_cash_bill_edit", function () {  //===== ตกล�
   const oldBill = sale.bill;
   sale.dt = ymdToTimestamp($('#date_sale_edit').val() + " 00:00:01");
   sale.bill = $('#bill_sale_edit').val();
-  sale.mem = ($('#name_member_edit').val() == '') ? 'ทั่วไป' : $('#name_member_edit').val();
+  sale.mem = ($('#name_member').val() == '') ? 'ทั่วไป' : $('#name_member').val();
   sale.discBill = +$("#disc_bill_edit").val();
   sale.priceBill = +$("#sum_of_bill_edit").val();
   sale.cashBill = +$("#cash_bill_edit").val();

@@ -42,12 +42,15 @@ function openStockIn(){
               </form> 
           </div>          
       </div>   
+
       <div class="row">  
           <div class="col-lg-10 col-md-10 col-sm-12 mx-auto" id="add_stock"></div>
       </div>   
+
       <div class="row">  
           <div class="ccol-lg-10 col-md-10 col-sm-12 mx-auto" id="edit_stock"></div>
       </div>   
+
       <div class="row">  
         <div id="table_stock_all">
           <div class="col-lg-12 mx-auto table-scroll mb-2" id="table_stock" style="height: calc(100vh - 200px);"></div>
@@ -65,6 +68,7 @@ function openStockIn(){
           </div>  
         </div>
       </div>
+      
       <div class="row justify-content-center">  
           <div class="col-lg-6 col-md-8 col-sm-10 mx-auto tableSelect animate__animated animate__fadeIn" id="table_sel_prod">
             <div class="row mt-3 mb-2">  
