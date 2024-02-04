@@ -89,8 +89,10 @@ function openStockIn(){
       `;      
     $("#main_setting").html(html);
     var dd = new Date();    
-    dT.fmShot = dd.getFullYear() + "-" + ("0" + (dd.getMonth()-2)).slice(-2) + "-" + "01";
-    dT.fmTs = dmyToTimestamp("01/"+ ("0" + (dd.getMonth()-2)).slice(-2) + "/" + dd.getFullYear() + " 00:00:01");
+    let mm = (dd.getMonth()-2 < 1 )?dd.getMonth()-2+12:dd.getMonth()-2; //ย้อนหลังไป 3 เดือน
+    let yy = (dd.getMonth()-2 < 1 )?dd.getFullYear()-1:dd.getFullYear(); //ย้อนหลังไป 3 เดือน
+    dT.fmShot = yy + "-" + ("0" + mm).slice(-2) + "-" + "01";
+    dT.fmTs = dmyToTimestamp("01/"+ ("0" + mm).slice(-2) + "/" + yy + " 00:00:01");
     dT.toShot = date_Now("y-m-d");
     dT.toTs = dmyToTimestamp(("0" + dd.getDate()).slice(-2)+"/"+ ("0" + (dd.getMonth()+1)).slice(-2) + "/" + dd.getFullYear() + " 23:59:59");
     $("#datefm_stock").val(dT.fmShot);
@@ -586,7 +588,7 @@ function delete_stock_Row(id) { //================================ ลบข้�
   var del_name = $('#prod' + id).html() + " ("+$('#lot' + id).html()+") ";
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-          confirmButton: 'mybtn btnOk',
+          confirmButton: 'mybtn btnOk me-4',
           cancelButton: 'mybtn btnCan'
       },
       buttonsStyling: false

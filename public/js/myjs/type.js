@@ -274,7 +274,7 @@ function deleteTypeRow(id) { //================================ ลบข้อ�
     var del_name = document.getElementById('name' + id).innerHTML;
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: 'mybtn btnOk',
+            confirmButton: 'mybtn btnOk me-4',
             cancelButton: 'mybtn btnCan'
         },
         buttonsStyling: false

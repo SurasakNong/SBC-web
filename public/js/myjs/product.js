@@ -73,11 +73,10 @@ function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
   let array_Arg = new Array();
   let sumData = [0,0,0];
   for(let i = 0; i < dataAllShow.length; i++){
-      const condition = search_str.some(el => dataAllShow[i][1].toLowerCase().includes(el));
-      const condition2 = search_str.some(el => dataAllShow[i][2].toLowerCase().includes(el));  //รุ่น
-      const condition3 = search_str.some(el => dataAllShow[i][3].toLowerCase().includes(el));  //ประเภท
-      const condition4 = search_str.some(el => dataAllShow[i][4].toLowerCase().includes(el));  //รายละเอียด
-      if (condition || condition2 || condition3 || condition4) {
+      const showOnPage =( dataAllShow[i][14] == 'TRUE')?"enable":"disable"      //ข้อมูลแสดงสินค้าบนเพจ
+      const forSearch = dataAllShow[i][1]+dataAllShow[i][2]+dataAllShow[i][3]+dataAllShow[i][4]+showOnPage+""
+      const condition = search_str.some(el => forSearch.toLowerCase().includes(el))
+      if (condition) {
           let jsonArg = new Object();
           jsonArg.id = dataAllShow[i][0];
           jsonArg.name = dataAllShow[i][1]; 
@@ -93,6 +92,9 @@ function myProductData(shText = "", colSort = 0, isSort = false, rawSort = 0, pa
           jsonArg.qty = dataAllShow[i][11]; 
           jsonArg.cost = dataAllShow[i][12]; 
           jsonArg.price = dataAllShow[i][13]; 
+          jsonArg.show = dataAllShow[i][14]; 
+          jsonArg.rate = dataAllShow[i][15]; 
+          jsonArg.oldPrice = dataAllShow[i][16]; 
           sumData[0] = sumData[0] + +dataAllShow[i][11];
           sumData[1] = sumData[1] + (+dataAllShow[i][11] * +dataAllShow[i][12]);
           sumData[2] = sumData[2] + (+dataAllShow[i][11] * +dataAllShow[i][13]);
@@ -212,13 +214,14 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
   row.id = "row" + ob.id;
   row.style.verticalAlign = "top";
   txtDel = `<i class="fas fa-trash-alt" onclick="deleteProductRow(` + ob.id + `)" style="cursor:pointer; color:#d9534f;"></i>`;
+  txtColorShow = (ob.show == 'TRUE')?' style="color:#000066;" ':'';
   const n_col = 9;
   let col = [];
   for (let ii = 0; ii < n_col; ii++) {
       col[ii] = row.insertCell(ii);
   }
   col[0].innerHTML = `<div id="no" class="text-center">` + i_no + `</div>`;
-  col[1].innerHTML = `<div id="name` + ob.id + `" class="text-start">` + ob.name + `</div>`;
+  col[1].innerHTML = `<div id="name` + ob.id + `" class="text-start" ${txtColorShow} >` + ob.name + `</div>`;
   col[2].innerHTML = `<div id="brand` + ob.id + `" class="text-start">` + ob.brand + `</div>`;
   col[3].innerHTML = `<div id="type` + ob.id + `" class="text-start">` + ob.type + `</div>`;
   col[4].innerHTML = `<div id="desc` + ob.id + `" class="text-start">` + ob.desc + `</div>`;
@@ -235,6 +238,9 @@ function listProductTable(ob, i_no) {  //========== ฟังก์ชั่น�
     <input type="hidden" id="p_urlpic5_` + ob.id + `" value="` + ob.urlpic5 + `" />
     <input type="hidden" id="p_urlpic6_` + ob.id + `" value="` + ob.urlpic6 + `" />
     <input type="hidden" id="price` + ob.id + `" value="` + ob.price + `" />
+    <input type="hidden" id="show` + ob.id + `" value="` + ob.show + `" />
+    <input type="hidden" id="rate` + ob.id + `" value="` + ob.rate + `" />
+    <input type="hidden" id="oldPrice` + ob.id + `" value="` + ob.oldPrice + `" />
     
     <i class="fas fa-edit me-3" onclick="editProductRow(` + ob.id + `)" style="cursor:pointer; color:#5cb85c;"></i>
     `+ txtDel;
@@ -251,11 +257,17 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
           <div class="main_form_head"> เพิ่มรายการสินค้า </div>     
         </div> 
         <div class="row">
-          <div class="col-md">
+          <div class="col-md-8">
             <div class="input-group mb-2">
               <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
               <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
             </div>
+          </div> 
+          <div class="col-md-4">
+            <div class="input-group mb-2">
+              <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
+              <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand">
+            </div>  
           </div> 
         </div> 
 
@@ -270,10 +282,10 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
           </div> 
           <div class="col-md-4">
             <div class="input-group mb-2">
-              <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
-              <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand">
-            </div>  
-          </div> 
+              <label class="input-group-text " style="width: 80px; background:#ee8080; color:#fff;" for="oldPrice_product">ราคาเดิม</label>
+              <input type="number" id="oldPrice_product" class="form-control" aria-label="old product price" min="0" step="0.1" value="0">
+            </div> 
+          </div>
         </div> 
 
         <div class="row">
@@ -290,6 +302,21 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
             </div> 
           </div> 
         </div> 
+
+        <div class="row">        
+        <div class="col-md-8">
+          <div class="form-check form-switch d-flex justify-content-center pt-2 mb-3">
+            <input class="form-check-input" type="checkbox" id="showCheck" name="showCheck">
+            <label class="form-check-label" for="showCheck"> &nbsp; &nbsp;แสดงสินค้าบนเพจ</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-2">
+            <label class="input-group-text " style="width: 80px; background:#20aaee; color:#fff" for="rate_product">Rate</label>
+            <input type="number" id="rate_product" class="form-control" aria-label="product rate" min="0" max="10" step="1" value="0">
+          </div>     
+        </div>
+      </div>
 
         <div class="row justify-content-center mt-4" style="text-align: center;">
           <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
@@ -316,13 +343,17 @@ $(document).on("submit", "#add_product_form", function () {  //===== ตกล�
   const price_product = my_form.find("#price_product").val();
   const sel_type_index = document.getElementById("selType").selectedIndex;
   const sel_type = (document.getElementById("selType").options[sel_type_index].text).split("--")[0];
+  const show = (my_form.find('#showCheck').prop("checked"))?"TRUE":"FALSE";
+  const rate = my_form.find("#rate_product").val();
+  const oldPrice = my_form.find("#oldPrice_product").val();
   if(sel_type_index !== 0 ){
       waiting();
       $.ajax({
       url: urlProduct,
       type: 'GET',
       crossDomain: true,
-      data: { opt_k: 'add', opt_nm:name_product, opt_brand:brand_product, opt_type:sel_type, opt_desc:desc_product, opt_price:price_product},
+      data: { opt_k: 'add', opt_nm:name_product, opt_brand:brand_product, opt_type:sel_type, opt_desc:desc_product, opt_price:price_product,
+              opt_show:show, opt_rate:rate, opt_oldPrice:oldPrice},
       success: function (result) {
           waiting(false);
           if(result == "success"){
@@ -349,7 +380,7 @@ function deleteProductRow(id) { //================================ ลบข้�
   const del_name = $('#name' + id).html();
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-          confirmButton: 'mybtn btnOk',
+          confirmButton: 'mybtn btnOk me-4',
           cancelButton: 'mybtn btnCan'
       },
       buttonsStyling: false
@@ -409,12 +440,18 @@ function editProductRow(id) { //================================ เปิดห
           </div>
       </div> 
       <div class="row">        
-        <div class="col-md-12">
+        <div class="col-md-8">
           <div class="input-group mb-2">
               <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
               <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
           </div> 
         </div>
+        <div class="col-md-4">
+          <div class="input-group mb-2">
+            <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
+            <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
+          </div> 
+        </div> 
       </div>
 
       <div class="row">   
@@ -428,8 +465,8 @@ function editProductRow(id) { //================================ เปิดห
         </div>     
         <div class="col-md-4">
           <div class="input-group mb-2">
-              <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
-              <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
+            <label class="input-group-text " style="width: 80px; background:#ee8080; color:#fff;" for="oldPrice_product">ราคาเดิม</label>
+            <input type="number" id="oldPrice_product" class="form-control" aria-label="Old product price" min="0" step="0.1" value="0">
           </div>
         </div>        
       </div>
@@ -445,6 +482,21 @@ function editProductRow(id) { //================================ เปิดห
           <div class="input-group mb-2">
             <label class="input-group-text " style="width: 80px;" for="price_product">ราคาขาย</label>
             <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
+          </div>     
+        </div>
+      </div>
+
+      <div class="row">        
+        <div class="col-md-8">
+          <div class="form-check form-switch d-flex justify-content-center pt-2 mb-3">
+            <input class="form-check-input" type="checkbox" id="showCheck" name="showCheck">
+            <label class="form-check-label" for="showCheck"> &nbsp; &nbsp;แสดงสินค้าบนเพจ</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-2">
+            <label class="input-group-text " style="width: 80px; background:#20aaee; color:#fff;" for="rate_product">Rate</label>
+            <input type="number" id="rate_product" class="form-control" aria-label="product rate" min="0" max="10" step="1" value="0">
           </div>     
         </div>
       </div>
@@ -484,7 +536,11 @@ function editProductRow(id) { //================================ เปิดห
   $("#brand_product").val($("#brand"+id).html()); 
   $("#desc_product").val($("#desc"+id).html()); 
   $("#price_product").val($("#price"+id).val()); 
-  
+  $("#oldPrice_product").val($("#oldPrice"+id).val());
+  $("#rate_product").val($("#rate"+id).val());  
+  $('#showCheck').prop('checked', ($("#show"+id).val()=="TRUE")?true:false);
+  //console.log($('#showCheck').prop("checked") ? 1 : 0 )
+
   for(let i=1; i <= 6; i++){
     $("#url_Pic"+i).val($("#p_urlpic"+i+"_"+id).val());
     picUrlAdd[i-1] = ($("#p_urlpic"+i+"_"+id).val() == undefined || $("#p_urlpic"+i+"_"+id).val() == "" || $("#p_urlpic"+i+"_"+id).val() == "undefined")?"":$("#p_urlpic"+i+"_"+id).val();
@@ -571,7 +627,7 @@ function delPic(id){
   let picSet = document.getElementById("picProduct");      
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-          confirmButton: 'mybtn btnOk',
+          confirmButton: 'mybtn btnOk me-4',
           cancelButton: 'mybtn btnCan'
       },
       buttonsStyling: false
@@ -621,7 +677,9 @@ function delPic(id){
 }
 
 $(document).on("change", "#uploadPicProd", function (e) {
-  if (e.target.files) {
+  if(+e.target.files[0].size > (1024*1024*20)){ //ไม่เกิน 10 MB
+    sw_Alert("warning", "ขนาดไฟล์ มากกว่า 10MB " ,"กรุณาลดขนาดไฟล์ก่อน หรือเลือกไฟล์ใหม่");
+  }else if (e.target.files) {
       waiting();
       for(let i=0; i<6; i++){
         if(picUrlAdd[i] == ''){
@@ -631,7 +689,6 @@ $(document).on("change", "#uploadPicProd", function (e) {
       }
       const idProduct = $("#id_product").val();
       const n_file = 'prod_' + idProduct + '_' + picNoAdd;
-      console.log(n_file);
       let imageFile = e.target.files[0];
       var reader = new FileReader();
       reader.onload = function (e) {
@@ -641,9 +698,10 @@ $(document).on("change", "#uploadPicProd", function (e) {
                   ctx = c.getContext("2d");
               var canvas = document.createElement('canvas'),
                   ctx_s = canvas.getContext("2d");
-              var width = 300;
-              var height = 300;
-              const sqr = false; /*<<==== กำหนดว่าต้องการภาพด้านเท่าหรือไม่ false/true */
+              var width = (img.width>1200)?1200:img.width;//img.width; //กำหนดความกว้างที่ต้องการ
+              var height = (img.height>1200)?1200:img.height;;//img.height; //กำหนดความสูงที่ต้องการ
+              
+              const sqr = false; /*<<==== กำหนดว่าภาพเป็นสี่เหลี่ยมจตุรัสหรือไม่ false/true */
               if (sqr) { /*============================= Square ==================================*/
                   if (img.width < img.height) { // ภาพสูง
                       var co = {
@@ -709,8 +767,6 @@ $(document).on("change", "#uploadPicProd", function (e) {
                           myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
                       } else {
                           console.log("Upload picture Product ERROR : ");
-                          console.log(res.result);
-                          console.log(res);
                       }
                       waiting(false);
                   }); 
@@ -736,6 +792,9 @@ const productPic3 = picUrlAdd[2];
 const productPic4 = picUrlAdd[3];
 const productPic5 = picUrlAdd[4];
 const productPic6 = picUrlAdd[5];
+const show = (my_form.find('#showCheck').prop("checked"))?"TRUE":"FALSE";
+const rate = my_form.find("#rate_product").val();
+const oldPrice = my_form.find("#oldPrice_product").val();
 waiting();
 $.ajax({
   url: urlProduct,
@@ -743,7 +802,8 @@ $.ajax({
   crossDomain: true,
   data: { opt_k: 'edit', opt_id:id_product, opt_nm:name_product, opt_brand:brand_product, opt_type:type_product, 
           opt_desc:desc_product, opt_urlPic1:productPic1, opt_urlPic2:productPic2, opt_urlPic3:productPic3, 
-          opt_urlPic4:productPic4, opt_urlPic5:productPic5, opt_urlPic6:productPic6, opt_price:price_product},
+          opt_urlPic4:productPic4, opt_urlPic5:productPic5, opt_urlPic6:productPic6, opt_price:price_product,
+          opt_show:show, opt_rate:rate, opt_oldPrice:oldPrice},
   success: function (result) {
       waiting(false); 
       if(result == "success"){

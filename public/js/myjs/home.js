@@ -106,7 +106,7 @@ function show_home() { //========================== แสดงหน้าห�
         <a class="mt-5 mb-3" style="width:100%; text-align: center; color:#a0a0a0;">SBC system web application (ver 2310.1112.01)</a>
         
     </div>
-      `;
+      `; 
     $("#main_setting").html(html);
     document.getElementById("pic_user").src = user.pic;
     document.getElementById('pic_user').setAttribute('title', user.name + ' (' + user.uname + ')');

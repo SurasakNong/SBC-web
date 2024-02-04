@@ -350,7 +350,7 @@ function delete_user_Row(id) { //================================ ลบข้�
     var user_name = document.getElementById('name' + id).innerHTML + ' (' + document.getElementById('uname' + id).innerHTML + ')';
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: 'mybtn btnOk',
+            confirmButton: 'mybtn btnOk me-4',
             cancelButton: 'mybtn btnCan'
         },
         buttonsStyling: false
@@ -614,7 +614,7 @@ $(document).on("click", "#resetpass", function () { //========== รีเซ็
     const user_name = document.getElementById('name_user').value;
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: 'mybtn btnOk',
+            confirmButton: 'mybtn btnOk me-4',
             cancelButton: 'mybtn btnCan'
         },
         buttonsStyling: false
@@ -680,7 +680,7 @@ $(document).on("click", "#ch_key", function () {   //เปิดหน้าเ
             <input type="password" class="form-control" id="new_pass2" placeholder="อีกครั้ง" aria-label="Repeat Password" required>
           </div>
           <div style="text-align:center;">
-            <button type="submit" class="mybtn btnOk">บันทึก</button>
+            <button type="submit" class="mybtn btnOk me-4">บันทึก</button>
             <button type="button" class="mybtn btnCan" onclick="show_home();">ยกเลิก</button>
           </div>
         </form>

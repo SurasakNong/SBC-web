@@ -4,19 +4,20 @@ goBack();
 waiting(false);
 
 function showLogin(){
-    document.getElementById("content").style.display = "none";
-    document.getElementById("login").style.display = "block";
+    document.getElementById("content").style.display = "none";    
     document.getElementById("login_form").reset();
     document.getElementById("setting").style.display = "none";
     document.getElementById("main_setting").style.display = "none";
+    document.getElementById("login").style.display = "block";
 }
 
-function goBack(){
-    document.getElementById("content").style.display = "block";
+function goBack(){    
     document.getElementById("login").style.display = "none";
     document.getElementById("setting").style.display = "none";
     document.getElementById("main_setting").style.display = "none";    
+    document.getElementById("content").style.display = "block";
     showCommNew();
+    showProduct();
 }
 
 function showSetting(){
@@ -124,12 +125,13 @@ function waiting(order = true) {
 
 function linkPic(id,pic){
     var lk = '';
-    if(id == '' || id == null || id == undefined || id == 'undefined'){
+    if(id === '' || id === null || id === undefined || id === 'undefined'){
         lk = pic;
     }else{
         //lk = 'https://drive.google.com/uc?id=' + id;
-        //lk = 'https://drive.google.com/uc?export=download&id=' + id; //for download
-        lk = 'https://drive.google.com/uc?export=view&id=' + id;
+        //lk = 'https://drive.google.com/uc?export=download&id=' + id; //for download  
+        //lk = 'https://drive.google.com/uc?export=view&id=' + id;
+        lk = "https://drive.google.com/thumbnail?id="+ id +"&sz=w1000";
     }
     return lk
 }
@@ -160,6 +162,7 @@ function showCommNew() { //======================== แสดงจำนวน�
         }
     });
 }
+
 
 function initDropdownList(url,id, data,descTxt = false) { 
     $.ajax({ // (urlAppscript, idSelect , lenghtData, idcol, namecol) initDropdownList(urlUser,'selPos','dataset!A2:B',0,1);
@@ -223,3 +226,118 @@ function setDropdownList(url, id, data, txt) {
         }
     });
 }
+
+function showProduct(show = true) {
+    
+    $.ajax({
+        url: urlProduct,
+        type: 'GET',
+        crossDomain: true,
+        data: { opt_k: 'readAll'},
+        success: function (result) {
+            dataAllShow = result;
+            sortByCol(dataAllShow, 15, 1); //==== เรียงข้อมูลตาม rate col=15, เรียงจากมากไปน้อย=1(0,1)
+            let products = document.getElementById("products");
+            
+            let tt = '';
+            for(let i = 0; i < dataAllShow.length; i++){
+                if (dataAllShow[i][14] === "TRUE") {
+                    let id = dataAllShow[i][0]
+                    let title = dataAllShow[i][1]
+                    let cost = numWithCommas(+dataAllShow[i][13])
+                    let qty = (+dataAllShow[i][11] > 0)?"จำนวนคงเหลือ "+dataAllShow[i][11]:"*** สินค้าหมด ***"
+                    let qty_col = (+dataAllShow[i][11] > 0)?"color:#004030":"color:#ee2222"
+                    let overview = dataAllShow[i][4]
+                    let oldPrice = numWithCommas(dataAllShow[i][16])
+                    let pic = ''
+                    if (dataAllShow[i][5] !== ''){
+                        pic = dataAllShow[i][5]
+                    }else if(dataAllShow[i][6] !== ''){
+                        pic = dataAllShow[i][6]
+                    }else if(dataAllShow[i][7] !== ''){
+                        pic = dataAllShow[i][7]
+                    }else if(dataAllShow[i][8] !== ''){
+                        pic = dataAllShow[i][8]
+                    }else if(dataAllShow[i][9] !== ''){
+                        pic = dataAllShow[i][9]
+                    }else if(dataAllShow[i][10] !== ''){
+                        pic = dataAllShow[i][10]
+                    }else {
+                        pic = ''
+                    }
+                    
+                    tt = tt +`
+                <div class="myProd" onclick="showProductPreview(${id})">
+                    <img src="${linkPic(pic,pic_no)}" alt="product" class="img-fluid">
+                    <div class="title">${title}</div>
+                    <div class="myProd-info">                 
+                        <div class="myProd-price">
+                            <strong> ราคา <del> ${oldPrice} </del>&nbsp;&nbsp;<span>${cost}</span> บาท </strong>
+                        </div>   
+                        <small style="${qty_col}">${qty}</small>
+                    </div>
+                    <div class="myProd-overview">${overview}</div>
+                    <input type="hidden" id="id_pic1_${id}" value="${dataAllShow[i][5]}" />
+                    <input type="hidden" id="id_pic2_${id}" value="${dataAllShow[i][6]}" />
+                    <input type="hidden" id="id_pic3_${id}" value="${dataAllShow[i][7]}" />
+                    <input type="hidden" id="id_pic4_${id}" value="${dataAllShow[i][8]}" />
+                    <input type="hidden" id="id_pic5_${id}" value="${dataAllShow[i][9]}" />
+                    <input type="hidden" id="id_pic6_${id}" value="${dataAllShow[i][10]}" />
+                </div>
+                        `;         
+                }
+            }
+            $("#products").html(tt);   
+        },
+        error: function (err) {
+            console.log("The server  ERROR says: " + err);
+        }
+    });
+  }
+
+  const showProductPreview = (id) =>{
+    let textContent_body ='';
+    let textContent_btt ='';
+    let textContent = '';
+    for(let i=1;i<=6;i++){
+      let pic =   document.getElementById("id_pic"+i+"_"+id)
+        if( pic.value !== ''){
+            let act = (i===1)?'active':'';
+            let act_butt = (i===1)?' class="active" aria-current="true" ':'';
+            textContent_btt = textContent_btt + `
+            <button type="button" data-bs-target="#carouselProdShow" data-bs-slide-to="${i-1}" ${act_butt} aria-label="Slide ${i}"></button>
+            `;
+
+            textContent = textContent+`
+            <div class="carousel-item ${act}">
+                <img src="${linkPic(pic.value,pic_no)}" class="d-block w-100" alt="product picture">
+            </div>
+            `;
+        }
+    }
+
+    textContent_body =`
+    <div id="carouselProdShow" class="carousel slide animate__animated animate__fadeIn" data-bs-ride="carousel" data-bs-interval="false">
+    <button type="button" id="closePicPreview" >&times;</button>
+        <div class="carousel-indicators">
+            ${textContent_btt}
+        </div>
+        <div class="carousel-inner">
+            ${textContent}
+        </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselProdShow" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselProdShow" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+    </div>
+    `;
+    $("#previewPic").html(textContent_body);  
+  }
+
+  $(document).on("click", "#closePicPreview, #sidebarMenu", function () {
+    $("#previewPic").html(''); 
+});

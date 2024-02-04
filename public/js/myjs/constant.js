@@ -368,7 +368,7 @@ const myAlert =(icon, title) => {
 const sw_Alert = (icon, title, desc) => {
   Swal.fire({
       customClass: {
-          confirmButton: 'mybtn btnOk'
+          confirmButton: 'mybtn btnOk me-4'
           //confirmButton: 'btn btn-primary'
       },
 
@@ -468,7 +468,7 @@ function conFirm(txt){
   var res = false;
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-          confirmButton: 'mybtn btnOk me-3',
+          confirmButton: 'mybtn btnOk me-4',
           cancelButton: 'mybtn btnCan'
       },
       buttonsStyling: false

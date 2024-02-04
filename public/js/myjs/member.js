@@ -265,7 +265,7 @@ const loadDataMem = (show = true) =>{
     const del_name = name;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'mybtn btnOk me-3',
+        confirmButton: 'mybtn btnOk me-4',
         cancelButton: 'mybtn btnCan'
       },
       buttonsStyling: false
@@ -517,7 +517,7 @@ $(document).on("click", "#bt_edit_member", function () {  //===== ตกลง�
     const txt = 'บันทึกการแก้ไข "' + $('#mem_name').val() + '" หรือไม่';
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'mybtn btnOk me-3',
+        confirmButton: 'mybtn btnOk me-4',
         cancelButton: 'mybtn btnCan'
       },
       buttonsStyling: false
