@@ -268,13 +268,15 @@ function showProduct(show = true) {
                     
                     tt = tt +`
                 <div class="myProd" onclick="showProductPreview(${id})">
-                    <img src="${linkPic(pic,pic_no)}" alt="product" class="img-fluid">
+                    <div class="borderPic">
+                        <img src="${linkPic(pic,pic_no)}" alt="product" class="img-fluid">
+                    </div>
                     <div class="title">${title}</div>
                     <div class="myProd-info">                 
                         <div class="myProd-price">
                             <strong> ราคา <del> ${oldPrice} </del>&nbsp;&nbsp;<span>${cost}</span> บาท </strong>
                         </div>   
-                        <small style="${qty_col}">${qty}</small>
+                        <strong style="${qty_col}">${qty}</strong>
                     </div>
                     <div class="myProd-overview">${overview}</div>
                     <input type="hidden" id="id_pic1_${id}" value="${dataAllShow[i][5]}" />
@@ -310,7 +312,7 @@ function showProduct(show = true) {
 
             textContent = textContent+`
             <div class="carousel-item ${act}">
-                <img src="${linkPic(pic.value,pic_no)}" class="d-block w-100" alt="product picture">
+                <img src="${linkPic(pic.value,pic_no)}" class="d-block w-100" alt="product picture" >
             </div>
             `;
         }
@@ -338,6 +340,6 @@ function showProduct(show = true) {
     $("#previewPic").html(textContent_body);  
   }
 
-  $(document).on("click", "#closePicPreview, #sidebarMenu", function () {
+$(document).on("click", "#closePicPreview, #sidebarMenu", function () {
     $("#previewPic").html(''); 
 });

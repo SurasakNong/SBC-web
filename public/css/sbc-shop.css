@@ -1413,7 +1413,7 @@ background-color:#FF8551;
   margin: 0 auto;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit,minmax(130px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(165px,1fr));
   padding: 15px;
 }
 
@@ -1421,21 +1421,30 @@ background-color:#FF8551;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   border-radius: 6px;
   padding-bottom: 15px;
+  border: solid 1px #c0c0c0;
+  cursor: pointer;
+}
+
+.borderPic{
+  width: 100%;
+  height: 150px;
   overflow: hidden;
+  border-radius: 6px 6px 0 0;
+  /*background: var(--primary-color);*/
+
 }
 
 .myProd img {
   width: 100%;  
-  height: auto;
-  border-radius: 6px 6px 0 0;
+ /* height: auto; */  
   display: block;
-  margin: auto;
   transition: all 0.3s;
+  height: 150px;
+  object-fit: contain;  
 }
 
 .myProd:hover img{
   transform: scale(1.1);
-  cursor: pointer;
 }
 
 .myProd .title{
@@ -1452,6 +1461,8 @@ background-color:#FF8551;
   font-size: 0.65rem;
   padding: 0 10px;
 }
+
+
 /* ตัดข้อความให้เหลือบรรทัดเดียว
 .myProd-overview{
   width: 100%;  
@@ -1466,11 +1477,21 @@ background-color:#FF8551;
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 680px;
-  height: auto;
+  /*max-width: 680px;*/
   transform: translate(-50%, -50%);
   padding: 20px;
 
+}
+
+#carouselProdShow{
+height: 100%;
+width: 100%;
+background: rgba(0,0,0,0.7);
+}
+
+#carouselProdShow img{
+  height:calc(100vh - 30px);
+  object-fit:contain;  
 }
 
 #previewPic #closePicPreview{
@@ -1480,8 +1501,8 @@ background-color:#FF8551;
   height: 45px;
   width: 45px;
   font-size: 2rem;
-  color: rgba(255,255,255,0.6);
-  top: 15%;
+  color: rgba(255,255,255,0.85);
+  top: 20px;
   border:none;
   border-radius: 50%;
   background: rgba(100,100,100,0.4);
@@ -1491,7 +1512,72 @@ background-color:#FF8551;
 
 #previewPic #closePicPreview:hover{
   color: rgba(255,255,255,0.9);
+  background: rgba(100,100,100,0.6);
 }
 
+/*=======================================================================*/
+#picProduct{
+  height: 310px;
+  text-align: center;
+}
 
+#carouselProdEdit{
+  width: 100%;
+  height: 300px;
+  background: rgba(0,0,0,0.3);
+}
 
+#carouselProdEdit img{
+  height: 300px;
+  width: 100%;
+  object-fit: contain;  
+}
+
+#carouselProdEdit #addPicPreviewEdit{
+  position: absolute;
+  cursor: pointer;
+  z-index: 1000;  
+  text-align: center;
+  height: 45px;
+  width: 45px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  top: 15px;
+  border:none;
+  border-radius: 50%;
+  background: rgba(100,100,100,0.35);
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#carouselProdEdit #addPicPreviewEdit:hover{
+  color: rgba(255,255,255,0.9);
+  background: rgba(100,100,100,0.5);
+}
+
+#addPicEditClick{
+  width: 200px;
+  padding-top: 50px;
+}
+
+#delPicPreviewEditBtn{
+  position: absolute;
+  cursor: pointer;
+  bottom:30px;
+  text-align: center;
+  height: 45px;
+  width: 45px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  background: rgba(100,100,100,0.6);
+  text-align: center;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#carouselProdEdit #delPicPreviewEditBtn:hover{
+  color: rgba(255,255,255,0.9);
+  background: rgba(100,100,100,0.5);
+}

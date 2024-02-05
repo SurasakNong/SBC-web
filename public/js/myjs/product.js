@@ -431,13 +431,15 @@ function editProductRow(id) { //================================ เปิดห
       <div class="row mb-3 justify-content-md-center">
         <div class="main_form_head"> แก้ไขข้อมูลสินค้า </div>     
       </div> 
-      <div class="row mb-2" id="picProduct"> 
-          <div class="col-md-4 col-sm-6 px-auto" id="addPicClick">
+      <div class="row mb-4 d-flex justify-content-center" id="picProduct"> 
+
+       <!--   <div class="col-md-4 col-sm-6 px-auto" id="addPicClick">
             <label for="uploadPicProd" title="อัพโหลดรูปใหม่" style="color:#909090; width:100%; height:150px; background:#e5e5e5; font-size:50px; text-align:center; padding:38px 0; cursor: pointer;" >
               <i class="fa-regular fa-square-plus"></i>
               <input type="file" id="uploadPicProd" style="display:none" accept="image/*">
             </label>
-          </div>
+          </div>  -->
+
       </div> 
       <div class="row">        
         <div class="col-md-8">
@@ -540,15 +542,81 @@ function editProductRow(id) { //================================ เปิดห
   $("#rate_product").val($("#rate"+id).val());  
   $('#showCheck').prop('checked', ($("#show"+id).val()=="TRUE")?true:false);
   //console.log($('#showCheck').prop("checked") ? 1 : 0 )
-
+  
   for(let i=1; i <= 6; i++){
+    if($("#p_urlpic"+i+"_"+id).val() == undefined || $("#p_urlpic"+i+"_"+id).val() == "" || $("#p_urlpic"+i+"_"+id).val() == "undefined"){
+      picUrlAdd[i-1] = ""
+    }else{
+      picUrlAdd[i-1] = $("#p_urlpic"+i+"_"+id).val()
+    }
     $("#url_Pic"+i).val($("#p_urlpic"+i+"_"+id).val());
-    picUrlAdd[i-1] = ($("#p_urlpic"+i+"_"+id).val() == undefined || $("#p_urlpic"+i+"_"+id).val() == "" || $("#p_urlpic"+i+"_"+id).val() == "undefined")?"":$("#p_urlpic"+i+"_"+id).val();
-    if(!(picUrlAdd[i-1] == "" || picUrlAdd[i-1] == undefined || picUrlAdd[i-1] == "undefined")){ addPicPre(i,picUrlAdd[i-1]);}
   }
+  showProductPicPreviewEdit(id);
   setDropdownList(urlData,'selType', 'type', $("#type"+id).html());
   $("#table_product").html("");    
   document.getElementById("table_product_all").style.display = "none";
+}
+
+const showProductPicPreviewEdit = (idP) =>{
+  let textContent_body ='';
+  let textContent_btt ='';
+  let textContent = '';
+  let n_pic = 0;
+  for(let i=1;i<=6;i++){
+    let pic = document.getElementById("url_Pic"+i)
+      if( pic.value !== '' ){          
+        let act = (n_pic===0)?'active':'';
+        let act_butt = (n_pic===0)?' class="active" aria-current="true" ':'';
+        textContent_btt = textContent_btt + `
+        <button type="button" data-bs-target="#carouselProdEdit" data-bs-slide-to="${n_pic}" ${act_butt} aria-label="รูปสินค้า ${n_pic}"></button>
+        `;
+        textContent = textContent+`
+        <div class="carousel-item ${act}">            
+          <img src="${linkPic(pic.value,pic_no)}" class="d-block w-100" alt="product picture" onclick="showPic(${i})">
+          <div class="carousel-caption d-block" id="delPicPreviewEditBtn" onclick="delProdPicEdit(${idP},${i})">
+            <i class="fas fa-trash-alt" style="position:absolute; top:14px; left:16px;"></i>
+          </div>
+        </div>
+        `;
+        n_pic++;
+      }
+  }
+  let showAddPic = (n_pic >= 6)?'':`    
+      <label id="addPicPreviewEdit" for="uploadPicProd" title="อัพโหลดรูปใหม่">
+        <i class="fa-solid fa-plus" style="position:absolute; top:14px; left:16px;"></i>
+        <input type="file" id="uploadPicProd" style="display:none" accept="image/*">
+      </label>
+       `;
+  textContent_body =`
+  <div id="carouselProdEdit" class="carousel slide animate__animated animate__fadeIn" data-bs-ride="carousel" data-bs-interval="false">  
+    ${showAddPic}  
+    <div class="carousel-indicators">
+        ${textContent_btt}
+    </div>
+    <div class="carousel-inner">
+        ${textContent}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselProdEdit" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselProdEdit" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  `;
+  if(n_pic == 0){
+    textContent_body =`
+    <div id="addPicEditClick">
+      <label for="uploadPicProd2" title="อัพโหลดรูปใหม่" style="color:#909090; width:100%; height:150px; background:#e5e5e5; font-size:50px; text-align:center; padding:38px 0; cursor: pointer;" >
+        <i class="fa-regular fa-square-plus"></i>
+        <input type="file" id="uploadPicProd2" style="display:none" accept="image/*">
+      </label>
+    </div>    
+    `;
+  }
+  $("#picProduct").html(textContent_body);  
 }
 
 $(document).on("click", "#cancelEditProduct", function () { //========== ยกเลิกการแก้ไขข้อมูล
@@ -556,13 +624,68 @@ $(document).on("click", "#cancelEditProduct", function () { //========== ยก�
   showProductTable(rowperpage, page_selected);
 });
 
-function addPicPre(no,picId){
+function delProdPicEdit(id_prod,nPic){
+  const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'mybtn btnOk me-4',
+          cancelButton: 'mybtn btnCan'
+      },
+      buttonsStyling: false
+  })
+  swalWithBootstrapButtons.fire({
+      title: 'ลบรูปภาพ ',
+      text: "โปรดยืนยัน ตกลงหรือไม่ ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '&nbsp;&nbsp;ตกลง&nbsp;&nbsp;',
+      cancelButtonText: '&nbsp;&nbsp;ไม่&nbsp;&nbsp;',
+      reverseButtons: false
+  }).then((result) => {
+      if (result.isConfirmed) {        
+          waiting();
+          $.ajax({
+            url: urlProduct,
+            type: 'GET',
+            crossDomain: true,
+            data: { opt_k:'delPic', opt_id:id_prod , opt_picNo:nPic},
+            success: function (result) {
+              waiting(false);
+              if(result == "success"){
+                loadDataProduct(false);
+                $("#url_Pic"+nPic).val('')
+                picUrlAdd[nPic-1] = ""
+                showProductPicPreviewEdit(id_prod)
+                myAlert("success", "รูปภาพถูกลบแล้ว !");
+              }else{
+                sw_Alert('error', 'ลบรูปภาพ ไม่สำเร็จ', 'ระบบขัดข้อง โปรดลองใหม่ในภายหลัง');
+              }          
+            },
+            error: function (err) {
+                console.log("Delete type ERROR : " + err);
+            }
+          });      
+  
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+          /*swalWithBootstrapButtons.fire(
+              'ยกเลิก',
+              'ข้อมูลของคุณยังไม่ถูกลบ :)',
+              'error'
+          )*/
+      }
+  })
+
+}
+
+/*
+function addPicPre(no,picId){  
   let picSet = document.getElementById("picProduct");
   let picDiv = document.createElement('div');
   let picImg = document.createElement('img');
   let picI = document.createElement('i');
   picDiv.classList.add("col-md-2");
   picDiv.classList.add("col-sm-3");
+  picDiv.classList.add("animate__animated") 
+  picDiv.classList.add("animate__fadeIn")
   picDiv.id = 'picD_'+ no;
   picDiv.setAttribute('style','position:relative; ');
   picImg.classList.add("imgShow");
@@ -582,6 +705,9 @@ function addPicPre(no,picId){
       $("#addPicClick").css("display", "none");
   }
 }
+
+*/
+
 
 function addPic(picId){
   let picSet = document.getElementById("picProduct");
@@ -618,7 +744,7 @@ function addPic(picId){
 }
 
 function showPic(id){
-  $('#imagepreview').attr('src', $('#pic_'+ id).attr('src'));
+  $('#imagepreview').attr('src', linkPic(picUrlAdd[id-1],pic_no));
   $('#imagemodal').modal('show');  
 }
 
@@ -676,12 +802,12 @@ function delPic(id){
   })
 }
 
-$(document).on("change", "#uploadPicProd", function (e) {
+$(document).on("change", "#uploadPicProd, #uploadPicProd2", function (e) {
   if(+e.target.files[0].size > (1024*1024*20)){ //ไม่เกิน 10 MB
     sw_Alert("warning", "ขนาดไฟล์ มากกว่า 10MB " ,"กรุณาลดขนาดไฟล์ก่อน หรือเลือกไฟล์ใหม่");
   }else if (e.target.files) {
       waiting();
-      for(let i=0; i<6; i++){
+      for(let i=0; i<6; i++){ //หาช่องเก็บภาพที่ว่างอยู่
         if(picUrlAdd[i] == ''){
           picNoAdd = i+1;
           i = 6;
@@ -698,8 +824,8 @@ $(document).on("change", "#uploadPicProd", function (e) {
                   ctx = c.getContext("2d");
               var canvas = document.createElement('canvas'),
                   ctx_s = canvas.getContext("2d");
-              var width = (img.width>1200)?1200:img.width;//img.width; //กำหนดความกว้างที่ต้องการ
-              var height = (img.height>1200)?1200:img.height;;//img.height; //กำหนดความสูงที่ต้องการ
+              var width = (img.width>1200)?1200:img.width; //img.width; //กำหนดความกว้างที่ต้องการ
+              var height = (img.height>1200)?1200:img.height; //img.height; //กำหนดความสูงที่ต้องการ
               
               const sqr = false; /*<<==== กำหนดว่าภาพเป็นสี่เหลี่ยมจตุรัสหรือไม่ false/true */
               if (sqr) { /*============================= Square ==================================*/
@@ -753,7 +879,6 @@ $(document).on("change", "#uploadPicProd", function (e) {
                   mimeType: imageFile.type,
                   fdata: vals
               }
-
               fetch(urlProduct, {
                   method: "POST",
                   body: JSON.stringify(obj)
@@ -762,14 +887,15 @@ $(document).on("change", "#uploadPicProd", function (e) {
                   }).then(function (data) {
                       let res = JSON.parse(data);
                       if (res.result == "success") {
-                          loadDataProduct(false);
-                          addPic(res.id);                            
-                          myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
+                        picUrlAdd[picNoAdd-1] = res.id;
+                        $("#url_Pic"+picNoAdd).val(res.id);
+                        showProductPicPreviewEdit(idProduct)
+                        myAlert("success", "อัพโหลดรูปภาพ สำเร็จ");
                       } else {
                           console.log("Upload picture Product ERROR : ");
                       }
                       waiting(false);
-                  }); 
+                  });
           }
           img.src = e.target.result;
           
@@ -777,6 +903,7 @@ $(document).on("change", "#uploadPicProd", function (e) {
       reader.readAsDataURL(imageFile);
   }
 });
+
 
 $(document).on("submit", "#edit_product_form", function () {  //===== ตกลงแก้ไข/เปลี่ยนข้อมูล
 let my_form = $(this);
