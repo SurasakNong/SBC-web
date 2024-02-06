@@ -257,22 +257,21 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
           <div class="main_form_head"> เพิ่มรายการสินค้า </div>     
         </div> 
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12">
             <div class="input-group mb-2">
               <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
               <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
             </div>
-          </div> 
-          <div class="col-md-4">
+          </div>           
+        </div>
+        <div class="row">
+          <div class="col-md-6">
             <div class="input-group mb-2">
               <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
               <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand">
             </div>  
           </div> 
-        </div> 
-
-        <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-6">
             <div class="input-group mb-2">
               <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
               <select class="form-select" id="selType">
@@ -280,22 +279,17 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
               </select>
             </div>   
           </div> 
-          <div class="col-md-4">
+        </div> 
+
+        <div class="row">          
+          <div class="col-md-6">
             <div class="input-group mb-2">
               <label class="input-group-text " style="width: 80px; background:#ee8080; color:#fff;" for="oldPrice_product">ราคาเดิม</label>
               <input type="number" id="oldPrice_product" class="form-control" aria-label="old product price" min="0" step="0.1" value="0">
+              
             </div> 
           </div>
-        </div> 
-
-        <div class="row">
-          <div class="col-md-8">
-            <div class="input-group mb-2">
-              <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
-              <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description">
-            </div> 
-          </div> 
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="input-group mb-2">
               <label class="input-group-text " style="width: 80px;" for="price_product">ราคาขาย</label>
               <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
@@ -303,14 +297,22 @@ $(document).on("click", "#btAddProduct", function () { //========== เปิด
           </div> 
         </div> 
 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group mb-2"> 
+             <textarea rows="4" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า"></textarea>
+            </div> 
+          </div>           
+        </div> 
+
         <div class="row">        
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="form-check form-switch d-flex justify-content-center pt-2 mb-3">
             <input class="form-check-input" type="checkbox" id="showCheck" name="showCheck">
             <label class="form-check-label" for="showCheck"> &nbsp; &nbsp;แสดงสินค้าบนเพจ</label>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="input-group mb-2">
             <label class="input-group-text " style="width: 80px; background:#20aaee; color:#fff" for="rate_product">Rate</label>
             <input type="number" id="rate_product" class="form-control" aria-label="product rate" min="0" max="10" step="1" value="0">
@@ -426,61 +428,47 @@ function deleteProductRow(id) { //================================ ลบข้�
 
 function editProductRow(id) { //================================ เปิดหน้าแก้ไขข้อมูล      
   let html = `     
-  <div id="product_edit" class="main_form">    
+  <div id="product_edit" class="main_form mb-4">    
     <form class="animate__animated animate__fadeIn" id="edit_product_form" style="padding:20px;">
       <div class="row mb-3 justify-content-md-center">
         <div class="main_form_head"> แก้ไขข้อมูลสินค้า </div>     
       </div> 
-      <div class="row mb-4 d-flex justify-content-center" id="picProduct"> 
-
-       <!--   <div class="col-md-4 col-sm-6 px-auto" id="addPicClick">
-            <label for="uploadPicProd" title="อัพโหลดรูปใหม่" style="color:#909090; width:100%; height:150px; background:#e5e5e5; font-size:50px; text-align:center; padding:38px 0; cursor: pointer;" >
-              <i class="fa-regular fa-square-plus"></i>
-              <input type="file" id="uploadPicProd" style="display:none" accept="image/*">
-            </label>
-          </div>  -->
-
+      <div class="row mb-2 " id="picProduct"> 
       </div> 
       <div class="row">        
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="input-group mb-2">
               <span class="input-group-text" style="width:80px;" >ชื่อสินค้า</span>
               <input type="text" id="name_product" class="form-control" placeholder="ชื่อ-สินค้า" aria-label="product name" required>
           </div> 
-        </div>
-        <div class="col-md-4">
+        </div>        
+      </div>
+
+      <div class="row">   
+        <div class="col-md-6">
           <div class="input-group mb-2">
             <span class="input-group-text" style="width:80px;" >ยี่ห้อ</span>
             <input type="text" id="brand_product" class="form-control" placeholder="ยี่ห้อ/รุ่น" aria-label="product brand" required>
           </div> 
         </div> 
-      </div>
-
-      <div class="row">   
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="input-group mb-2">
               <label class="input-group-text" for="selType" style="width:80px;">ประเภท</label>
               <select class="form-select" id="selType">
                   <option selected value="0">-- ประเภท --</option>
               </select>
           </div>
-        </div>     
-        <div class="col-md-4">
+        </div>                    
+      </div>
+
+      <div class="row">   
+        <div class="col-md-6">
           <div class="input-group mb-2">
             <label class="input-group-text " style="width: 80px; background:#ee8080; color:#fff;" for="oldPrice_product">ราคาเดิม</label>
             <input type="number" id="oldPrice_product" class="form-control" aria-label="Old product price" min="0" step="0.1" value="0">
           </div>
-        </div>        
-      </div>
-
-      <div class="row">        
-        <div class="col-md-8">
-          <div class="input-group mb-2">
-              <span class="input-group-text" style="width:100px;" >รายละเอียด</span>
-              <input type="text" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า" aria-label="product description">
-          </div> 
-        </div>
-        <div class="col-md-4">
+        </div> 
+        <div class="col-md-6">
           <div class="input-group mb-2">
             <label class="input-group-text " style="width: 80px;" for="price_product">ราคาขาย</label>
             <input type="number" id="price_product" class="form-control" aria-label="product price" min="0" step="0.1" value="0">
@@ -489,13 +477,21 @@ function editProductRow(id) { //================================ เปิดห
       </div>
 
       <div class="row">        
-        <div class="col-md-8">
+        <div class="col-md-12">
+          <div class="input-group mb-2">
+              <textarea rows="4" id="desc_product" class="form-control" placeholder="รายละเอียด-สินค้า"></textarea>
+          </div> 
+        </div>        
+      </div>
+
+      <div class="row">        
+        <div class="col-md-6">
           <div class="form-check form-switch d-flex justify-content-center pt-2 mb-3">
             <input class="form-check-input" type="checkbox" id="showCheck" name="showCheck">
             <label class="form-check-label" for="showCheck"> &nbsp; &nbsp;แสดงสินค้าบนเพจ</label>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="input-group mb-2">
             <label class="input-group-text " style="width: 80px; background:#20aaee; color:#fff;" for="rate_product">Rate</label>
             <input type="number" id="rate_product" class="form-control" aria-label="product rate" min="0" max="10" step="1" value="0">
@@ -516,7 +512,6 @@ function editProductRow(id) { //================================ เปิดห
       </div>     
     </form>
 
-    <!-- Creates the bootstrap modal where the image will appear -->
 <div class="modal fade " id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen-md-down">
     <div class="modal-content">

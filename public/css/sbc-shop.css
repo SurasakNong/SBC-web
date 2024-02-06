@@ -1440,13 +1440,10 @@ background-color:#FF8551;
   height: 150px;
   overflow: hidden;
   border-radius: 6px 6px 0 0;
-  /*background: var(--primary-color);*/
-
 }
 
 .myProd img {
   width: 100%;  
- /* height: auto; */  
   display: block;
   transition: all 0.3s;
   height: 150px;
@@ -1459,17 +1456,24 @@ background-color:#FF8551;
 }
 
 .myProd .title{
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 600;
   margin-top: 10px;
-  padding-left: 10px;
+  padding: 0 10px;
 }
 
 .myProd-info .myProd-price del{
   color: #aa0000;
 }
-.myProd-info, .myProd-overview{
-  font-size: 0.65rem;
+
+.myProd-info{
+  font-size: 0.7rem;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.myProd-overview{
+  font-size: 0.75rem;
   padding: 0 10px;
 }
 
