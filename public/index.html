@@ -12,15 +12,15 @@
   <link rel="shortcut icon" type="image/jpg" href="images/ico.ico" />
   <!-- CSS FILES -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 
   <!-- Font Awesome CSS -->
   <link href="css/fontawesome.css" rel="stylesheet">
   <link href="css/brands.css" rel="stylesheet">
   <link href="css/solid.css" rel="stylesheet">
   <!-- Bootstrap CSS   
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">  -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet"> 
   
   <!-- Bootstrap CSS   -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -159,27 +159,24 @@
               <a class="nav-link click-scroll" href="#section_1">หน้าหลัก</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_2">บริการของเรา</a>
-            </li> 
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_3">สินค้าของเรา</a>
+              <a class="nav-link click-scroll" href="#section_2">สินค้าของเรา</a>
             </li>            
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_4">ติดต่อสอบภาม</a>
+              <a class="nav-link click-scroll" href="#section_3">ติดต่อสอบภาม
+                </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_5">เกี่ยวกับเรา</a>
+              <a class="nav-link click-scroll" href="#section_4">เกี่ยวกับเรา</a>
             </li>            
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_6">ที่อยู่เรา 
-                <span id = "cmNew" class="position-absolute badge rounded-pill bg-danger" style="font-size: 0.65rem; right:0; top:15px;">12
+              <a class="nav-link click-scroll" href="#section_5">ที่อยู่เรา</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#" onclick="showLogin(); //showSetting();"  title="Setting">
+                <i class="fa-solid fa-gear fa-lg"></i>
+                <span id = "cmNew" class="position-absolute badge rounded-pill bg-danger" style="font-size: 0.65rem; right:0; top:12px;">
                   <span class="visually-hidden">unread messages</span>
                 </span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="#" onclick=" showLogin(); //showSetting();"  title="Setting">
-                <i class="fa-solid fa-gear fa-lg"></i>
               </a>
             </li>
           </ul>
@@ -198,8 +195,8 @@
                 <p class="text-white">มุ่งมั่นงานบริการ และสินค้าที่มีคุณภาพ สำหรับคุณ</p>
                 <br>
                 <a class="btn custom-btn custom-border-btn custom-btn-bg-white smoothscroll me-2 mb-2"
-                  href='#section_2'>บริการของเรา</a>
-                <a class="btn custom-btn smoothscroll mb-2 " href='#section_3'>สินค้าของเรา</a>
+                  href='#section_4'>เกี่ยวกับเรา</a>
+                <a class="btn custom-btn smoothscroll mb-2 " href='#section_2'>สินค้าของเรา</a>
                 
               </div>
             </div>
@@ -233,7 +230,7 @@
           </div>
         </section>
 
-        <section class="services-section section-padding" id="section_2">
+        <section class="services-section section-padding" id="service_section">
           <div class="container">
             <div class="row">
 
@@ -290,13 +287,13 @@
           </div>
         </section>
 
-        <section class="price-list-section" id="section_3">
+        <section class="price-list-section" id="section_2">
           <h2 class="mb-1 mt-2 ms-3">สินค้าของเรา</h2>
           <div class="product" id="products"></div>    
           <div id="previewPic"></div>    
         </section>
 
-        <section class="booking-section" id="section_4"
+        <section class="booking-section" id="section_3"
           style="background-image: url('images/bg3.jpg');">
           <div class="container booking-body">
             <div class="row justify-content-center">
@@ -312,7 +309,7 @@
                       oninput="this.value=this.value.replace(/[^0-9]/g,'');" required />
                     <input type="email" name="opt_em" id="opt_em" class="form-control" placeholder="อีเมล" required>
                     <textarea name="opt_cm" rows="4" class="form-control" id="opt_cm"
-                      placeholder="สออบถาม หรือ ความคิดเห็น"></textarea>
+                      placeholder="สอบถาม หรือ ความคิดเห็น"></textarea>
                     <div class="col-lg-4 col-md-10 col-8 mx-auto">
                       <button type="button" class="form-control" id="btn_submit">ส่งความคิดเห็น</button>
                     </div>
@@ -322,7 +319,7 @@
           </div>
         </section>
 
-        <section class="about-section section-padding" id="section_5">
+        <section class="about-section section-padding" id="section_4">
           <div class="container">
             <div class="row">
 
@@ -384,7 +381,7 @@
           </div>
         </section>
 
-        <section class="contact-section" id="section_6">
+        <section class="contact-section" id="section_5">
           <div class="section-padding section-bg">
             <div class="container">
               <div class="row">
