@@ -158,20 +158,20 @@
             <li class="nav-item">
               <a class="nav-link click-scroll" href="#section_1">หน้าหลัก</a>
             </li>
-
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_2">เกี่ยวกับเรา</a>
-            </li>
-
+              <a class="nav-link click-scroll" href="#section_2">บริการของเรา</a>
+            </li> 
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_3">บริการของเรา</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_4">สินค้าของเรา</a>
+              <a class="nav-link click-scroll" href="#section_3">สินค้าของเรา</a>
             </li>            
             <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_5">ติดต่อเรา 
+              <a class="nav-link click-scroll" href="#section_4">ติดต่อสอบภาม</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#section_5">เกี่ยวกับเรา</a>
+            </li>            
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#section_6">ที่อยู่เรา 
                 <span id = "cmNew" class="position-absolute badge rounded-pill bg-danger" style="font-size: 0.65rem; right:0; top:15px;">12
                   <span class="visually-hidden">unread messages</span>
                 </span>
@@ -185,10 +185,12 @@
           </ul>
         </div>
       </nav>
-
+      
       <div class="col-md-8 ms-sm-auto col-lg-9 p-0 zoneContent">
-        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1" dis
+        <a id="comePage"></a>
+        <section class="main_section d-flex justify-content-center align-items-center" id="section_1" dis
           style="background-image: url('images/bg1.jpg');">
+          
           <div class="container">
             <div class="row">
               <div class="col-lg-8 col-12">
@@ -196,8 +198,9 @@
                 <p class="text-white">มุ่งมั่นงานบริการ และสินค้าที่มีคุณภาพ สำหรับคุณ</p>
                 <br>
                 <a class="btn custom-btn custom-border-btn custom-btn-bg-white smoothscroll me-2 mb-2"
-                  href='#section_3'>บริการของเรา</a>
-                <a class="btn custom-btn smoothscroll mb-2 " href='#section_4'>สินค้าของเรา</a>
+                  href='#section_2'>บริการของเรา</a>
+                <a class="btn custom-btn smoothscroll mb-2 " href='#section_3'>สินค้าของเรา</a>
+                
               </div>
             </div>
           </div>
@@ -207,14 +210,119 @@
 
             <h4><strong class="text-white">ยินดีต้อนรับ</strong></h4>
 
-            <button type="button" class="smoothscroll btn custom-btn custom-btn-italic position-relative" href='#booking-section'> ติดต่อสอบถาม
+            <button type="button" class="smoothscroll btn custom-btn custom-btn-italic position-relative" href='#section_4'> ติดต่อสอบถาม
             </button>
             
             
           </div>
         </section>
 
-        <section class="about-section section-padding" id="section_2">
+        <section class="featured-section section-padding" style="background-image: url('images/bg2.jpg')">
+          <div class="section-overlay"></div>
+
+          <div class="container">
+            <div class="row">
+
+              <div class="col-lg-10 col-12 mx-auto">
+                <h2 class="mb-3">โปรโมชั่น !</h2>
+                <p id="promText"></p>
+                <strong id="promCode"></strong>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="services-section section-padding" id="section_2">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-lg-12 col-12">
+                <h2 class="mb-2 mt-3">บริการของเรา</h2>
+              </div>
+
+              <div class="col-lg-6 col-12 mb-4">
+                <div class="services-thumb">
+                  <img src="images/repair.jpg" class="services-image img-fluid" alt="">
+
+                  <div class="services-info d-flex align-items-end">
+                    <h4 class="mb-0">รับซ่อม/แก้ไข</h4>
+                    <!-- <strong class="services-thumb-price">$36.00</strong> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12 mb-4">
+                <div class="services-thumb">
+                  <img src="images/improve.jpg" class="services-image img-fluid" alt="">
+
+                  <div class="services-info d-flex align-items-end">
+                    <h4 class="mb-0">อัพเกรด</h4>
+                    <!-- <strong class="services-thumb-price">$25.00</strong> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                <div class="services-thumb">
+                  <img src="images/build.jpg" class="services-image img-fluid" alt="">
+
+                  <div class="services-info d-flex align-items-end">
+                    <h4 class="mb-0">จัดประกอบตามสั่ง</h4>
+
+                    <!-- <strong class="services-thumb-price">$30.00</strong> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <div class="services-thumb">
+                  <img src="images/program.jpg" class="services-image img-fluid" alt="">
+
+                  <div class="services-info d-flex align-items-end">
+                    <h4 class="mb-0">โปรแกรมใช้งาน</h4>
+                    <!--<strong class="services-thumb-price">$25.00</strong> -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="price-list-section" id="section_3">
+          <h2 class="mb-1 mt-2 ms-3">สินค้าของเรา</h2>
+          <div class="product" id="products"></div>    
+          <div id="previewPic"></div>    
+        </section>
+
+        <section class="booking-section" id="section_4"
+          style="background-image: url('images/bg3.jpg');">
+          <div class="container booking-body">
+            <div class="row justify-content-center">
+                <form class="custom-form booking-form mt-4" id="bb-booking-form" role="form">
+                  <div class="text-center mb-2 mt-2">
+                    <h4 class="mb-1 mt-2">สอบถาม/ความคิดเห็น</h4>
+                    <p>เมื่อมีข้อสงสัยสอบถาม หรือ ต้องการแสดงความคิดเห็น สามารถกรอกข้อมูลในแบบฟอร์มนี้ส่งมาหาเราได้
+                      แล้วเราจะติดต่อกลับหาท่าน</p>
+                  </div>
+                  <div class="booking-form-body">
+                    <input type="text" name="opt_nm" id="opt_nm" class="form-control" placeholder="ชื่อ-สกุล" required>
+                    <input type="text" class="form-control" name="opt_tl" id="opt_tl" placeholder="เบอร์โทรศัพท์"
+                      oninput="this.value=this.value.replace(/[^0-9]/g,'');" required />
+                    <input type="email" name="opt_em" id="opt_em" class="form-control" placeholder="อีเมล" required>
+                    <textarea name="opt_cm" rows="4" class="form-control" id="opt_cm"
+                      placeholder="สออบถาม หรือ ความคิดเห็น"></textarea>
+                    <div class="col-lg-4 col-md-10 col-8 mx-auto">
+                      <button type="button" class="form-control" id="btn_submit">ส่งความคิดเห็น</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="about-section section-padding" id="section_5">
           <div class="container">
             <div class="row">
 
@@ -276,112 +384,7 @@
           </div>
         </section>
 
-        <section class="featured-section section-padding" style="background-image: url('images/bg2.jpg')">
-          <div class="section-overlay"></div>
-
-          <div class="container">
-            <div class="row">
-
-              <div class="col-lg-10 col-12 mx-auto">
-                <h2 class="mb-3">โปรโมชั่น !</h2>
-                <p>เมื่อแสดงโค้ดนี้ ลดค่าบริการ 10% ทันที</p>
-                <strong>Promo Code: SBC2024</strong>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        <section class="services-section section-padding" id="section_3">
-          <div class="container">
-            <div class="row">
-
-              <div class="col-lg-12 col-12">
-                <h2 class="mb-2 mt-3">บริการของเรา</h2>
-              </div>
-
-              <div class="col-lg-6 col-12 mb-4">
-                <div class="services-thumb">
-                  <img src="images/repair.jpg" class="services-image img-fluid" alt="">
-
-                  <div class="services-info d-flex align-items-end">
-                    <h4 class="mb-0">รับซ่อม/แก้ไข</h4>
-                    <!-- <strong class="services-thumb-price">$36.00</strong> -->
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6 col-12 mb-4">
-                <div class="services-thumb">
-                  <img src="images/improve.jpg" class="services-image img-fluid" alt="">
-
-                  <div class="services-info d-flex align-items-end">
-                    <h4 class="mb-0">อัพเกรด</h4>
-                    <!-- <strong class="services-thumb-price">$25.00</strong> -->
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                <div class="services-thumb">
-                  <img src="images/build.jpg" class="services-image img-fluid" alt="">
-
-                  <div class="services-info d-flex align-items-end">
-                    <h4 class="mb-0">จัดประกอบตามสั่ง</h4>
-
-                    <!-- <strong class="services-thumb-price">$30.00</strong> -->
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6 col-12">
-                <div class="services-thumb">
-                  <img src="images/program.jpg" class="services-image img-fluid" alt="">
-
-                  <div class="services-info d-flex align-items-end">
-                    <h4 class="mb-0">โปรแกรมใช้งาน</h4>
-                    <!--<strong class="services-thumb-price">$25.00</strong> -->
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        <section class="price-list-section" id="section_4">
-          <h2 class="mb-1 mt-2 ms-3">สินค้าของเรา</h2>
-          <div class="product" id="products"></div>    
-          <div id="previewPic"></div>    
-        </section>
-
-        <section class="booking-section" id="booking-section"
-          style="background-image: url('images/bg3.jpg');">
-          <div class="container booking-body">
-            <div class="row justify-content-center">
-                <form class="custom-form booking-form mt-4" id="bb-booking-form" role="form">
-                  <div class="text-center mb-2 mt-2">
-                    <h4 class="mb-1 mt-2">สอบถาม/ความคิดเห็น</h4>
-                    <p>เมื่อมีข้อสงสัยสอบถาม หรือ ต้องการแสดงความคิดเห็น สามารถกรอกข้อมูลในแบบฟอร์มนี้ส่งมาหาเราได้
-                      แล้วเราจะติดต่อกลับหาท่าน</p>
-                  </div>
-                  <div class="booking-form-body">
-                    <input type="text" name="opt_nm" id="opt_nm" class="form-control" placeholder="ชื่อ-สกุล" required>
-                    <input type="text" class="form-control" name="opt_tl" id="opt_tl" placeholder="เบอร์โทรศัพท์"
-                      oninput="this.value=this.value.replace(/[^0-9]/g,'');" required />
-                    <input type="email" name="opt_em" id="opt_em" class="form-control" placeholder="อีเมล" required>
-                    <textarea name="opt_cm" rows="4" class="form-control" id="opt_cm"
-                      placeholder="สออบถาม หรือ ความคิดเห็น"></textarea>
-                    <div class="col-lg-4 col-md-10 col-8 mx-auto">
-                      <button type="button" class="form-control" id="btn_submit">ส่งความคิดเห็น</button>
-                    </div>
-                  </div>
-                </form>
-            </div>
-          </div>
-        </section>
-
-        <section class="contact-section" id="section_5">
+        <section class="contact-section" id="section_6">
           <div class="section-padding section-bg">
             <div class="container">
               <div class="row">

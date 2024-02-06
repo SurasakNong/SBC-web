@@ -787,8 +787,7 @@ $(document).on("submit", "#edit_stock_form", function () {  //===== ตกลง
     crossDomain: true,
     data: { opt_k: 'edit', opt_id: id_stock, opt_dt: d_stk[0] , opt_lot: d_stk[1], opt_prod: d_stk[2], opt_type: d_stk[3], opt_qty: d_stk[4],
     opt_price: d_stk[5], opt_from: d_stk[6], opt_comm: d_stk[7], opt_point: d_stk[8], opt_shelf: d_stk[9]},
-    success: function (result) {
-      console.log(result);
+    success: function (result) {      
       waiting(false);
       if (result == "success") {
         waiting(false);

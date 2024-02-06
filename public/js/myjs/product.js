@@ -568,12 +568,12 @@ const showProductPicPreviewEdit = (idP) =>{
         let act = (n_pic===0)?'active':'';
         let act_butt = (n_pic===0)?' class="active" aria-current="true" ':'';
         textContent_btt = textContent_btt + `
-        <button type="button" data-bs-target="#carouselProdEdit" data-bs-slide-to="${n_pic}" ${act_butt} aria-label="รูปสินค้า ${n_pic}"></button>
+        <button type="button" data-bs-target="#carouselProdEdit" data-bs-slide-to="${n_pic}" ${act_butt} aria-label="รูปสินค้า ${n_pic}" ></button>
         `;
         textContent = textContent+`
         <div class="carousel-item ${act}">            
           <img src="${linkPic(pic.value,pic_no)}" class="d-block w-100" alt="product picture" onclick="showPic(${i})">
-          <div class="carousel-caption d-block" id="delPicPreviewEditBtn" onclick="delProdPicEdit(${idP},${i})">
+          <div class="carousel-caption d-block" id="delPicPreviewEditBtn" title="ลบรูปภาพนี้" onclick="delProdPicEdit(${idP},${i})">
             <i class="fas fa-trash-alt" style="position:absolute; top:14px; left:16px;"></i>
           </div>
         </div>

@@ -142,7 +142,7 @@ function showCommNew() { //======================== แสดงจำนวน�
         url: urlComm,
         type: 'GET',
         crossDomain: true,
-        data: { opt_k: 'new' },
+        data: { opt_k: 'new', opt_comed: comed },
         success: function (result) {
             const myArr = JSON.parse(JSON.stringify(result));
             let cm_new = myArr.cmNew;
@@ -156,6 +156,11 @@ function showCommNew() { //======================== แสดงจำนวน�
                 document.getElementById("cmNew").style.display = "none";   
 
             }
+            document.getElementById("comePage").innerHTML = "( "+ numWithCommas(myArr.comePage) + "  )";
+            comed = true;
+            document.getElementById("promText").innerHTML = myArr.promText;
+            document.getElementById("promCode").innerHTML = "Code : "+ myArr.promCode;
+            
         },
         error: function (err) {
             console.log("The server  ERROR says: " + err);
@@ -267,8 +272,8 @@ function showProduct(show = true) {
                     }
                     
                     tt = tt +`
-                <div class="myProd" onclick="showProductPreview(${id})">
-                    <div class="borderPic">
+                <div class="myProd">
+                    <div class="borderPic" onclick="showProductPreview(${id})">
                         <img src="${linkPic(pic,pic_no)}" alt="product" class="img-fluid">
                     </div>
                     <div class="title">${title}</div>
@@ -321,7 +326,7 @@ function showProduct(show = true) {
     textContent_body =`
     <div id="carouselProdShow" class="carousel slide animate__animated animate__fadeIn" data-bs-ride="carousel" data-bs-interval="false">
     <button type="button" id="closePicPreview" >&times;</button>
-        <div class="carousel-indicators">
+        <div class="carousel-indicators " >
             ${textContent_btt}
         </div>
         <div class="carousel-inner">
@@ -343,3 +348,4 @@ function showProduct(show = true) {
 $(document).on("click", "#closePicPreview, #sidebarMenu", function () {
     $("#previewPic").html(''); 
 });
+
