@@ -325,21 +325,21 @@ function showProduct(show = true) {
 
     textContent_body =`
     <div id="carouselProdShow" class="carousel slide animate__animated animate__fadeIn" data-bs-ride="carousel" data-bs-interval="false">
-    <button type="button" id="closePicPreview" >&times;</button>
+        <button type="button" id="closePicPreview" >&times;</button>
         <div class="carousel-indicators " >
             ${textContent_btt}
         </div>
         <div class="carousel-inner">
             ${textContent}
         </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselProdShow" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselProdShow" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselProdShow" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselProdShow" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
     `;
     $("#previewPic").html(textContent_body);  

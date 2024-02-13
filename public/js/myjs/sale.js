@@ -616,6 +616,7 @@ const mySelectSaleData = (shText = "", isSort = true, colSort = 3) => {
     const condition2 = search_str.some(el => dataAllSel[i][4].toLowerCase().includes(el));  //ประเภท
     const condition3 = search_str.some(el => dataAllSel[i][8].toLowerCase().includes(el));  //ช่อง
     const condition4 = search_str.some(el => dataAllSel[i][2].toLowerCase().includes(el));  //Lot
+    const condition5 = search_str.some(el => idScan.toLowerCase().includes(el));  //Id
     if ((condition || condition2 || condition3 || condition4) && (+dataAllSel[i][5] > +dataAllSel[i][11])) {
       let jsonArg = new Object();
       jsonArg.id = dataAllSel[i][0];

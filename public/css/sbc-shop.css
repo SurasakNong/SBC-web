@@ -1501,7 +1501,7 @@ background-color:#FF8551;
 #carouselProdShow{
 height: 100%;
 width: 100%;
-background: rgba(0,0,0,0.7);
+background: rgba(255,255,255,0.8);
 }
 
 #carouselProdShow img{
@@ -1530,8 +1530,17 @@ background: rgba(0,0,0,0.7);
   background: rgba(100,100,100,0.6);
 }
 
-.carousel .carousel-indicators button {background-color: #666;}
-.carousel .carousel-indicators button.active {background-color: #222}
+.carousel .carousel-indicators button {background-color: #444;}
+.carousel .carousel-indicators button.active {background-color: #ff9100}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  height: 50px;
+  width: 50px;
+  /*outline: rgba(0, 0, 0, 0.8);*/
+  background-color: rgba(0, 0, 0, 0.4);
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255, 0.4);
+}
 
 /*=======================================================================*/
 #picProduct{
