@@ -1,5 +1,5 @@
 
-//============================  Main App  ==============================================
+//============================  Main App   ==============================================
 goBack();
 waiting(false);
 
@@ -8,7 +8,32 @@ function showLogin(){
     document.getElementById("login_form").reset();
     document.getElementById("setting").style.display = "none";
     document.getElementById("main_setting").style.display = "none";
-    document.getElementById("login").style.display = "block";
+    
+    if(user.uname == ''){
+        document.getElementById("login").style.display = "block";
+    }else{
+        document.getElementById("login").style.display = "none";
+        showSetting();
+    }
+    
+}
+
+function logOut(){
+    Object.assign(user, {
+        id: '',
+        uname: '',
+        name: '',
+        email: '',
+        pic: '',
+        lv: ''
+    });
+    setCookie("sbc_user_id",user.id,0.001);
+    setCookie("sbc_user_name",user.name,0.001);
+    setCookie("sbc_user_uname",user.uname,0.001);
+    setCookie("sbc_user_email",user.email,0.001);
+    setCookie("sbc_user_pic",user.pic,0.001);
+    setCookie("sbc_user_lv",user.lv,0.001);    
+    goBack();
 }
 
 function goBack(){    
@@ -16,6 +41,14 @@ function goBack(){
     document.getElementById("setting").style.display = "none";
     document.getElementById("main_setting").style.display = "none";    
     document.getElementById("content").style.display = "block";
+    Object.assign(user, {
+        id: getCookie('sbc_user_id'),
+        uname: getCookie('sbc_user_uname'),
+        name: getCookie('sbc_user_name'),
+        email: getCookie('sbc_user_email'),
+        pic: (getCookie('sbc_user_pic')=='')?pic_noAvatar:getCookie('sbc_user_pic'),
+        lv: getCookie('sbc_user_lv')
+    });
     showCommNew();
     showProduct();
 }
@@ -138,6 +171,7 @@ function linkPic(id,pic){
 
 function showCommNew() { //======================== แสดงจำนวนข้อความใหม่
     document.getElementById("cmNew").style.display = "none";
+    comed = (user.lv == 'admin')?true:comed;
     $.ajax({
         url: urlComm,
         type: 'GET',
@@ -145,18 +179,15 @@ function showCommNew() { //======================== แสดงจำนวน�
         data: { opt_k: 'new', opt_comed: comed },
         success: function (result) {
             const myArr = JSON.parse(JSON.stringify(result));
-            let cm_new = myArr.cmNew;
-            if(+cm_new > 10){
-                document.getElementById("cmNew").style.display = "block";                
-                document.getElementById("cmNew").innerHTML = "10+";
-            }else if(+cm_new > 0){
+            let cm_new = +myArr.cmNew;
+            if(user.lv == 'admin'){
                 document.getElementById("cmNew").style.display = "block";   
                 document.getElementById("cmNew").innerHTML = cm_new;
             }else{
-                document.getElementById("cmNew").style.display = "none";   
-
+                document.getElementById("cmNew").style.display = "none";
             }
-            document.getElementById("comePage").innerHTML = "( "+ numWithCommas(myArr.comePage) + "  )";
+            let viewPage = (user.lv == 'admin')? numWithCommas(myArr.comePage):'';
+            document.getElementById("comePage").innerHTML = viewPage;
             comed = true;
             document.getElementById("promText").innerHTML = myArr.promText;
             document.getElementById("promCode").innerHTML = "Code : "+ myArr.promCode;
@@ -241,16 +272,14 @@ function showProduct(show = true) {
         data: { opt_k: 'readAll'},
         success: function (result) {
             dataAllShow = result;
-            sortByCol(dataAllShow, 15, 1); //==== เรียงข้อมูลตาม rate col=15, เรียงจากมากไปน้อย=1(0,1)
-            let products = document.getElementById("products");
-            
+            sortByCol(dataAllShow, 15, 1); //==== เรียงข้อมูลตาม rate col=15, เรียงจากมากไปน้อย=1(0,1)            
             let tt = '';
             for(let i = 0; i < dataAllShow.length; i++){
                 if (dataAllShow[i][14] === "TRUE") {
                     let id = dataAllShow[i][0]
                     let title = dataAllShow[i][1]
                     let cost = numWithCommas(+dataAllShow[i][13])
-                    let qty = (+dataAllShow[i][11] > 0)?"จำนวนคงเหลือ "+dataAllShow[i][11]:"*** สินค้าหมด ***"
+                    let qty = (+dataAllShow[i][11] > 0)?"จำนวนคงเหลือ "+(+dataAllShow[i][11] +16):"*** สินค้าหมด ***"
                     let qty_col = (+dataAllShow[i][11] > 0)?"color:#004030":"color:#ee2222"
                     let overview = dataAllShow[i][4]
                     let oldPrice = numWithCommas(dataAllShow[i][16])

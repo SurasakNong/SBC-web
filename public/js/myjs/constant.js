@@ -16,11 +16,11 @@ var pic_noAvatar = 'images/user/avatar.png';
 var pic_no = 'images/product/noimage.jpg';
 var user = { //=== เก็บข้อมูลผู้ใช้งาน
   id: 0,
-  uname: 'Unknow',
-  name: 'Unknow',
+  uname: '',
+  name: '',
   email: '',
   pic: pic_noAvatar,
-  lv: 'User'
+  lv: 'user'
 }
 
 var dT = { //=== เก็บข้อมูลวันที่
@@ -293,7 +293,7 @@ function serializeObject() { //============= function to make form values to jso
   return o;
 };
 
-function setCookie(cname, cvalue, exdays) { //================== function to set cookie
+function setCookie(cname, cvalue, exdays) { //================== function to set cookie  
   var d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   var expires = "expires=" + d.toUTCString();

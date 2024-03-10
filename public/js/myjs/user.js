@@ -16,14 +16,20 @@ $(document).on("submit", "#login_form", function () {
           const obj = JSON.parse(JSON.stringify(result))[0];
           waiting(false);
           if (obj.result == true) {
-              Object.assign(user, {
-                  id: obj.id,
-                  uname: obj.uname,
-                  name: obj.name == "" || obj.name == "undefined" ? "Unknow" : obj.name,
-                  email: obj.email,
-                  pic: obj.picUrl == "" || obj.picUrl == "undefined" ? pic_noAvatar : obj.picUrl,
-                  lv: obj.lv
-              });
+            Object.assign(user, {
+              id: obj.id,
+              uname: obj.uname,
+              name: obj.name == "" || obj.name == "undefined" ? "Unknow" : obj.name,
+              email: obj.email,
+              pic: obj.picUrl == "" || obj.picUrl == "undefined" ? pic_noAvatar : obj.picUrl,
+              lv: obj.lv
+          });
+            setCookie("sbc_user_id",user.id,14);
+            setCookie("sbc_user_name",user.name,14);
+            setCookie("sbc_user_uname",user.uname,14);
+            setCookie("sbc_user_email",user.email,14);
+            setCookie("sbc_user_pic",user.pic,14);
+            setCookie("sbc_user_lv",user.lv,14);              
               showSetting();
           } else {
               sw_Alert(
